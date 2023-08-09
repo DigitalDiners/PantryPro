@@ -17,6 +17,9 @@ cmake --build build --config Release
 ```
 3. Run the executable in the build folder
 
+### CI Badge
+
+![CI](https://github.com/DigitalDiners/PantryPro/actions/workflows/badge.svg)
 
 
 
