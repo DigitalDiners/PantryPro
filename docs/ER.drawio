@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-08-08T03:02:19.229Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="d6YLoTehBpPyV4sstDtk" version="21.6.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-09T00:42:21.714Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="RhlXiC_6DFUXqqmC0t4R" version="21.6.6" type="github">
   <diagram name="Page-1" id="8DjxlQJkDvcbKVszBEji">
-    <mxGraphModel dx="3217" dy="2539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4412" dy="3224" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -465,6 +465,219 @@
         </mxCell>
         <mxCell id="qMRqwA9cGpBUXnVYAvmb-141" value="Database security and password encryption" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
           <mxGeometry x="150" y="-570" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-143" value="Individual Day" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="-640" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-144" value="+ Breakfast: Recipe&lt;br&gt;+ Lunch: Recipe&lt;br&gt;+ Dinner: Recipe" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-143">
+          <mxGeometry y="26" width="160" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-145" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-143">
+          <mxGeometry y="80" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-146" value="+ setMeal(recipeID)&lt;br&gt;+ getMeal()&lt;br&gt;+ getNutInfo(recipeID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-143">
+          <mxGeometry y="88" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-147" value="Meal Planner" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="-770" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-148" value="+ DaysArr: Individual Day []&lt;br&gt;+ NutrientsArr: Macro []" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-147">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-149" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-147">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-150" value="+ displayDays(DaysArr)&lt;br&gt;+ getRecipeCard()&lt;br&gt;+ getNutritionalInfo()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-147">
+          <mxGeometry y="68" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-151" value="Macronutrients" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="-480" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-152" value="+ Carbs: float&lt;br&gt;+ Fats: float&lt;br&gt;+ Protein: float&lt;br&gt;+ BMI: float&lt;br&gt;+Total: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-151">
+          <mxGeometry y="26" width="160" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-153" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-151">
+          <mxGeometry y="100" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-154" value="+ getNutInfo(recipeID)&lt;br&gt;+ calcMacros()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-151">
+          <mxGeometry y="108" width="160" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-155" value="Recipe" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="-314" width="160" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-156" value="+ RecipeID: float&lt;br&gt;+ (DB information here)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-155">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-157" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-155">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-158" value="+ getRecipe()&lt;br&gt;+ setRecipe(recipeID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-155">
+          <mxGeometry y="68" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-172" value="Ingredients" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="290" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-173" value="+ IngredientsList: Arr[string]&lt;br&gt;+ RecipeOption: Arr[recipe]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-172">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-174" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-172">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-175" value="+ addIngredients(string)&lt;br&gt;+ removeIngredient(string)&lt;br&gt;+ displayIngredients()&lt;br&gt;+ addRecipeOptions()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-172">
+          <mxGeometry y="68" width="160" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-180" value="Recipe" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="585" width="160" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-181" value="+ RecipeID: float&lt;br&gt;(Recipe info for each)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-180">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-182" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-180">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-183" value="+ get(Each bit of recipe info available)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-180">
+          <mxGeometry y="68" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-188" value="Database Interface" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="820" y="760" width="160" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-190" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-188">
+          <mxGeometry y="26" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-191" value="+ getRecipeID()&lt;br&gt;+ getImage()&lt;br&gt;+ getRecipeName()&lt;br&gt;+ getCookTime()&lt;br&gt;+ getPrepTime()&lt;br&gt;+ getCategory()&lt;br&gt;+ getServings()&lt;br&gt;+ getNutrientInfo()&lt;br&gt;+ getReview()&lt;br&gt;+ getRating()&lt;br&gt;+ getIngredients()&lt;br&gt;+ get" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-188">
+          <mxGeometry y="34" width="160" height="196" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-192" value="CardLayout" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="440" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-193" value="+ filter: string&lt;br&gt;+ sortOrder: string&lt;br&gt;+ RecipeList: Array(recipe)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-192">
+          <mxGeometry y="26" width="160" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-194" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-192">
+          <mxGeometry y="80" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-195" value="+ filter(filter)&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;+ sortOrder()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-192">
+          <mxGeometry y="88" width="160" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-196" value="Recipe Page" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="180" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-197" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-196">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-198" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-196">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-199" value="+ displayCards()&lt;br&gt;+ filterBar()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-196">
+          <mxGeometry y="60" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-200" value="Recipe" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-400" width="160" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-201" value="+ RecipeID: float&lt;br&gt;+ (DB information here)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-200">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-202" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-200">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-203" value="+ getRecipe()&lt;br&gt;+ setRecipe(recipeID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-200">
+          <mxGeometry y="68" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-204" value="RecipeCard" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-276" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-205" value="+ RecipeInfo: Recipe" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-204">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-206" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-204">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-207" value="+ displayCard(recipeID)&lt;br&gt;+ getRecipeInfo(recipeID)&lt;br&gt;+ addToSaved()&lt;br&gt;+ addToPlanner(day)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-204">
+          <mxGeometry y="60" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-208" value="Nutrient Goals" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-970" width="160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-209" value="+ NutInfo: Arr&lt;br&gt;+ NutGoals: Arr&lt;br&gt;+ BMI: float&lt;br&gt;+ Total: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-208">
+          <mxGeometry y="26" width="160" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-210" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-208">
+          <mxGeometry y="90" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-211" value="+ setGoals(Carb, Pro, Fat)&lt;br&gt;+ getTotal()&lt;br&gt;+ setBMI()&lt;br&gt;+ calcMacros()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-208">
+          <mxGeometry y="98" width="160" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-212" value="Saved Recipes" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-784" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-213" value="+ saved: recipeID []" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-212">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-214" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-212">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-215" value="+ getSaved()&lt;br&gt;+ displaySaved()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-212">
+          <mxGeometry y="60" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-216" value="Featured Recipes" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-670" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-217" value="+ featured: recipeID[]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-216">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-218" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-216">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-219" value="+ getFeatured()&lt;br&gt;+ displayFeatured()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-216">
+          <mxGeometry y="60" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-220" value="CardLayout" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-540" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-221" value="+ filter: string&lt;br&gt;+ sortOrder: string&lt;br&gt;+ RecipeList: Array(recipe)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-220">
+          <mxGeometry y="26" width="160" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-222" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-220">
+          <mxGeometry y="80" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-223" value="+ filter(filter)&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;+ sortOrder()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-220">
+          <mxGeometry y="88" width="160" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-224" value="User Page" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="-1140" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-225" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-224">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-226" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-224">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-227" value="+ displaySaved()&lt;br&gt;+ displayFeatured()&lt;br&gt;+displayNutrient()&lt;br&gt;+ displayDietaries()&lt;br&gt;+ setGoals()&lt;br&gt;+ setDietaries()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-224">
+          <mxGeometry y="60" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-228" value="RecipeCard" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="-190" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-229" value="+ RecipeInfo: Recipe" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-228">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-230" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-228">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-231" value="+ displayCard(recipeID)&lt;br&gt;+ getRecipeInfo(recipeID)&lt;br&gt;+ addToSaved()&lt;br&gt;+ addToPlanner(day)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-228">
+          <mxGeometry y="60" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-232" value="RecipeCard" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="705" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-233" value="+ RecipeInfo: Recipe" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-232">
+          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-234" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-232">
+          <mxGeometry y="52" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="qMRqwA9cGpBUXnVYAvmb-235" value="+ displayCard(recipeID)&lt;br&gt;+ getRecipeInfo(recipeID)&lt;br&gt;+ addToSaved()&lt;br&gt;+ addToPlanner(day)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="qMRqwA9cGpBUXnVYAvmb-232">
+          <mxGeometry y="60" width="160" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
