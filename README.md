@@ -19,7 +19,7 @@ cmake --build build --config Release
 
 ### CI Badge
 
-![CI](https://github.com/DigitalDiners/PantryPro/actions/workflows/badge.svg)
+![CI](https://github.com/DigitalDiners/PantryPro/actions/badge.svg)
 
 
 
