@@ -1,4 +1,5 @@
 #include "MyApp.h"
+#include "dbconnection.h"
 
 int main() {
   MyApp app;

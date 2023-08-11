@@ -1,4 +1,5 @@
 #include "MyApp.h"
+#include "dbconnection.h"
 
 #define WINDOW_WIDTH  600
 #define WINDOW_HEIGHT 400
