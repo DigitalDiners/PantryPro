@@ -1,4 +1,5 @@
 #include "MyApp.h"
+#include "Recipe.h"
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -8,48 +9,8 @@
 #include <vector>
 #include <sstream>
 
-char *getcwd(char *buf, size_t size);
 using namespace std;
 
-/** Recipe class
- * <p>
- * Get information of recipes etc
- * Set new information on recipes
- * Currently all recipes stored in textfile called DummyData
-*/
-class Recipe{
-
-  /**
-   * Constructor of sorts?
-  */
-  public:
-    int recipeID;
-    string recipeName;
-    string prepTime;
-    string totalTime;
-    string category;
-    float calories;
-
-    /**
-     * setting methods to create or edit recipes
-    */
-    void setRecipeID(int id) { recipeID = id; }
-    void setRecipeName(const string& name) { recipeName = name; }
-    void setPrepTime(const string& prep) { prepTime = prep; }
-    void setTotalTime(const string& total) { totalTime = total; }
-    void setCategory(const string& cat) { category = cat; }
-    void setCalories(float cal) { calories = cal; }
- 
-    /**
-     * getting methods to get all parts of each recipe
-     */
-    int getRecipeID(int id) { return recipeID; }
-    string getRecipeName(const string& name) { return recipeName; }
-    string getPrepTime(const string& prep) { return prepTime; }
-    string getTotalTime(const string& total) { return totalTime; }
-    string getCategory(const string& cat) { return category; }
-    float getCalories(float cal) { return calories; }
-};
 
 /**
  * Method to add a new recipe
@@ -78,9 +39,13 @@ void addNewRecipe(vector<Recipe>& recipes, const Recipe& newRecipe, const string
 int main()
 {
   vector<Recipe> recipes;  // Vector to store recipes
-  ifstream inputFile("src/DummyData.txt");  // Change "recipes.txt" to your file's name
 
-if (!inputFile.is_open()) {
+
+
+  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID.
+
+  ifstream inputFile("src/DummyData.txt");  
+  if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return 1;
     }
