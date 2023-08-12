@@ -1,4 +1,3 @@
-recipeID, recipeName, prepTime, totalTime, category, calories
 38, Low-Fat Berry Blue Frozen, PT45M, PT24H45M, Frozen Desserts, 1570.9
 39, Biryani, PT20M, PT23H, Curry, 230.3
 40, Best Lemonade, PT34M, PT1H23M, Drink, 443
