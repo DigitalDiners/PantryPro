@@ -31,6 +31,12 @@ void Recipe::setCalories(float cal) {
     calories = cal;
 }
 
+void Recipe::addIngredient(const Ingredients& ingredient) {
+    ingredients.push_back(ingredient);
+}
+
+
+
 /**
  * getting methods to get all parts of each recipe
  */
@@ -56,4 +62,8 @@ string Recipe::getCategory(const string& cat) {
 
 float Recipe::getCalories(float cal) { 
     return calories; 
+}
+
+const vector<Ingredients>& Recipe::getIngredients() const {
+    return ingredients;
 }

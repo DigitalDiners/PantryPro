@@ -8,49 +8,21 @@
 #include <unistd.h>
 #include <vector>
 #include <sstream>
+#include "Recipe.h"
+#include "Ingredients.h"
+
 
 using namespace std;
 
-
-/**
- * Method to add a new recipe
-*/
-void addNewRecipe(vector<Recipe>& recipes, const Recipe& newRecipe, const string& filename) {
-    recipes.push_back(newRecipe);
-
-    ofstream outputFile(filename, ios::app); // Append mode
-
-    if (!outputFile.is_open()) {
-        cerr << "Error opening file for writing!" << endl;
-        return;
-    }
-
-    outputFile << newRecipe.recipeID << ","
-               << newRecipe.recipeName << ","
-               << newRecipe.prepTime << ","
-               << newRecipe.totalTime << ","
-               << newRecipe.category << ","
-               << newRecipe.calories << "\n";
-
-    outputFile.close();
-}
-
-
-int main()
-{
+vector<Recipe> populate(){
   vector<Recipe> recipes;  // Vector to store recipes
-
-
-
-  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID.
-
-  ifstream inputFile("src/DummyData.txt");  
+      ifstream inputFile("src/DummyData.txt");  
   if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
-        return 1;
+        return recipes;
     }
 
-    string line;
+        string line;
     while (getline(inputFile, line)) {
         istringstream iss(line);
         Recipe recipe;
@@ -74,11 +46,34 @@ int main()
     }
 
     inputFile.close();
+    return recipes;
+
+}
+
+
+int main()
+{
+  vector<Recipe> recipes;  // Vector to store recipes
+
+  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID.
+
+
+    recipes = populate();
+    if(recipes.size()==0){
+        cout<<"no recipes loaded!"<< endl;
+        return 1;
+    }
+
+    int option;
+    cout << "Would you like to: \n[1] View the List of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n";
+    cin >> option;
+    cout<< "Your option is "<< option;
 
     // Now the 'recipes' vector contains the parsed data
     // You can iterate over it and access the Recipe objects
-    cout << "\nUpdated list of recipes:\n";
-    for (const Recipe& recipe : recipes) {
+    if(option == 1){
+            cout << "\nList of recipes:\n";
+        for (const Recipe& recipe : recipes) {
         cout << "Recipe ID: " << recipe.recipeID << "\n"
                   << "Name: " << recipe.recipeName << "\n"
                   << "Prep Time: " << recipe.prepTime << "\n"
@@ -86,6 +81,14 @@ int main()
                   << "Category: " << recipe.category << "\n"
                   << "Calories: " << recipe.calories << "\n"
                   << endl;
+        }
+    }
+
+    if(option == 2){
+
+    }
+    if(option == 3){
+
     }
   
   return 0;

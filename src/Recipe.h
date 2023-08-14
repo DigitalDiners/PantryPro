@@ -1,6 +1,8 @@
 #ifndef RECIPE_H
 #define RECIPE_H
 
+#include <vector>
+#include "Ingredients.h"
 #include <string>
 using namespace std;
 
@@ -29,6 +31,8 @@ public:
     void setTotalTime(const string& total);
     void setCategory(const string& cat);
     void setCalories(float cal);
+    void addIngredient(const Ingredients& ingredient);
+
 
     /**
      * getting methods to get all parts of each recipe
@@ -39,7 +43,10 @@ public:
     string getTotalTime(const string& total);
     string getCategory(const string& cat);
     float getCalories(float cal);
+    const vector<Ingredients>& getIngredients() const;
 
+private:
+    vector<Ingredients> ingredients;
 };
 
 #endif
