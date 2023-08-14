@@ -40,28 +40,28 @@ void Recipe::addIngredient(const Ingredients& ingredient) {
 /**
  * getting methods to get all parts of each recipe
  */
-int Recipe::getRecipeID(int id) { 
-    return recipeID; 
+int Recipe::getRecipeID(Recipe recipe) { 
+    return recipe.recipeID; 
 }
     
-string Recipe::getRecipeName(const string& name) { 
-    return recipeName; 
+string Recipe::getRecipeName(Recipe recipe) { 
+    return recipe.recipeName; 
 }
     
-string Recipe::getPrepTime(const string& prep) { 
-    return prepTime; 
+string Recipe::getPrepTime(Recipe recipe) { 
+    return recipe.prepTime; 
 }
     
-string Recipe::getTotalTime(const string& total) { 
-    return totalTime; 
+string Recipe::getTotalTime(Recipe recipe) { 
+    return recipe.totalTime; 
 }
 
-string Recipe::getCategory(const string& cat) {
-     return category; 
+string Recipe::getCategory(Recipe recipe) {
+     return recipe.category; 
 }
 
-float Recipe::getCalories(float cal) { 
-    return calories; 
+float Recipe::getCalories(Recipe recipe) { 
+    return recipe.calories; 
 }
 
 const vector<Ingredients>& Recipe::getIngredients() const {

@@ -50,6 +50,43 @@ vector<Recipe> populate(){
 
 }
 
+vector<Recipe> options(int option, vector<Recipe> recipes){
+    if(option == 1){
+            cout << "\nList of recipes:\n";
+        for (const Recipe& recipe : recipes) {
+        cout << "Recipe ID: " << recipe.recipeID << "\n"
+                  << "Name: " << recipe.recipeName << "\n"
+                  << "Prep Time: " << recipe.prepTime << "\n"
+                  << "Total Time: " << recipe.totalTime << "\n"
+                  << "Category: " << recipe.category << "\n"
+                  << "Calories: " << recipe.calories << "\n"
+                  << endl;
+        }
+    }else if(option == 2){
+    }else if(option == 3){ //currently adds temporarily and not to file. can be changed
+        Recipe newrecipe;
+        cout<<"Please enter\n Name:\n";
+        cin>>newrecipe.recipeName;
+        cout<<"Prep Time:\n";
+        cin>>newrecipe.prepTime;
+        cout<<"Total time:\n";
+        cin>>newrecipe.totalTime;
+        cout<<"Category:\n";
+        cin>>newrecipe.category;
+        cout<<"Calories:\n";
+        cin>>newrecipe.calories;
+        int finalIndex = recipes.size();
+        cout<<finalIndex<<'\n';
+        newrecipe.recipeID = recipes[finalIndex-1].recipeID+1;
+        cout<<newrecipe.recipeID<<'\n';
+        recipes.push_back(newrecipe);
+    }else if(option == 4){
+    }else{
+        cout<<"That is not a valid option\n";
+    }
+  return recipes;
+}
+
 
 int main()
 {
@@ -65,31 +102,14 @@ int main()
     }
 
     int option;
-    cout << "Would you like to: \n[1] View the List of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n";
+    while(option!=4){
+    cout << "Would you like to: \n[1] View the List of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Exit program\n";
     cin >> option;
-    cout<< "Your option is "<< option;
+    cout<< "Your option is "<< option<<"\n";
+    recipes = options(option, recipes);
+    }
 
     // Now the 'recipes' vector contains the parsed data
     // You can iterate over it and access the Recipe objects
-    if(option == 1){
-            cout << "\nList of recipes:\n";
-        for (const Recipe& recipe : recipes) {
-        cout << "Recipe ID: " << recipe.recipeID << "\n"
-                  << "Name: " << recipe.recipeName << "\n"
-                  << "Prep Time: " << recipe.prepTime << "\n"
-                  << "Total Time: " << recipe.totalTime << "\n"
-                  << "Category: " << recipe.category << "\n"
-                  << "Calories: " << recipe.calories << "\n"
-                  << endl;
-        }
-    }
-
-    if(option == 2){
-
-    }
-    if(option == 3){
-
-    }
-  
   return 0;
 }

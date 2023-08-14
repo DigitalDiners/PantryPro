@@ -37,12 +37,12 @@ public:
     /**
      * getting methods to get all parts of each recipe
      */
-    int getRecipeID(int id);
-    string getRecipeName(const string& name);
-    string getPrepTime(const string& prep);
-    string getTotalTime(const string& total);
-    string getCategory(const string& cat);
-    float getCalories(float cal);
+    int getRecipeID(Recipe);
+    string getRecipeName(Recipe);
+    string getPrepTime(Recipe);
+    string getTotalTime(Recipe);
+    string getCategory(Recipe);
+    float getCalories(Recipe);
     const vector<Ingredients>& getIngredients() const;
 
 private:
