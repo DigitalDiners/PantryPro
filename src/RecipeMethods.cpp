@@ -30,7 +30,7 @@ std::vector<Recipe> filterRecipesByIngredients(const std::vector<Recipe>& allRec
             bool ingredientFound = true;
 
             for (const Ingredients& recipeIngredient : recipe.getIngredients()) {
-                if (!(recipeIngredient.getName() == ingredient.getName())) {
+                if (!(recipeIngredient.getNames() == ingredient.getNames())) {
                     ingredientFound = false;
                     break;
                 }

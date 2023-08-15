@@ -12,7 +12,8 @@ public:
     Ingredients();
     void getNames() const;
     void addIngredient(string newIngredient);
-    bool haveIngredient(string newIngredient) const;
+    bool haveIngredient(string newIngredient);
+    void removeIngredient(string removeThis);
 
 private:
     vector<string> ingredients;

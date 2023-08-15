@@ -69,15 +69,17 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
                   << endl;
         }
     }else if(option == 2){// add ingredient
-        cout<< "Please enter the name of your ingredient to add\n";
         string newIngredient;
+        cout<< "Please enter the name of your ingredient to add\n";
         cin>>newIngredient;
-        if(ingredientList.haveIngredient(newIngredient)){
-        ingredientList.addIngredient(newIngredient);
-            cout<<"The ingredient has been added";
+        cout<<newIngredient;
+        if(!ingredientList.haveIngredient(newIngredient)){
+            ingredientList.addIngredient(newIngredient);
+            cout<<"The ingredient has been added\n";
         }else{
-            cout<<"That ingredient was already added";
+            cout<<"That ingredient was already added\n";
         }
+
     }else if(option == 3){ // add recipe
         Recipe newrecipe;
         cout<<"Please enter\n Name:\n";
@@ -95,7 +97,12 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
         newrecipe.recipeID = recipes[finalIndex-1].recipeID+1;
         //cout<<newrecipe.recipeID<<'\n';
         recipes.push_back(newrecipe);
-    }else if(option == 4){
+    }else if(option == 4){// remove ingredient
+        string removeThis;
+        cout<< "Enter the name of the ingredient you want to remove\n";
+        cin>> removeThis;
+        ingredientList.removeIngredient(removeThis);
+    }else if(option == 5){
     }else{
         cout<<"That is not a valid option\n";
     }
@@ -113,8 +120,8 @@ int main()
     }
 
     int option;
-    while(option!=4){
-    cout << "Would you like to: \n[0] View the list of ingredients? \n[1] View the list of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Exit program\n";
+    while(option!=5){
+    cout << "Would you like to: \n[0] View the list of ingredients? \n[1] View the list of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Remove an ingredient \n[5] Exit program\n";
     cin>>option;
     cout<< "Your option is "<< option<<"\n";
     recipes = options(option, recipes);
