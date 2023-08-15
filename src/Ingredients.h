@@ -2,17 +2,20 @@
 #define INGREDIENTS_H
 
 #include <string>
+#include <vector>
+
 using namespace std;
 
 
 class Ingredients {
 public:
-    Ingredients(const string& name);
-    string getName() const;
-    void addIngredient() const;
+    Ingredients();
+    void getNames() const;
+    void addIngredient(string newIngredient);
+    bool haveIngredient(string newIngredient) const;
 
 private:
-    string name;
+    vector<string> ingredients;
 };
 
 #endif

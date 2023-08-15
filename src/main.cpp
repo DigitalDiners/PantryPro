@@ -8,11 +8,15 @@
 #include <unistd.h>
 #include <vector>
 #include <sstream>
-#include "Recipe.h"
 #include "Ingredients.h"
+#include "Ingredients.cpp"
+#include <stdbool.h>
 
 
 using namespace std;
+
+vector<Recipe> recipes;  // Vector to store recipes
+Ingredients ingredientList;
 
 vector<Recipe> populate(){
   vector<Recipe> recipes;  // Vector to store recipes
@@ -51,7 +55,9 @@ vector<Recipe> populate(){
 }
 
 vector<Recipe> options(int option, vector<Recipe> recipes){
-    if(option == 1){
+    if(option == 0) {//view ingredients
+        ingredientList.getNames();
+    }else if(option == 1){// view recipes
             cout << "\nList of recipes:\n";
         for (const Recipe& recipe : recipes) {
         cout << "Recipe ID: " << recipe.recipeID << "\n"
@@ -62,8 +68,17 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
                   << "Calories: " << recipe.calories << "\n"
                   << endl;
         }
-    }else if(option == 2){
-    }else if(option == 3){ //currently adds temporarily and not to file. can be changed
+    }else if(option == 2){// add ingredient
+        cout<< "Please enter the name of your ingredient to add\n";
+        string newIngredient;
+        cin>>newIngredient;
+        if(ingredientList.haveIngredient(newIngredient)){
+        ingredientList.addIngredient(newIngredient);
+            cout<<"The ingredient has been added";
+        }else{
+            cout<<"That ingredient was already added";
+        }
+    }else if(option == 3){ // add recipe
         Recipe newrecipe;
         cout<<"Please enter\n Name:\n";
         cin>>newrecipe.recipeName;
@@ -76,9 +91,9 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
         cout<<"Calories:\n";
         cin>>newrecipe.calories;
         int finalIndex = recipes.size();
-        cout<<finalIndex<<'\n';
+        //cout<<finalIndex<<'\n';
         newrecipe.recipeID = recipes[finalIndex-1].recipeID+1;
-        cout<<newrecipe.recipeID<<'\n';
+        //cout<<newrecipe.recipeID<<'\n';
         recipes.push_back(newrecipe);
     }else if(option == 4){
     }else{
@@ -87,14 +102,10 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
   return recipes;
 }
 
-
 int main()
 {
-  vector<Recipe> recipes;  // Vector to store recipes
 
-  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID.
-
-
+  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID in vector then get from recipeID
     recipes = populate();
     if(recipes.size()==0){
         cout<<"no recipes loaded!"<< endl;
@@ -103,8 +114,8 @@ int main()
 
     int option;
     while(option!=4){
-    cout << "Would you like to: \n[1] View the List of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Exit program\n";
-    cin >> option;
+    cout << "Would you like to: \n[0] View the list of ingredients? \n[1] View the list of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Exit program\n";
+    cin>>option;
     cout<< "Your option is "<< option<<"\n";
     recipes = options(option, recipes);
     }
