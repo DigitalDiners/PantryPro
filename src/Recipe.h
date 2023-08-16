@@ -1,9 +1,9 @@
 #ifndef RECIPE_H
 #define RECIPE_H
 
-#include <vector>
 #include "Ingredients.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 /** Recipe class
