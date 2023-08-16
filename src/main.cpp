@@ -111,13 +111,16 @@ vector<Recipe> options(int option, vector<Recipe> recipes){
 
 int main()
 {
-
-  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID in vector then get from recipeID
     recipes = populate();
     if(recipes.size()==0){
         cout<<"no recipes loaded!"<< endl;
         return 1;
     }
+
+    MyApp app;
+    app.Run();
+
+  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID in vector then get from recipeID
 
     int option;
     while(option!=5){
