@@ -11,10 +11,15 @@ set(SOURCES "src/MyApp.h"
 
 add_app("${SOURCES}")
 
-find_package(Catch2 REQUIRED)
-add_executable(tests "tests/test.cpp")
-target_link_libraries(tests PRIVATE Catch2::Catch2)
+Include(FetchContent)
 
-include(CTest)
-include(Catch)
-catch_discover_tests(tests)
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.0.1 # or a later release
+)
+
+FetchContent_MakeAvailable(Catch2)
+
+add_executable(tests "tests/test.cpp")
+target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
