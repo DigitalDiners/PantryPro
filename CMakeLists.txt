@@ -44,9 +44,7 @@ add_app("${SOURCES}")
 set(MYSQLCPPCONN_LIBRARY "libmysqlcppconn.9.dylib")
 set(SSL_LIB "libssl.3.dylib")
 
-target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB}) #${Boost_LIBRARIES})
-
-add_app("${SOURCES}")
+target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB})
 
 Include(FetchContent)
 
