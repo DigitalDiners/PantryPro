@@ -20,12 +20,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Install boost
-      uses: MarkusJx/install-boost@v2.0.0
-      id: install-boost
-      with:
-        boost_version: 1.72.0
-        platform_version: 2019
+    # Set database credentials as environment variables
+    - name: Set database credentials as environment variables
+      run: |
+        echo "DB_IP=${{ secrets.DB_IP }}" >> $GITHUB_ENV
+        echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+        echo "DB_PASS=${{ secrets.DB_PASS }}" >> $GITHUB_ENV
 
       # NOTE: If a boost version matching all requirements cannot be found,
       # this build step will fail
