@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(PantryPro C CXX)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
 
-set( BOOST_ROOT "" CACHE PATH "D:\a\PantryPro\PantryPro\boost\boost" )
+set( BOOST_ROOT "" CACHE PATH "D:/a/PantryPro/PantryPro/boost/boost" )
 set(Boost_USE_STATIC_LIBS OFF) 
 set(Boost_USE_MULTITHREADED ON)  
 set(Boost_USE_STATIC_RUNTIME OFF) 
