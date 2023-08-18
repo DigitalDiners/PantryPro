@@ -21,15 +21,11 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Install boost
-      uses: MarkusJx/install-boost@v2.4.4
+      uses: MarkusJx/install-boost@v2.0.0
       id: install-boost
       with:
-        # REQUIRED: Specify the required boost version
-        # A list of supported versions can be found here:
-        # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
-        boost_version: 1.82
-        # OPTIONAL: Specify a custon install location
-        boost_install_dir: C:\boost
+        boost_version: 1.72.0
+        platform_version: 2019
 
       # NOTE: If a boost version matching all requirements cannot be found,
       # this build step will fail
