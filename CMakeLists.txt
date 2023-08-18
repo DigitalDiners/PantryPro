@@ -6,7 +6,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #set(BOOST_INCLUDE_DIR "boost/include")
 #include_directories(${BOOST_INCLUDE_DIR})
 
-find_package(Boost 1.36.0)
+find_package(Boost 1.82.0)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
