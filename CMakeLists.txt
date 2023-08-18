@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(PantryPro C CXX)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
 
-set(Boost_INCLUDE_DIR "boost")
-
-find_package(Boost 1.72.0 REQUIRED CONFIG)
+find_package(Boost 1.72.0 REQUIRED)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
