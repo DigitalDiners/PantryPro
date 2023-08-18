@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.5)
 project(PantryPro C CXX)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
 
-find_package(Boost 1.72.0 REQUIRED)
+set(Boost_INCLUDE_DIR "boost")
+
+find_package(Boost 1.72.0 REQUIRED HINTS "D:\a\PantryPro\PantryPro\boost")
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-#message(STATUS "BOOST_INCLUDE_DIR: ${BOOST_INCLUDE_DIR}")
+#message(STATUS "BOOST_INCLUDE_DIR: ${Boost_INCLUDE_DIR}")
 
 # MySQL paths
 set(MYSQLCPPCON_INCLUDE_DIR "mysql-connector-c++-8.1.0/include")
