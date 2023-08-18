@@ -2,18 +2,6 @@ cmake_minimum_required(VERSION 3.5)
 project(PantryPro C CXX)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
 
-set( BOOST_ROOT "" CACHE PATH "D:/a/PantryPro/PantryPro/boost/boost" )
-set(Boost_USE_STATIC_LIBS OFF) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
-
-find_package(Boost REQUIRED)
-if(Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIR})
-endif()
-
-#message(STATUS "BOOST_INCLUDE_DIR: ${Boost_INCLUDE_DIR}")
-
 # MySQL paths
 set(MYSQLCPPCON_INCLUDE_DIR "mysql-connector-c++-8.1.0/include")
 set(MYSQLCPPCON_LIB_DIR "mysql-connector-c++-8.1.0/lib64")
@@ -45,7 +33,7 @@ add_app("${SOURCES}")
 set(MYSQLCPPCONN_LIBRARY "libmysqlcppconn.9.dylib")
 set(SSL_LIB "libssl.3.dylib")
 
-target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB} ${Boost_LIBRARIES})
+target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB})
 
 Include(FetchContent)
 
