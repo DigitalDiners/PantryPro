@@ -1,0 +1,10 @@
+build
+PantryPro_DB.session.sql
+.vscode
+.vs
+x64
+*.vcxproj
+*.filters
+*.user
+*.sln
+Testing

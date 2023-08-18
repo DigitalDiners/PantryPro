@@ -1,3 +1,4 @@
+[![CMake](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml/badge.svg)](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml)
 # PantryPro
 [COSC345 Project Report](docs/Assignment1-Report.pdf)
 
@@ -16,7 +17,6 @@ cmake -B build
 cmake --build build --config Release
 ```
 3. Run the executable in the build folder
-
 
 
 
