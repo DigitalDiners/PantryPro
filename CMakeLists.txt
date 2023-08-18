@@ -25,7 +25,11 @@ include(cmake/App.cmake)
 set(SOURCES "src/MyApp.h"
             "src/MyApp.cpp"
             "src/databaseConnection.h"
+            "src/recipeDatabase.h"
+            "src/recipe.h"
+            "src/recipeDatabase.cpp"
             "src/databaseConnection.cpp"
+            "src/recipe.cpp"
             "src/main.cpp")
 
 add_app("${SOURCES}")
