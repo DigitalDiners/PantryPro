@@ -32,7 +32,7 @@ private:
     
 public:
     
-    Recipe(long recipeID);
+    explicit Recipe(long recipeID);
 
     /**
      * @brief Get the Recipe ID of this object
@@ -48,7 +48,7 @@ public:
      * 
      * @param name name of the recipe
      */
-    void setName(string name){
+    void setName(const string name){
         this->name = name;
     }
     /**
@@ -69,7 +69,7 @@ public:
      * 
      * @param prepTime the time to prepare this recipe
      */
-    void setPrepTime(string prepTime){
+    void setPrepTime(const string prepTime){
         this->prepTime = prepTime;
     }
     /**
@@ -90,7 +90,7 @@ public:
      * 
      * @param totalTime the total time to make this recipe as a string
      */
-    void setTotalTime(string totalTime){
+    void setTotalTime(const string totalTime){
         this->totalTime = totalTime;
     }
     /**
@@ -107,7 +107,7 @@ public:
      * 
      * @param category the category of this recipe
      */
-    void setCategory(string category){
+    void setCategory(const string category){
         this->category = category;
     }
     /**
@@ -124,7 +124,7 @@ public:
      * 
      * @param calories the number of calories in this recipe
      */
-    void setCalories(float calories){
+    void setCalories(const float calories){
         this->calories = calories;
     }
     /**
