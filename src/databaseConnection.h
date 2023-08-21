@@ -22,18 +22,17 @@ private:
     /**
      * @brief Load database credentials from environment variables.
      * 
-     * This method reads the DB_IP, DB_USER, and DB_PASS environment variables 
-     * to set the uri, user, and password members, respectively.
+     * Private method to populate the uri, user, and password member variables.
      */
     void loadCredentialsFromENV();
 
 public:
 
     /**
-     * @brief Default constructor.
+     * @brief Constructs a new DatabaseConnection object.
      * 
-     * Instantiates the DatabaseConnection object and loads credentials from environment variables.
-     * Also initializes the database name as "PantryPro".
+     * Initializes the SQL driver instance and loads the database credentials from environment variables.
+     * Sets the default database name to "PantryPro".
      */
     DatabaseConnection();
 
