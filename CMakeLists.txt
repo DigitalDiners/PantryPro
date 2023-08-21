@@ -11,7 +11,7 @@ set(SOURCES "src/MyApp.h"
 
 add_app("${SOURCES}")
 
-Include(FetchContent)
+include(FetchContent)
 
 FetchContent_Declare(
   Catch2
@@ -26,3 +26,9 @@ add_executable(UnitTests "tests/RecipeTests.cpp")
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+  include(cmake/Modules/CodeCoverage.cmake)
+  append_coverage_compiler_flags()
+  setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+endif()

@@ -8,3 +8,4 @@ x64
 *.user
 *.sln
 Testing
+_deps
