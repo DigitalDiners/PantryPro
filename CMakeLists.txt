@@ -32,30 +32,6 @@ set(SOURCES "src/MyApp.h"
 
 add_app("${SOURCES}")
 
-# Setting RPATH
-set_target_properties(PantryPro PROPERTIES
-    INSTALL_RPATH "@executable_path"
-)
-
-target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB})
-
-set(CRYPTO_LIB "${MYSQLCPPCON_LIB_DIR}/libcrypto.3.dylib")
-set(DYLIBS ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB} ${CRYPTO_LIB})
-foreach(dylib ${DYLIBS})
-    add_custom_command(TARGET PantryPro POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${dylib}
-        $<TARGET_FILE_DIR:PantryPro>
-    )
-endforeach()
-
-# Adjusting library paths inside the dylibs
-add_custom_command(TARGET PantryPro POST_BUILD
-    COMMAND install_name_tool -change "libcrypto.3.dylib" "@executable_path/libcrypto.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libssl.3.dylib
-    COMMAND install_name_tool -change "libcrypto.3.dylib" "@executable_path/libcrypto.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libmysqlcppconn.9.dylib
-    COMMAND install_name_tool -change "libssl.3.dylib" "@executable_path/libssl.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libmysqlcppconn.9.dylib
-)
-
 Include(FetchContent)
 
 FetchContent_Declare(
@@ -71,3 +47,9 @@ add_executable(UnitTests "tests/RecipeTests.cpp")
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+  include(cmake/Modules/CodeCoverage.cmake)
+  append_coverage_compiler_flags()
+  setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+endif()
