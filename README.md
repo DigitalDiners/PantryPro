@@ -1,5 +1,6 @@
 [![CMake](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml/badge.svg)](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0121423079c145a8a8f5d27bc725effc)](https://app.codacy.com/gh/DigitalDiners/PantryPro/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Documentation](https://codedocs.xyz/DigitalDiners/PantryPro.svg)](https://codedocs.xyz/DigitalDiners/PantryPro/)
 # PantryPro
 ### Docs
 [COSC345 Project Report](docs/Assignment1-Report.pdf)
