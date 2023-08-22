@@ -25,10 +25,14 @@ class Ingredients {
 
 // private:
 //     vector<string> ingredients;
-  virtual void OnDOMReady(View* caller, uint64_t frame_id,
-    bool is_main_frame, const String& url) override;
+    virtual void OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) ;
+
+    JSValue addNewIngredient(const JSObject& thisObject, const JSArgs& args);
 
 JSFunction displayIngredients;
+JSFunction addIngredient;
+JSFunction removeIngredient;
+global["GetMessage"] = BindJSCallback(&Ingredients::addNewIngredient);
 };
 
 #endif

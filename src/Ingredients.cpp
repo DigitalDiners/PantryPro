@@ -5,11 +5,26 @@
 #include <stdio.h>
 
 
-
-void UI::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+//Link with JS here with the JS functions.
+//JS functions wanted include: 
+//Add ingredient
+//Remove ingredient
+//Display ingredients
+void Ingredients::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
 JSObject global = JSGlobalObject();
 displayIngredients = global["displayIngredients"];
+addIngredient = global["addIngredient"];
+removeIngredient = global["removeIngredient"];
+global["GetMessage"] = BindJSCallback(&Ingredients::addNewIngredient);
+
 }
+
+JSValue addNewIngredient(String newIngredient){
+    //RefPtr<JSContext> lock(view() -> LockJSContext());
+    addIngredient(String newIngredient);
+}
+//JSValue newIngredient
+
 //using namespace std;
 
 // vector<string> ingredientStore;
@@ -73,3 +88,4 @@ displayIngredients = global["displayIngredients"];
 //     delete[] new_array;
 //     return false;
 // }
+
