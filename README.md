@@ -1,9 +1,13 @@
+# PantryPro
+
 [![CMake](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml/badge.svg)](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0121423079c145a8a8f5d27bc725effc)](https://app.codacy.com/gh/DigitalDiners/PantryPro/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Documentation](https://codedocs.xyz/DigitalDiners/PantryPro.svg)](https://codedocs.xyz/DigitalDiners/PantryPro/)
-# PantryPro
-### Docs
+[![JIRA Board](https://img.shields.io/badge/JIRA%20Board-Open-blue?style=flat&logo=jira&logoColor=white)](https://cosc345-project.atlassian.net/jira/software/projects/COS/boards/1/timeline)
+
 [COSC345 Project Report](docs/Assignment1-Report.pdf)
+
+[User Testing Questionnaire](docs/UserTestingQuestionnaire.pdf)
 
 [UML Diagrams](https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=ER.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FDigitalDiners%2FPantryPro%2Fmain%2Fdocs%2FER.drawio)
 
