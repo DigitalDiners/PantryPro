@@ -13,3 +13,5 @@ cmakev1.txt
 gitignore
 .gitignore
 
+Debug
+CoverageReport*

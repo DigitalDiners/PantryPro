@@ -32,7 +32,7 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTING=ON
 
     - name: Build
       # Build your program with the given configuration
@@ -43,3 +43,36 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --verbose
+
+    - name: Set up MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+
+    - name: Install gcovr
+      # Install gcovr required to generate appropriate coverage reports for CodeCov 
+      run: choco install gcovr -y
+
+    - name: Generate Coverage Reports
+      working-directory: ${{github.workspace}}/tests
+      # First, compile test sources using g++ compiler and coverage flags.
+      # Next, execute target output from compiler (a.exe).
+      # Finally, now that all appropriate outputs exist, generate coverage.xml 
+      # file for upload to CodeCov.
+      run: |
+        g++ --coverage RecipeTests.cpp -c -O0 -g
+        g++ --coverage RecipeTests.o
+        a.exe
+        gcovr --cobertura -o coverage.xml
+      shell: cmd
+      
+    - name: Upload Report to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        files: ./coverage.xml
+        fail_ci_if_error: true
+        functionalities: fix
+
+      
