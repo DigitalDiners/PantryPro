@@ -5,6 +5,11 @@
 #include <stdio.h>
 
 
+
+void UI::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+JSObject global = JSGlobalObject();
+displayIngredients = global["displayIngredients"];
+}
 //using namespace std;
 
 // vector<string> ingredientStore;

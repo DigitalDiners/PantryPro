@@ -1,4 +1,6 @@
 let ingredients = [];
+let saved = [];
+let planner = [];
 
 function addIngredient() {
     const inputElem = document.getElementById("ingredient-input");
@@ -92,14 +94,57 @@ function getRecipeInfo(recipeID) {
     };
 }
 
+function displaySaved() {
+    const searchResults = document.getElementById('savedDisplayArea');
+
+    // Create the card container
+    const card = document.createElement('div');
+    card.className = 'recipe-card';
+
+    // Create and set the RecipeInfo display
+    const info = document.createElement('div');
+    info.className = 'recipe-info';
+    info.textContent = recipe.RecipeInfo; // assuming RecipeInfo is a string, adjust accordingly
+    card.appendChild(info);
+
+    // Create buttons for "Save" and "Add to Planner"
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.onclick = function() {
+        addToSaved(recipe.recipeID);
+    };
+    card.appendChild(saveButton);
+
+    const addToPlannerButton = document.createElement('button');
+    addToPlannerButton.textContent = 'Add to Planner';
+    addToPlannerButton.onclick = function() {
+        addToPlanner(recipe.recipeID, 'Monday'); // Example, adjust accordingly
+    };
+    card.appendChild(addToPlannerButton);
+
+    // Append the card to search results
+    searchResults.appendChild(card);
+}
+
+function getRecipeInfo(recipeID) {
+    // This would communicate with your C++ method to get recipe information
+    // Example return, adjust as needed:
+    return {
+        recipeName: "Sample Recipe Name",
+        RecipeInfo: "RecipeName",
+    };
+}
+
 function addToSaved(recipeID) {
     // Communicate with your C++ method to save the recipe
     console.log("Recipe with ID " + recipeID + " saved!");
+    saved.push(recipe);
 }
 
 function addToPlanner(recipeID, day) {
     // Communicate with your C++ method to add the recipe to the planner on the given day
     console.log("Recipe with ID " + recipeID + " added to planner for " + day + "!");
+    planner.push(recipe);
 }
 
 // Sample call to display a card (replace with actual method to get results from backend)

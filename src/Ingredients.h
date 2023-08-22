@@ -3,6 +3,14 @@
 
 #include <string>
 #include <vector>
+#include <AppCore/AppCore.h>
+#include <map>
+#include <memory>
+
+using ultralight::JSObject;
+using ultralight::JSArgs;
+using ultralight::JSFunction;
+using namespace ultralight;
 
 //using namespace std;
 
@@ -17,6 +25,10 @@ class Ingredients {
 
 // private:
 //     vector<string> ingredients;
+  virtual void OnDOMReady(View* caller, uint64_t frame_id,
+    bool is_main_frame, const String& url) override;
+
+JSFunction displayIngredients;
 };
 
 #endif
