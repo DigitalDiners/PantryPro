@@ -1,8 +1,6 @@
 #include "recipeDatabase.h"
 #include <iostream>
 
-// This class can be used to perform specific queries to the database related to the recipes table
-
 Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
 

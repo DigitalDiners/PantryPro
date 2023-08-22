@@ -1,6 +1,6 @@
 #include "databaseConnection.h"
 
-void DatabaseConnection::loadCredentialsFromINI() {
+void DatabaseConnection::loadCredentialsFromENV() {
     const char* tempUri = std::getenv("DB_IP");
     const char* tempUser = std::getenv("DB_USER");
     const char* tempPass = std::getenv("DB_PASS");
@@ -12,7 +12,7 @@ void DatabaseConnection::loadCredentialsFromINI() {
 
 DatabaseConnection::DatabaseConnection() 
 : driver(sql::mysql::get_driver_instance()) {
-    loadCredentialsFromINI();
+    loadCredentialsFromENV();
     database = "PantryPro";
 }
 
