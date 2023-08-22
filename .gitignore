@@ -9,3 +9,5 @@ x64
 *.sln
 Testing
 _deps
+Debug
+CoverageReport*

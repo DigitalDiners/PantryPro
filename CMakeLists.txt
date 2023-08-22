@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
+
 project(PantryPro C CXX)
 
 include(cmake/App.cmake)
@@ -11,24 +13,22 @@ set(SOURCES "src/MyApp.h"
 
 add_app("${SOURCES}")
 
-include(FetchContent)
+option(BUILD_TESTING "Builds only the test executable." OFF)
 
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.0.1 # or a later release
-)
+if(BUILD_TESTING)
+  include(FetchContent)
 
-FetchContent_MakeAvailable(Catch2)
+  FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        v3.0.1 # or a later release
+  )
 
-add_executable(tests "tests/test.cpp")
-add_executable(UnitTests "tests/RecipeTests.cpp")
+  FetchContent_MakeAvailable(Catch2)
 
-target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+  add_executable(tests "tests/test.cpp")
+  add_executable(UnitTests "tests/RecipeTests.cpp")
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-  include(cmake/Modules/CodeCoverage.cmake)
-  append_coverage_compiler_flags()
-  setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+  target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+  target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
 endif()
