@@ -1,136 +1,68 @@
+cmake_minimum_required(VERSION 3.5)
+project(PantryPro C CXX)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
 
+# Set the base directory based on the current source directory
+set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-#include "MyApp.h"
-#include "Recipe.h"
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdio> 
-#include <unistd.h>
-#include <vector>
-#include <sstream>
-#include "Ingredients.h"
-#include "Ingredients.cpp"
-#include <stdbool.h>
+# MySQL paths using the BASE_DIR variable
+set(MYSQLCPPCON_INCLUDE_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0/include")
+set(MYSQLCPPCON_LIB_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0/lib64")
 
+# Include header files
+include_directories(${MYSQLCPPCON_INCLUDE_DIR})
 
-using namespace std;
+# Full paths for libraries
+set(MYSQLCPPCONN_LIBRARY "${MYSQLCPPCON_LIB_DIR}/libmysqlcppconn.9.dylib")
+set(SSL_LIB "${MYSQLCPPCON_LIB_DIR}/libssl.3.dylib")
 
-vector<Recipe> recipes;  // Vector to store recipes
-Ingredients ingredientList;
+include(cmake/App.cmake)
 
-vector<Recipe> populate(){
-  vector<Recipe> recipes;  // Vector to store recipes
-      ifstream inputFile("src/DummyData.txt");  
-  if (!inputFile.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return recipes;
-    }
+set(SOURCES "src/MyApp.h"
+            "src/MyApp.cpp"
+            "src/databaseConnection.h"
+            "src/recipeDatabase.h"
+            "src/recipe.h"
+            "src/recipeDatabase.cpp"
+            "src/databaseConnection.cpp"
+            "src/recipe.cpp"
+            "src/main.cpp")
 
-        string line;
-    while (getline(inputFile, line)) {
-        istringstream iss(line);
-        Recipe recipe;
-        string temp;
+add_app("${SOURCES}")
 
-        // Read and parse the comma-separated values
-        if (getline(iss, temp, ','))
-            recipe.recipeID = stoi(temp);
-        if (getline(iss, recipe.recipeName, ','))
-            ;
-        if (getline(iss, recipe.prepTime, ','))
-            ;
-        if (getline(iss, recipe.totalTime, ','))
-            ;
-        if (getline(iss, recipe.category, ','))
-            ;
-        if (getline(iss, temp, ','))
-            recipe.calories = stof(temp);
+# Setting RPATH
+set_target_properties(PantryPro PROPERTIES
+    INSTALL_RPATH "@executable_path"
+)
 
-        recipes.push_back(recipe);
-    }
+target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB})
 
-    inputFile.close();
-    return recipes;
+set(CRYPTO_LIB "${MYSQLCPPCON_LIB_DIR}/libcrypto.3.dylib")
+set(DYLIBS ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB} ${CRYPTO_LIB})
+foreach(dylib ${DYLIBS})
+    add_custom_command(TARGET PantryPro POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${dylib}
+        $<TARGET_FILE_DIR:PantryPro>
+    )
+endforeach()
 
-}
+# Adjusting library paths inside the dylibs
+add_custom_command(TARGET PantryPro POST_BUILD
+    COMMAND install_name_tool -change "libcrypto.3.dylib" "@executable_path/libcrypto.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libssl.3.dylib
+    COMMAND install_name_tool -change "libcrypto.3.dylib" "@executable_path/libcrypto.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libmysqlcppconn.9.dylib
+    COMMAND install_name_tool -change "libssl.3.dylib" "@executable_path/libssl.3.dylib" $<TARGET_FILE_DIR:PantryPro>/libmysqlcppconn.9.dylib
+)
 
-vector<Recipe> options(int option, vector<Recipe> recipes){
-    if(option == 0) {//view ingredients
-        ingredientList.getNames();
-    }else if(option == 1){// view recipes
-            cout << "\nList of recipes:\n";
-        for (const Recipe& recipe : recipes) {
-        cout << "Recipe ID: " << recipe.recipeID << "\n"
-                  << "Name: " << recipe.recipeName << "\n"
-                  << "Prep Time: " << recipe.prepTime << "\n"
-                  << "Total Time: " << recipe.totalTime << "\n"
-                  << "Category: " << recipe.category << "\n"
-                  << "Calories: " << recipe.calories << "\n"
-                  << endl;
-        }
-    }else if(option == 2){// add ingredient
-        string newIngredient;
-        cout<< "Please enter the name of your ingredient to add\n";
-        cin>>newIngredient;
-        cout<<newIngredient;
-        if(!ingredientList.haveIngredient(newIngredient)){
-            ingredientList.addIngredient(newIngredient);
-            cout<<"The ingredient has been added\n";
-        }else{
-            cout<<"That ingredient was already added\n";
-        }
+Include(FetchContent)
 
-    }else if(option == 3){ // add recipe
-        Recipe newrecipe;
-        cout<<"Please enter\n Name:\n";
-        cin>>newrecipe.recipeName;
-        cout<<"Prep Time:\n";
-        cin>>newrecipe.prepTime;
-        cout<<"Total time:\n";
-        cin>>newrecipe.totalTime;
-        cout<<"Category:\n";
-        cin>>newrecipe.category;
-        cout<<"Calories:\n";
-        cin>>newrecipe.calories;
-        int finalIndex = recipes.size();
-        //cout<<finalIndex<<'\n';
-        newrecipe.recipeID = recipes[finalIndex-1].recipeID+1;
-        //cout<<newrecipe.recipeID<<'\n';
-        recipes.push_back(newrecipe);
-    }else if(option == 4){// remove ingredient
-        string removeThis;
-        cout<< "Enter the name of the ingredient you want to remove\n";
-        cin>> removeThis;
-        ingredientList.removeIngredient(removeThis);
-    }else if(option == 5){
-    }else{
-        cout<<"That is not a valid option\n";
-    }
-  return recipes;
-}
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.0.1 # or a later release
+)
 
-int main()
-{
+FetchContent_MakeAvailable(Catch2)
 
-  //part of dummydata - change for sql when ready. add code to parse SQL into vector? or just store all recipeID in vector then get from recipeID
-    recipes = populate();
-    if(recipes.size()==0){
-        cout<<"no recipes loaded!"<< endl;
-        return 1;
-    }
-
-    int option;
-    while(option!=5){
-    cout << "Would you like to: \n[0] View the list of ingredients? \n[1] View the list of recipes? \n[2] Add an ingredient? \n[3] Add a recipe?\n[4] Remove an ingredient \n[5] Exit program\n";
-    cin>>option;
-    cout<< "Your option is "<< option<<"\n";
-    recipes = options(option, recipes);
-    }
-
-    // Now the 'recipes' vector contains the parsed data
-    // You can iterate over it and access the Recipe objects
-  return 0;
-}
+add_executable(tests "tests/test.cpp")
+target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
