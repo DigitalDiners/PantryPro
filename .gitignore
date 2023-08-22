@@ -1,3 +1,4 @@
+﻿.gitignore
 build
 PantryPro_DB.session.sql
 .vscode
@@ -8,3 +9,7 @@ x64
 *.user
 *.sln
 Testing
+cmakev1.txt
+gitignore
+.gitignore
+
