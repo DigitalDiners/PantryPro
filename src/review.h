@@ -17,7 +17,7 @@ private:
     int recipeId;
     int authorId;
     int rating;
-    std::string reviewText;
+    std::string review;
     std::string dateSubmitted;
     std::string dateModified;
 
@@ -28,13 +28,13 @@ private:
      * @param recipeId The number of the image asscoiated with a recipe.
      * @param authorId The id associated with the author of the review.
      * @param rating The rating of the review given by the author.
-     * @param reviewText The text of the review written by the author.
+     * @param review The text of the review written by the author.
      * @param dateSubmitted The date the review was submitted.
      * @param dateModified The date the review was modified.
      * 
      */
 public:
-    Review(int reviewId, int recipeId, int authorId, int rating, const std::string &reviewText, const std::string &dateSubmitted, const std::string &dateModified);
+    Review(int reviewId, int recipeId, int authorId, int rating, const std::string &review, const std::string &dateSubmitted, const std::string &dateModified);
 
     /**
      * @brief Get the unique identifier of the recipe.

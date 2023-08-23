@@ -17,7 +17,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
                             res->getInt("authorId"), res->getString("authorName"),
                             res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                             res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"));
+                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -26,7 +26,32 @@ Recipe RecipeDatabase::getRecipeById(int id) {
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
+<<<<<<< HEAD
     return Recipe(0, "", 0, "", 0, 0, 0, "", "", "", 0, 0, 0);
+=======
+    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "");
+}
+
+RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
+    std::string query = "SELECT * FROM images WHERE recipeId = " + std::to_string(id) + " and imageNumber = " + std::to_string(imageNumber) + ";";
+
+    try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+
+        if (res->next()) {
+            return RecipeImage(res->getInt("recipeId"), res->getInt("imageNumber"), res->getString("imageURL"));
+        }
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    return RecipeImage(0, 0, "");
+>>>>>>> 5717bb2 (added feature to query the reviews of recipes)
 }
 
 <<<<<<< HEAD
@@ -49,7 +74,7 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
                     res->getInt("recipeId"),
                     res->getInt("authorId"),
                     res->getInt("rating"),
-                    res->getString("reviewText"),
+                    res->getString("review"),
                     res->getString("dateSubmitted"),
                     res->getString("dateModified")
                 )
