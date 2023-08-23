@@ -42,7 +42,29 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C build --verbose
+      run: ctest -C build --verbose 
+
+    - name: Install gcovr
+      run: pip install gcovr
+      shell: cmd
+
+    - name: Compile tests with coverage flags
+      working-directory: ${{github.workspace}}/tests
+      run: |
+        g++ --coverage RecipeTests.cpp -c -O0 -g
+        g++ --coverage RecipeTests.o
+        a.exe
+        gcovr --cobertura coverage.xml
+      shell: cmd
+
+    - name: Upload Report to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        files: ./tests/coverage.xml
+        fail_ci_if_error: true
+        functionalities: fix
 
   build-mac:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -77,26 +99,3 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C build --verbose
 
-  test-coverage:
-    runs-on: windows-latest
-    steps:
-      - name: Check out this repository
-        uses: actions/checkout@v3.2.0
-
-      - name: Build and test this project
-        run: |
-          cmake . -B build -DBUILD_TESTING=ON
-          cmake --build build 
-          ctest -C build --verbose
-
-      - name: Generate a code coverage report
-        uses: threeal/gcovr-action@latest
-
-      - name: Upload Report to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          files: ./coverage.xml
-          fail_ci_if_error: true
-          functionalities: fix
