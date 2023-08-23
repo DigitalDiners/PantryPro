@@ -1,15 +1,19 @@
 #include "MyApp.h"
 #include "databaseConnection.h"
 #include "recipeDatabase.h"
+#include "recipe.h"
 
 int main()
 {
     // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
-    recipeDatabase db;
-    Recipe myrecipe = db.getrecipeById(38);
-    std::cout << "recipe Name: " << myrecipe.getName() << std::endl;
+    RecipeDatabase db;
+    Recipe recipe = db.getRecipeById(38);
+    std::cout << "Recipe Name: " << recipe.getName() << std::endl;
+
+    RecipeImage image = db.getRecipeImage(39, 1);
+    std::cout << "Recipe Image URL: " << image.getImageURL() << std::endl;
 
     MyApp app;
     app.Run();
