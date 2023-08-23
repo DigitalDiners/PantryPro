@@ -36,10 +36,10 @@ JSValueRef NativeMessageBox(JSContextRef ctx_,
 void RegisterCFunctions::RegisterNativeCFunctions()
 {
     cout<<"registering";
-	// JSContextRef ctx = view->js_context(); // Create a JavaScript String containing the name of our callback.
-	// JSStringRef name = JSStringCreateWithUTF8CString("NativeMessageBox");
-	// JSObjectRef func = JSObjectMakeFunctionWithCallback(ctx, name, NativeMessageBox); // Create a garbage-collected JavaScript function
-	// JSObjectRef globalObj = JSContextGetGlobalObject(ctx); // Get the global JavaScript object (aka 'window')
-	// JSObjectSetProperty(ctx, globalObj, name, func, 0, 0); // Store our function in the page's global JavaScript object so that it accessible from the page as 'OnButtonClick()'.
-	// JSStringRelease(name); // Release the JavaScript String we created earlier.
+	JSContextRef ctx = view->js_context(); // Create a JavaScript String containing the name of our callback.
+	JSStringRef name = JSStringCreateWithUTF8CString("NativeMessageBox");
+	JSObjectRef func = JSObjectMakeFunctionWithCallback(ctx, name, NativeMessageBox); // Create a garbage-collected JavaScript function
+	JSObjectRef globalObj = JSContextGetGlobalObject(ctx); // Get the global JavaScript object (aka 'window')
+	JSObjectSetProperty(ctx, globalObj, name, func, 0, 0); // Store our function in the page's global JavaScript object so that it accessible from the page as 'OnButtonClick()'.
+	JSStringRelease(name); // Release the JavaScript String we created earlier.
 }
