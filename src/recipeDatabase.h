@@ -16,7 +16,7 @@
  * stored in a database. It uses the DatabaseConnection class to establish and 
  * manage the database connection.
  */
-class recipeDatabase {
+class RecipeDatabase {
 private:
 
     /** @brief Connection to the database. */
