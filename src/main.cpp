@@ -4,12 +4,12 @@
 
 int main()
 {
-    // Example of using the RecipeDatabase class to create an instance of a Recipe object 
+    // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
-    RecipeDatabase db;
-    Recipe myRecipe = db.getRecipeById(38);
-    std::cout << "Recipe Name: " << myRecipe.getName() << std::endl;
+    recipeDatabase db;
+    recipe myrecipe = db.getrecipeById(38);
+    std::cout << "recipe Name: " << myrecipe.getName() << std::endl;
 
     MyApp app;
     app.Run();

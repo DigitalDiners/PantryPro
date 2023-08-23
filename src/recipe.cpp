@@ -1,57 +1,61 @@
 #include "recipe.h"
 
-Recipe::Recipe(int id, const std::string& name, int aId,
-               int cTime, int pTime, int tTime, const std::string& dPublished,
-               const std::string& desc, const std::string& cat,
-               int cal, int serv, int yieldQ) 
-    : recipeId(id), recipeName(name), authorId(aId),
-      cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
-      description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ) {}
+// recipe::recipe(int id, const std::string& name, int aId,
+//                int cTime, int pTime, int tTime, const std::string& dPublished,
+//                const std::string& desc, const std::string& cat,
+//                int cal, int serv, int yieldQ) 
+//     : recipeId(id), recipeName(name), authorId(aId),
+//       cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
+//       description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ) {}
 
-int Recipe::getId() const {
+recipe::recipe(int id, const std::string & name, int aId, const std::string & aName, int cTime, int pTime, int tTime, const std::string & dPublished, const std::string & desc, const std::string & cat, int cal, int serv, int yieldQ)
+{
+}
+
+int recipe::getId() const {
     return recipeId;
 }
 
-std::string Recipe::getName() const {
+std::string recipe::getName() const {
     return recipeName;
 }
 
-int Recipe::getAuthorId() const {
+int recipe::getAuthorId() const {
     return authorId;
 }
 
-int Recipe::getCookTime() const {
+int recipe::getCookTime() const {
     return cookTime;
 }
 
-int Recipe::getPrepTime() const {
+int recipe::getPrepTime() const {
     return prepTime;
 }
 
-int Recipe::getTotalTime() const {
+int recipe::getTotalTime() const {
     return totalTime;
 }
 
-std::string Recipe::getDatePublished() const {
+std::string recipe::getDatePublished() const {
     return datePublished;
 }
 
-std::string Recipe::getDescription() const {
+std::string recipe::getDescription() const {
     return description;
 }
 
-std::string Recipe::getCategory() const {
+std::string recipe::getCategory() const {
     return category;
 }
 
-int Recipe::getCalories() const {
+int recipe::getCalories() const {
     return calories;
 }
 
-int Recipe::getServings() const {
+int recipe::getServings() const {
     return servings;
 }
 
-int Recipe::getYieldQuantity() const {
+int recipe::getYieldQuantity() const {
     return yieldQuantity;
 }

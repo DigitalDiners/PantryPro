@@ -1,7 +1,7 @@
 /**
- * @file Recipe.cpp
+ * @file recipe.cpp
  * @author Luke 
- * @brief Class abstraction for Recipe objects
+ * @brief Class abstraction for recipe objects
  * @version 0.1
  * @date 2023-08-18
  * 
@@ -12,14 +12,14 @@
 using namespace std;
 
 /**
- * @brief Recipe information
+ * @brief recipe information
  *  Represents information related to a particular recipe in the database.
  *  Upon construction, we pass only the recipe ID.
  *  Once database has been set up, we can get the rest of the information 
  *  about a recipe by passing only the recipe ID.
  * 
  */
-class RecipeObject
+class recipeObject
 {
 private:
     /* data */
@@ -32,14 +32,14 @@ private:
     
 public:
     
-    explicit RecipeObject(long recipeID);
+    explicit recipeObject(long recipeID);
 
     /**
-     * @brief Get the Recipe ID of this object
+     * @brief Get the recipe ID of this object
      * 
      * @return long the ID of this object in the database
      */
-    long getRecipeID(){
+    long getrecipeID(){
         return recipeID;
     }
 
@@ -139,13 +139,13 @@ public:
 };
 
 /**
- * @brief Construct a new Recipe:: Recipe object
+ * @brief Construct a new recipe:: recipe object
  *  When constructing a recipe object, we pass only the recipe ID, as the rest of the information can be
  *  obtained from the database and assigned when needed/retrieved/available using that recipe ID.
  * 
  * @param recipeID the coded ID of this recipe, as it is represented in the data of the database.
  */
-RecipeObject::RecipeObject(long recipeID)
+recipeObject::recipeObject(long recipeID)
 {
     this->recipeID = recipeID;
 }

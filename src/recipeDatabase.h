@@ -1,19 +1,19 @@
-#ifndef RECIPE_DATABASE_H
-#define RECIPE_DATABASE_H
+#ifndef recipe_DATABASE_H
+#define recipe_DATABASE_H
 
-#include "recipe.h"           // if the Recipe class is in its own file
+#include "recipe.h"           // if the recipe class is in its own file
 #include "databaseConnection.h"
 #include <string>
 
 /**
- * @class RecipeDatabase
+ * @class recipeDatabase
  * @brief Manages interactions between the application and the database for recipes.
  * 
- * The RecipeDatabase class provides methods to perform operations on recipes
+ * The recipeDatabase class provides methods to perform operations on recipes
  * stored in a database. It uses the DatabaseConnection class to establish and 
  * manage the database connection.
  */
-class RecipeDatabase {
+class recipeDatabase {
 private:
 
     /** @brief Connection to the database. */
@@ -24,14 +24,14 @@ public:
     /**
      * @brief Fetches a recipe from the database based on its unique identifier.
      * 
-     * Queries the database for a recipe with the given ID. If found, constructs a Recipe object
+     * Queries the database for a recipe with the given ID. If found, constructs a recipe object
      * with the relevant data and returns it. In the case of a SQL exception, an error message is printed
-     * to the console. If no recipe matches the ID or there's an exception, a default Recipe object is returned.
+     * to the console. If no recipe matches the ID or there's an exception, a default recipe object is returned.
      * 
      * @param id The unique identifier of the recipe to fetch.
-     * @return The Recipe object corresponding to the given ID or a default Recipe object if not found.
+     * @return The recipe object corresponding to the given ID or a default recipe object if not found.
      */
-    Recipe getRecipeById(int id);
+    recipe getrecipeById(int id);
 };
 
-#endif  // RECIPE_DATABASE_H
+#endif  // recipe_DATABASE_H
