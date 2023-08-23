@@ -16,7 +16,6 @@ private:
     int recipeId;
     std::string recipeName;
     int authorId;
-    std::string authorName;
     int cookTime, prepTime, totalTime;
     std::string datePublished, description, category;
     int calories, servings, yieldQuantity;
@@ -27,7 +26,6 @@ private:
      * @param id Unique identifier for the recipe.
      * @param name Name of the recipe.
      * @param aId Unique identifier for the author of the recipe.
-     * @param aName Name of the author.
      * @param cTime Time required for cooking (in minutes).
      * @param pTime Time required for preparation (in minutes).
      * @param tTime Total time (in minutes).
@@ -39,7 +37,7 @@ private:
      * @param yieldQ Quantity yielded by the recipe.
      */
 public:
-    Recipe(int id, const std::string &name, int aId, const std::string &aName,
+    Recipe(int id, const std::string &name, int aId,
            int cTime, int pTime, int tTime, const std::string &dPublished,
            const std::string &desc, const std::string &cat,
            int cal, int serv, int yieldQ);
@@ -61,12 +59,6 @@ public:
      * @return The author's ID.
      */
     int getAuthorId() const;
-
-    /**
-     * @brief Get the name of the recipe's author.
-     * @return The author's name.
-     */
-    std::string getAuthorName() const;
 
     /**
      * @brief Get the time required for cooking.

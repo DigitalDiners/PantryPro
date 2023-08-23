@@ -1,6 +1,7 @@
 #include "MyApp.h"
 #include "databaseConnection.h"
 #include "recipeDatabase.h"
+#include "recipe.h"
 
 int main()
 {
@@ -8,8 +9,11 @@ int main()
     // and return its value
 
     RecipeDatabase db;
-    Recipe myRecipe = db.getRecipeById(38);
-    std::cout << "Recipe Name: " << myRecipe.getName() << std::endl;
+    Recipe recipe = db.getRecipeById(38);
+    std::cout << "Recipe Name: " << recipe.getName() << std::endl;
+
+    RecipeImage image = db.getRecipeImage(39, 1);
+    std::cout << "Recipe Image URL: " << image.getImageURL() << std::endl;
 
     MyApp app;
     app.Run();
