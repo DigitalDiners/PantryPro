@@ -2,16 +2,20 @@
 #include "databaseConnection.h"
 #include "recipeDatabase.h"
 #include "RegisterCFunctions.h"
+#include "recipe.h"
 
 int main()
 {
-    // Example of using the RecipeDatabase class to create an instance of a Recipe object 
+    // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
-    // RecipeDatabase db;
-    // Recipe myRecipe = db.getRecipeById(38);
-    // std::cout << "Recipe Name: " << myRecipe.getName() << std::endl;
-    RegisterCFunctions register = new RegisterCFunctions;
+    RecipeDatabase db;
+    Recipe recipe = db.getRecipeById(38);
+    std::cout << "Recipe Name: " << recipe.getName() << std::endl;
+
+    RecipeImage image = db.getRecipeImage(39, 1);
+    std::cout << "Recipe Image URL: " << image.getImageURL() << std::endl;
+
     MyApp app;
     app.Run();
 

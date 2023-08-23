@@ -49,7 +49,7 @@ function removeIngredient(ingredient) {
     }
 }
 
-function searchRecipes() {
+function searchrecipes() {
     // This function will communicate with the C++ backend
 }
 
@@ -61,10 +61,10 @@ function displayCard(recipe) {
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
-    // Create and set the RecipeInfo display
+    // Create and set the recipeInfo display
     const info = document.createElement('div');
     info.className = 'recipe-info';
-    info.textContent = recipe.RecipeInfo; // assuming RecipeInfo is a string, adjust accordingly
+    info.textContent = recipe.recipeInfo; // assuming recipeInfo is a string, adjust accordingly
     card.appendChild(info);
 
     // Create buttons for "Save" and "Add to Planner"
@@ -115,6 +115,7 @@ function displaySaved() {
     saveButton.textContent = 'Save';
     saveButton.onclick = function() {
         addToSaved(recipe.recipeID);
+    //"NativeMessageBox('the button was clicked')"
     };
     card.appendChild(saveButton);
 
@@ -135,12 +136,54 @@ function getRecipeInfo(recipeID) {
     return {
         recipeName: "Sample Recipe Name",
         RecipeInfo: "RecipeName",
+        isSaved: true,
+    };
+}
+
+function displaySaved() {
+    const displayResults = document.getElementById('savedDisplayArea');
+
+    if(recipe.isSaved){// Create the card container
+    const card = document.createElement('div');
+    card.className = 'recipe-card';
+
+    // Create and set the RecipeInfo display
+    const info = document.createElement('div');
+    info.className = 'recipe-info';
+    info.textContent = recipe.RecipeInfo; // assuming RecipeInfo is a string, adjust accordingly
+    card.appendChild(info);
+
+    // Create buttons for "Save" and "Add to Planner"
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.onclick = function() {
+        addToSaved(recipe.recipeID);
+    };
+    card.appendChild(saveButton);
+
+    const addToPlannerButton = document.createElement('button');
+    addToPlannerButton.textContent = 'Add to Planner';
+    addToPlannerButton.onclick = function() {
+        addToPlanner(recipe.recipeID, 'Monday'); // Example, adjust accordingly
+    };
+    card.appendChild(addToPlannerButton);
+
+    // Append the card to search results
+    displayResults.appendChild(card);}
+}
+
+function getrecipeInfo(recipeID) {
+    // This would communicate with your C++ method to get recipe information
+    // Example return, adjust as needed:
+    return {
+        recipeName: "Sample recipe Name",
+        recipeInfo: "recipeName",
     };
 }
 
 function addToSaved(recipeID) {
     // Communicate with your C++ method to save the recipe
-    console.log("Recipe with ID " + recipeID + " saved!");
+    console.log("recipe with ID " + recipeID + " saved!");
     //saved.push(recipe);
 }
 
@@ -151,8 +194,8 @@ function addToPlanner(recipeID, day) {
 }
 
 // Sample call to display a card (replace with actual method to get results from backend)
-const sampleRecipe = getRecipeInfo(1);
-displayCard(sampleRecipe);
+const samplerecipe = getrecipeInfo(1);
+displayCard(samplerecipe);
 
 /* GPTD */
 function exportTableToCSV(filename) {
