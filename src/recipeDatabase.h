@@ -3,6 +3,7 @@
 
 #include "recipe.h"
 #include "recipeImage.h"
+#include "review.h"
 #include "databaseConnection.h"
 #include <string>
 #include <sstream>
@@ -51,6 +52,15 @@ public:
      * @param search 
      */
     std::vector<Recipe> getRecipesBySearch(const std::vector<std::string> &ingredients);
+
+    /**
+     * @brief Get the Reviews By Recipe Id object
+     * 
+     * @param recipeId The unique identifier of the recipe to fetch the reviews from.
+     * @return A vector of Review objects corresponding to the given recipe ID or an empty vector if not found.
+     */
+    std::vector<Review> getReviewsByRecipeId(int recipeId);
+
 };
 
 #endif  // recipe_DATABASE_H
