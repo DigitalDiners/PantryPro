@@ -32,8 +32,7 @@ if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
     message("Setting libraries for operating system: Windows")
 
     # MySQL paths using the BASE_DIR variable
-    #set(MYSQLCPPCON_INCLUDE_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0-winx64/include")
-    set(MYSQLCPPCON_INCLUDE_DIR "C:/Users/lukew/OneDrive - University of Otago/Papers/COSC345/PantryPro/PantryPro/mysql-connector-c++-8.1.0-winx64/include")
+    set(MYSQLCPPCON_INCLUDE_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0-winx64/include")
     set(MYSQLCPPCON_LIB_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64")
 
     # Include header files
