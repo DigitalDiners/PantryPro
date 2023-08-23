@@ -1,10 +1,10 @@
 #include "review.h"
 
-Review::Review(int reviewId, int recipeId, int authorId, int rating, const std::string &reviewText, const std::string &dateSubmitted, const std::string &dateModified):
-    reviewId(reviewId), recipeId(recipeId), authorId(authorId), rating(rating), reviewText(reviewText), dateSubmitted(dateSubmitted), dateModified(dateModified) {}
+Review::Review(int reviewId, int recipeId, int authorId, int rating, const std::string &review, const std::string &dateSubmitted, const std::string &dateModified):
+    reviewId(reviewId), recipeId(recipeId), authorId(authorId), rating(rating), review(review), dateSubmitted(dateSubmitted), dateModified(dateModified) {}
 
 int Review::getReviewId() const {
-    return recipeId;
+    return reviewId;
 }
 
 int Review::getRecipeId() const {
@@ -20,7 +20,7 @@ int Review::getRating() const {
 }
 
 std::string Review::getReviewText() const {
-    return reviewText;
+    return review;
 }
 
 std::string Review::getDateSubmitted() const {

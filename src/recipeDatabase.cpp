@@ -15,7 +15,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
                             res->getInt("authorId"),
                             res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                             res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"));
+                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -24,7 +24,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0);
+    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "");
 }
 
 RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
@@ -65,7 +65,7 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
                     res->getInt("recipeId"),
                     res->getInt("authorId"),
                     res->getInt("rating"),
-                    res->getString("reviewText"),
+                    res->getString("review"),
                     res->getString("dateSubmitted"),
                     res->getString("dateModified")
                 )
