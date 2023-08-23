@@ -1,15 +1,12 @@
 #include "Recipe.h"
 
-
-
-Recipe::Recipe(int id, const std::string& name, int aId,
+Recipe::Recipe(int id, const std::string& name, int aId, const std::string& aName,
                int cTime, int pTime, int tTime, const std::string& dPublished,
                const std::string& desc, const std::string& cat,
                int cal, int serv, int yieldQ) 
-    : recipeId(id), recipeName(name), authorId(aId),
+    : recipeId(id), recipeName(name), authorId(aId), authorName(aName),
       cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
       description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ) {}
-
 
 int Recipe::getId() const {
     return recipeId;
@@ -21,6 +18,10 @@ std::string Recipe::getName() const {
 
 int Recipe::getAuthorId() const {
     return authorId;
+}
+
+std::string Recipe::getAuthorName() const {
+    return authorName;
 }
 
 int Recipe::getCookTime() const {
