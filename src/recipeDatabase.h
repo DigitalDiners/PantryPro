@@ -3,6 +3,7 @@
 
 #include "recipe.h"
 #include "recipeImage.h"
+#include "review.h"
 #include "databaseConnection.h"
 #include <string>
 
@@ -42,6 +43,15 @@ public:
      * @return The RecipeImage object corresponding to the given ID or a default RecipeImage object if not found.
      */
     RecipeImage getRecipeImage(int id, int imageNumber);
+
+    /**
+     * @brief Get the Reviews By Recipe Id object
+     * 
+     * @param recipeId The unique identifier of the recipe to fetch the reviews from.
+     * @return A vector of Review objects corresponding to the given recipe ID or an empty vector if not found.
+     */
+    std::vector<Review> getReviewsByRecipeId(int recipeId);
+
 };
 
 #endif  // RECIPE_DATABASE_H

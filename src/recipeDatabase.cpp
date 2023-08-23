@@ -1,5 +1,6 @@
 #include "recipeDatabase.h"
 #include <iostream>
+#include <vector>
 
 Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
@@ -45,5 +46,38 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
     }
 
     return RecipeImage(0, 0, "");
+}
+
+std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
+    std::vector<Review> reviews;
+
+    std::string query = "SELECT * FROM reviews WHERE recipeId = " + std::to_string(recipeId) + ";";
+
+    try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+
+        while (res->next()) {
+            reviews.push_back(
+                Review(
+                    res->getInt("reviewId"),
+                    res->getInt("recipeId"),
+                    res->getInt("authorId"),
+                    res->getInt("rating"),
+                    res->getString("reviewText"),
+                    res->getString("dateSubmitted"),
+                    res->getString("dateModified")
+                )
+            );
+        }
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    return reviews;
 }
 
