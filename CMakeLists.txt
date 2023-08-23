@@ -120,19 +120,30 @@ endif()# MacOs or Windows
 ##################################################################################
 
 if(BUILD_TESTING)
-  include(FetchContent)
 
-  FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        v3.0.1 # or a later release
-  )
+    include(FetchContent)
 
-  FetchContent_MakeAvailable(Catch2)
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.0.1 # or a later release
+    )
 
-  add_executable(tests "tests/test.cpp")
-  add_executable(UnitTests "tests/recipeTests.cpp")
+    FetchContent_MakeAvailable(Catch2)
+    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 
-  target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
-  target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+    add_executable(tests "tests/test.cpp")
+    add_executable(UnitTests "tests/recipeTests.cpp")
+
+    target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+    target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+
+    include(CTest)
+    include(Catch)
+
+    enable_testing()
+
+    catch_discover_tests(tests)
+    catch_discover_tests(UnitTests)
+    
 endif()
