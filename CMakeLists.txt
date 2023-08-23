@@ -4,9 +4,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
 project(PantryPro C CXX)
 
-
-
-
 ##################################################################
 # Depending on the Operating System, 
 # we set the MYSQL variables to different directories
@@ -15,9 +12,9 @@ if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
 
     set(CMAKE_OSX_ARCHITECTURES x86_64)#REQUIRED FOR MAC OSX
 
-    # MySQL paths using the BASE_DIR variable
-    set(MYSQLCPPCON_INCLUDE_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0/include")
-    set(MYSQLCPPCON_LIB_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0/lib64")
+    # MySQL paths using the CMAKE_CURRENT_SOURCE_DIR variable
+    set(MYSQLCPPCON_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0/include")
+    set(MYSQLCPPCON_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0/lib64")
 
     # Include header files
     include_directories(${MYSQLCPPCON_INCLUDE_DIR})
@@ -31,9 +28,9 @@ endif()
 if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
     message("Setting libraries for operating system: Windows")
 
-    # MySQL paths using the BASE_DIR variable
-    set(MYSQLCPPCON_INCLUDE_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0-winx64/include")
-    set(MYSQLCPPCON_LIB_DIR "${BASE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64")
+    # MySQL paths using the CMAKE_CURRENT_SOURCE_DIR variable
+    set(MYSQLCPPCON_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/include")
+    set(MYSQLCPPCON_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64")
 
     # Include header files
     include_directories(${MYSQLCPPCON_INCLUDE_DIR})
