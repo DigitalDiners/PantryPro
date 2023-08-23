@@ -1,7 +1,7 @@
 #include "recipeDatabase.h"
 #include <iostream>
 
-Recipe recipeDatabase::getrecipeById(int id) {
+Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
 
     try {
