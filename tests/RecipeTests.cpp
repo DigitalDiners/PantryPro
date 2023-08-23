@@ -1,4 +1,4 @@
-#include "../src/Recipe.cpp"
+#include "../src/RecipeObject.cpp"
 #include "catch_amalgamated.cpp"
 
 /**
@@ -8,16 +8,16 @@
 TEST_CASE( "Check all methods", "[classic]" )  
 {
     SECTION("Tests that the constructor works correctly"){
-        Recipe testRecipe1(1);
+        RecipeObject testRecipe1(1);
         REQUIRE(testRecipe1.getRecipeID() == 1);
-        Recipe testRecipe2(10202);
+        RecipeObject testRecipe2(10202);
         REQUIRE(testRecipe2.getRecipeID() == 10202);
-        Recipe testRecipe3(777);
+        RecipeObject testRecipe3(777);
         REQUIRE(testRecipe3.getRecipeID() == 777);
     }
 
     SECTION("Positive tests check the setters and getters work correctly"){
-        Recipe testRecipe1(1);
+        RecipeObject testRecipe1(1);
         testRecipe1.setName("aaa");
         testRecipe1.setPrepTime("PT10M");
         testRecipe1.setTotalTime("PT10H");
@@ -31,7 +31,7 @@ TEST_CASE( "Check all methods", "[classic]" )
     }
 
     SECTION("Negative test, where applicable"){
-        Recipe testRecipe1(1);
+        RecipeObject testRecipe1(1);
         testRecipe1.setCalories(1000);
         REQUIRE(testRecipe1.getCalories() != 100);
         REQUIRE(testRecipe1.getCalories() != 10000);
