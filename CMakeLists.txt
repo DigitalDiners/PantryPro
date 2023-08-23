@@ -30,16 +30,16 @@ if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
 
     # MySQL paths using the CMAKE_CURRENT_SOURCE_DIR variable
     set(MYSQLCPPCON_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/include")
-    set(MYSQLCPPCON_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64")
+    set(MYSQLCPPCON_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64/vs14")
 
     # Include header files
     include_directories(${MYSQLCPPCON_INCLUDE_DIR})
 
     # Paths to Windows libraries
-    set(MYSQLCPPCONN_LIBRARY "${MYSQLCPPCON_LIB_DIR}/mysqlcppconn-9-vs14.dll")
-    set(SSL_LIB "${MYSQLCPPCON_LIB_DIR}/libssl-3-x64.dll")
+    set(MYSQLCPPCONN_LIBRARY "${MYSQLCPPCON_LIB_DIR}/mysqlcppconn.lib")
+    set(SSL_LIB "${MYSQLCPPCON_LIB_DIR}/libssl.lib")
 
-    set(CRYPTO_LIB "${MYSQLCPPCON_LIB_DIR}/libcrypto-3-x64.dll")
+    set(CRYPTO_LIB "${MYSQLCPPCON_LIB_DIR}/libcrypto.lib")
 
 endif()#Darwin or Windows
 
@@ -74,11 +74,14 @@ set_target_properties(PantryPro PROPERTIES
     INSTALL_RPATH "@executable_path"
 )
 
+#link libs to the executable target
 target_link_libraries(PantryPro ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB})
 
+#Add libs to the executable directory
 set(DYLIBS ${MYSQLCPPCONN_LIBRARY} ${SSL_LIB} ${CRYPTO_LIB})
 foreach(dylib ${DYLIBS})
-    add_custom_command(TARGET PantryPro POST_BUILD
+    add_custom_command(
+        TARGET PantryPro POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${dylib}
         $<TARGET_FILE_DIR:PantryPro>
@@ -94,12 +97,22 @@ if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
     )
 
 elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
-     # Adjusting library paths inside the dylibs for Windows
-     add_custom_command(TARGET PantryPro POST_BUILD
-     COMMAND install_name_tool -change "libcrypto-3-x64.dll" "@executable_path/libcrypto-3-x64.dll" $<TARGET_FILE_DIR:PantryPro>/libssl-3-x64.dll
-     COMMAND install_name_tool -change "libcrypto-3-x64.dll" "@executable_path/libcrypto-3-x64.dll" $<TARGET_FILE_DIR:PantryPro>/mysqlcppconn-9-vs14.dll
-     COMMAND install_name_tool -change "libssl-3-x64.dll" "@executable_path/libssl-3-x64.dll" $<TARGET_FILE_DIR:PantryPro>/mysqlcppconn-9-vs14.dll
-    )
+    # Adding all needed dll files to the executable directory
+    set(MYSQLCPPCON_DLL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mysql-connector-c++-8.1.0-winx64/lib64")
+    set(MYSQLCPPCONN_DLL "${MYSQLCPPCON_DLL_DIR}/mysqlcppconn-9-vs14.dll")
+    set(SSL_DLL "${MYSQLCPPCON_DLL_DIR}/libssl-3-x64.dll")
+    set(CRYPTO_DLL "${MYSQLCPPCON_DLL_DIR}/libcrypto-3-x64.dll")
+
+    set(MYSQL_DLLS ${MYSQLCPPCONN_DLL} ${SSL_DLL} ${CRYPTO_DLL})
+    
+    foreach(mysql_dll ${MYSQL_DLLS})
+        add_custom_command(
+            TARGET PantryPro POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${mysql_dll}
+            $<TARGET_FILE_DIR:PantryPro>
+        )
+    endforeach()
 endif()# MacOs or Windows
 
 ##################################################################################
