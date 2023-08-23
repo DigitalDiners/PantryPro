@@ -1,5 +1,5 @@
-#ifndef recipe_DATABASE_H
-#define recipe_DATABASE_H
+#ifndef RECIPE_DATABASE_H
+#define RECIPE_DATABASE_H
 
 #include "recipe.h"           // if the recipe class is in its own file
 #include "databaseConnection.h"
@@ -31,7 +31,7 @@ public:
      * @param id The unique identifier of the recipe to fetch.
      * @return The recipe object corresponding to the given ID or a default recipe object if not found.
      */
-    recipe getrecipeById(int id);
+    Recipe getrecipeById(int id);
 };
 
 #endif  // recipe_DATABASE_H

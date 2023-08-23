@@ -1,7 +1,7 @@
 #include "recipeDatabase.h"
 #include <iostream>
 
-recipe recipeDatabase::getrecipeById(int id) {
+Recipe recipeDatabase::getrecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
 
     try {
@@ -10,7 +10,7 @@ recipe recipeDatabase::getrecipeById(int id) {
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         if (res->next()) {
-            return recipe(res->getInt("recipeId"), res->getString("recipeName"),
+            return Recipe(res->getInt("recipeId"), res->getString("recipeName"),
                             res->getInt("authorId"), res->getString("authorName"),
                             res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                             res->getString("datePublished"), res->getString("description"), res->getString("category"),
@@ -23,6 +23,6 @@ recipe recipeDatabase::getrecipeById(int id) {
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    return recipe(0, "", 0, "", 0, 0, 0, "", "", "", 0, 0, 0);
+    return Recipe(0, "", 0, "", 0, 0, 0, "", "", "", 0, 0, 0);
 }
 

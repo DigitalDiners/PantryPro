@@ -1,5 +1,5 @@
-#ifndef recipe_H
-#define recipe_H
+#ifndef RECIPE_H
+#define RECIPE_H
 
 #include <string>
 
@@ -10,7 +10,7 @@
  * This class encapsulates the properties of a cooking recipe, such as its name, author,
  * preparation details, and nutritional information.
  */
-class recipe
+class Recipe
 {
 private:
     int recipeId;
@@ -39,7 +39,7 @@ private:
      * @param yieldQ Quantity yielded by the recipe.
      */
 public:
-    recipe(int id, const std::string &name, int aId, const std::string &aName,
+    Recipe(int id, const std::string &name, int aId, const std::string &aName,
            int cTime, int pTime, int tTime, const std::string &dPublished,
            const std::string &desc, const std::string &cat,
            int cal, int serv, int yieldQ);

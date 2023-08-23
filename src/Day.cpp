@@ -81,7 +81,7 @@ public:
      * 
      * @return recipe[] All the meals in this day
      */
-    recipe[] getMealsArray(){
+    Recipe[] getMealsArray(){
         return {breakfast, lunch, dinner};
     }
 

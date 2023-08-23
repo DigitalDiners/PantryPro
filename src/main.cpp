@@ -8,7 +8,7 @@ int main()
     // and return its value
 
     recipeDatabase db;
-    recipe myrecipe = db.getrecipeById(38);
+    Recipe myrecipe = db.getrecipeById(38);
     std::cout << "recipe Name: " << myrecipe.getName() << std::endl;
 
     MyApp app;
