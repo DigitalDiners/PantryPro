@@ -13,5 +13,5 @@ using namespace ultralight;
 
 class RegisterCFunctions{
 
-RegisterCFunctions::RegisterCFunctions();
+//RegisterCFunctions::RegisterCFunctions();
 };
