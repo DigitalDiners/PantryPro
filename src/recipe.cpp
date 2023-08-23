@@ -1,4 +1,4 @@
-#include "Recipe.h"
+#include "recipe.h"
 
 Recipe::Recipe(int id, const std::string& name, int aId, const std::string& aName,
                int cTime, int pTime, int tTime, const std::string& dPublished,
