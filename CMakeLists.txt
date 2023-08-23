@@ -118,7 +118,7 @@ if(BUILD_TESTING)
   FetchContent_MakeAvailable(Catch2)
 
   add_executable(tests "tests/test.cpp")
-  add_executable(UnitTests "tests/RecipeTests.cpp")
+  add_executable(UnitTests "tests/recipeTests.cpp")
 
   target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
   target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)

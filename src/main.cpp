@@ -6,7 +6,7 @@
 
 int main()
 {
-    // Example of using the RecipeDatabase class to create an instance of a Recipe object 
+    // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
     RecipeDatabase db;

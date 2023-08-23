@@ -1,4 +1,4 @@
-#include "Recipe.cpp"
+#include "recipe.cpp"
 
 /**
  * @brief Class representing one of the days of the week.
@@ -9,9 +9,9 @@ class day
 private:
     int dayNumber;
     string dayName;
-    Recipe breakfast;
-    Recipe lunch;
-    Recipe dinner;
+    recipe breakfast;
+    recipe lunch;
+    recipe dinner;
     Reicpe meals[];
 public:
     day(int dayNumber);
@@ -56,7 +56,7 @@ public:
      * @param recipe the recipe to added to this slot
      * @param meal the meal number
      */
-    void setMeal(Recipe recipe, int meal){
+    void setMeal(recipe recipe, int meal){
         if(meal > 2){
             throw meal 
         }
@@ -79,9 +79,9 @@ public:
     /**
      * @brief Get the Meals Array of this object
      * 
-     * @return Recipe[] All the meals in this day
+     * @return recipe[] All the meals in this day
      */
-    Recipe[] getMealsArray(){
+    recipe[] getMealsArray(){
         return {breakfast, lunch, dinner};
     }
 

@@ -1,16 +1,16 @@
-#ifndef RECIPE_H
-#define RECIPE_H
+#ifndef recipe_H
+#define recipe_H
 
 #include <string>
 
 /**
- * @class Recipe
+ * @class recipe
  * @brief Represents a cooking recipe with its related details.
  *
  * This class encapsulates the properties of a cooking recipe, such as its name, author,
  * preparation details, and nutritional information.
  */
-class Recipe
+class recipe
 {
 private:
     int recipeId;
@@ -21,7 +21,7 @@ private:
     int calories, servings, yieldQuantity;
 
     /**
-     * @brief Constructs a Recipe object with given properties.
+     * @brief Constructs a recipe object with given properties.
      *
      * @param id Unique identifier for the recipe.
      * @param name Name of the recipe.
@@ -115,4 +115,4 @@ public:
     int getYieldQuantity() const;
 };
 
-#endif // RECIPE_H
+#endif // recipe_H
