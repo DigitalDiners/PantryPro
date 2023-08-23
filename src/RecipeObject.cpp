@@ -19,7 +19,7 @@ using namespace std;
  *  about a recipe by passing only the recipe ID.
  * 
  */
-class Recipe
+class RecipeObject
 {
 private:
     /* data */
@@ -32,7 +32,7 @@ private:
     
 public:
     
-    explicit Recipe(long recipeID);
+    explicit RecipeObject(long recipeID);
 
     /**
      * @brief Get the Recipe ID of this object
@@ -145,7 +145,7 @@ public:
  * 
  * @param recipeID the coded ID of this recipe, as it is represented in the data of the database.
  */
-Recipe::Recipe(long recipeID)
+RecipeObject::RecipeObject(long recipeID)
 {
     this->recipeID = recipeID;
 }
