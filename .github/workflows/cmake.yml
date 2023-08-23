@@ -39,24 +39,10 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}} --verbose
-
-    - name: Generate Coverage gcovr
-      uses: threeal/gcovr-action@latest
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      with:
-        files: ./coverage.xml
-        fail_ci_if_error: true
-        functionalities: fix
-
-
+      run: ctest -C build --verbose
 
   build-mac:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -86,9 +72,31 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}} --verbose
+      run: ctest -C build --verbose
 
+  test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v3.2.0
 
+      - name: Build and test this project
+        run: |
+          cmake . -B build -DBUILD_TESTING=ON
+          cmake --build build 
+          ctest --test build
+
+      - name: Generate a code coverage report
+        uses: threeal/gcovr-action@latest
+
+      - name: Upload Report to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          functionalities: fix
