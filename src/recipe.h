@@ -1,5 +1,5 @@
-#ifndef recipe_H
-#define recipe_H
+#ifndef RECIPE_H
+#define RECIPE_H
 
 #include <string>
 
@@ -10,7 +10,7 @@
  * This class encapsulates the properties of a cooking recipe, such as its name, author,
  * preparation details, and nutritional information.
  */
-class recipe
+class Recipe
 {
 private:
     int recipeId;

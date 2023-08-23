@@ -1,5 +1,5 @@
-#ifndef recipe_DATABASE_H
-#define recipe_DATABASE_H
+#ifndef RECIPE_DATABASE_H
+#define RECIPE_DATABASE_H
 
 #include "recipe.h"
 #include "recipeImage.h"
