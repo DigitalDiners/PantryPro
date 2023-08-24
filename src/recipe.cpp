@@ -1,5 +1,7 @@
 #include "recipe.h"
 
+
+
 Recipe::Recipe(int id, const std::string& name, int aId,
                int cTime, int pTime, int tTime, const std::string& dPublished,
                const std::string& desc, const std::string& cat,
@@ -7,6 +9,7 @@ Recipe::Recipe(int id, const std::string& name, int aId,
     : recipeId(id), recipeName(name), authorId(aId),
       cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
       description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ), instructions(instructions) {}
+
 
 int Recipe::getId() const {
     return recipeId;

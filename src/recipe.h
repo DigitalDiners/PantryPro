@@ -4,7 +4,7 @@
 #include <string>
 
 /**
- * @class Recipe
+ * @class recipe
  * @brief Represents a cooking recipe with its related details.
  *
  * This class encapsulates the properties of a cooking recipe, such as its name, author,
@@ -21,7 +21,7 @@ private:
     int calories, servings, yieldQuantity;
 
     /**
-     * @brief Constructs a Recipe object with given properties.
+     * @brief Constructs a recipe object with given properties.
      *
      * @param id Unique identifier for the recipe.
      * @param name Name of the recipe.
@@ -122,4 +122,4 @@ public:
     std::string getInstructions() const;
 };
 
-#endif // RECIPE_H
+#endif // recipe_H

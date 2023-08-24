@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <mysql/jdbc.h>
+#include <vector>
 
 /**
  * @class DatabaseConnection

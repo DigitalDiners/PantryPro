@@ -46,7 +46,7 @@ function removeIngredient(ingredient) {
     }
 }
 
-function searchRecipes() {
+function searchrecipes() {
     // This function will communicate with the C++ backend
 }
 
@@ -58,10 +58,10 @@ function displayCard(recipe) {
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
-    // Create and set the RecipeInfo display
+    // Create and set the recipeInfo display
     const info = document.createElement('div');
     info.className = 'recipe-info';
-    info.textContent = recipe.RecipeInfo; // assuming RecipeInfo is a string, adjust accordingly
+    info.textContent = recipe.recipeInfo; // assuming recipeInfo is a string, adjust accordingly
     card.appendChild(info);
 
     // Create buttons for "Save" and "Add to Planner"
@@ -83,28 +83,28 @@ function displayCard(recipe) {
     searchResults.appendChild(card);
 }
 
-function getRecipeInfo(recipeID) {
+function getrecipeInfo(recipeID) {
     // This would communicate with your C++ method to get recipe information
     // Example return, adjust as needed:
     return {
-        recipeName: "Sample Recipe Name",
-        RecipeInfo: "RecipeName",
+        recipeName: "Sample recipe Name",
+        recipeInfo: "recipeName",
     };
 }
 
 function addToSaved(recipeID) {
     // Communicate with your C++ method to save the recipe
-    console.log("Recipe with ID " + recipeID + " saved!");
+    console.log("recipe with ID " + recipeID + " saved!");
 }
 
 function addToPlanner(recipeID, day) {
     // Communicate with your C++ method to add the recipe to the planner on the given day
-    console.log("Recipe with ID " + recipeID + " added to planner for " + day + "!");
+    console.log("recipe with ID " + recipeID + " added to planner for " + day + "!");
 }
 
 // Sample call to display a card (replace with actual method to get results from backend)
-const sampleRecipe = getRecipeInfo(1);
-displayCard(sampleRecipe);
+const samplerecipe = getrecipeInfo(1);
+displayCard(samplerecipe);
 
 /* GPTD */
 function exportTableToCSV(filename) {
