@@ -50,16 +50,19 @@ jobs:
 
     - name: Compile tests and output coverage
       working-directory: ${{github.workspace}}/tests
-      # Compiles tests with specific coverage flag, links them to an executable,
+      # Compiles tests with g++ --coverage flag, links them to an executable,
       # executes the tests and then generates an XML 
       run: |
         g++ --coverage RecipeTests.cpp -c -O0 -g
         g++ --coverage test.cpp -c -O0 -g
         g++ --coverage -o coverage1 RecipeTests.o
         g++ --coverage -o coverage2 test.o
-        ./coverage1
-        ./coverage2
-        gcovr --cobertura coverage.xml
+        ./coverage1.exe
+        ./coverage2.exe
+
+        Get-ChildItem -Path . -File -Recurse | ForEach-Object { Write-Host $_.FullName }
+
+        gcovr -r ../ --cobertura coverage.xml
       shell: powershell
 
     - name: Upload Report to Codecov
