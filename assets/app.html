@@ -5,6 +5,25 @@
   <meta charset="utf-8" />
   <title>PantryPro</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    function testBindings() {
+      try {
+        // Calling the C++ bound methods.
+        let id = Recipe.getId();
+        let name = Recipe.getName();
+        let authorId = Recipe.getAuthorId();
+        let cookTime = Recipe.getCookTime();
+
+        // Displaying the results.
+        document.getElementById('id').textContent = id;
+        document.getElementById('name').textContent = name;
+        document.getElementById('authorId').textContent = authorId;
+        document.getElementById('cookTime').textContent = cookTime;
+      } catch (error) {
+        console.error("Error in testBindings:", error);
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -21,6 +40,13 @@
     </div>
     <ul id="ingredient-list"></ul>
     <button id="search-button" onclick="searchRecipes()">Search Recipes</button>
+  </div>
+  <button onclick="testBindings()">Test Bindings</button>
+  <div>
+    <p>Recipe ID: <span id="id"></span></p>
+    <p>Recipe Name: <span id="name"></span></p>
+    <p>Author ID: <span id="authorId"></span></p>
+    <p>Cook Time: <span id="cookTime"></span></p>
   </div>
   <div id="search-results"></div>
   <script src="script.js"></script>
