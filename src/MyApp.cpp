@@ -1,4 +1,7 @@
 #include "MyApp.h"
+#include "recipe.h"
+#include "recipeAPI.h"
+#include "recipeDatabase.h"
 
 #define WINDOW_WIDTH  600
 #define WINDOW_HEIGHT 400
@@ -103,6 +106,47 @@ void MyApp::OnDOMReady(ultralight::View* caller,
   ///
   /// This is the best time to setup any JavaScript bindings.
   ///
+
+  auto jsContextLock = caller->LockJSContext(); 
+  JSContextRef ctx = jsContextLock->ctx();
+
+    RecipeDatabase db;
+    Recipe myRecipe = db.getRecipeById(38);
+    RecipeAPI* recipeAPI = new RecipeAPI(&myRecipe);
+
+    JSClassDefinition classDef = kJSClassDefinitionEmpty;
+    classDef.className = "RecipeAPI";
+    classDef.finalize = [](JSObjectRef obj) {
+        RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(obj));
+        delete api;
+    };
+
+    JSStaticFunction staticFunctions[] = {
+        { "getId", &RecipeAPI::getId, kJSPropertyAttributeNone },
+        { "getName", &RecipeAPI::getName, kJSPropertyAttributeNone },
+        { "getAuthorId", &RecipeAPI::getAuthorId, kJSPropertyAttributeNone },
+        { "getCookTime", &RecipeAPI::getCookTime, kJSPropertyAttributeNone },
+        { "getPrepTime", &RecipeAPI::getPrepTime, kJSPropertyAttributeNone },
+        { "getTotalTime", &RecipeAPI::getTotalTime, kJSPropertyAttributeNone },
+        { "getDatePublished", &RecipeAPI::getDatePublished, kJSPropertyAttributeNone },
+        { "getDescription", &RecipeAPI::getDescription, kJSPropertyAttributeNone },
+        { "getCategory", &RecipeAPI::getCategory, kJSPropertyAttributeNone },
+        { "getCalories", &RecipeAPI::getCalories, kJSPropertyAttributeNone },
+        { "getServings", &RecipeAPI::getServings, kJSPropertyAttributeNone },
+        { "getYieldQuantity", &RecipeAPI::getYieldQuantity, kJSPropertyAttributeNone},
+        { NULL, NULL, 0 }
+    };
+
+    classDef.staticFunctions = staticFunctions;
+
+    JSClassRef classRef = JSClassCreate(&classDef);
+    JSObjectRef obj = JSObjectMake(ctx, classRef, recipeAPI);
+
+    // Set the RecipeAPI object in the global JavaScript context.
+    JSStringRef str = JSStringCreateWithUTF8CString("recipeAPI");
+    JSObjectSetProperty(ctx, JSContextGetGlobalObject(ctx), str, obj, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str);
+
 }
 
 void MyApp::OnChangeCursor(ultralight::View* caller,
@@ -124,3 +168,5 @@ void MyApp::OnChangeTitle(ultralight::View* caller,
   ///
   window_->SetTitle(title.utf8().data());
 }
+
+
