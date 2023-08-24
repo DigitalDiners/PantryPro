@@ -10,19 +10,29 @@ void Ingredients::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame
     displayIngredients = global["displayIngredients"];
     addIngredient = global["addIngredient"];
     removeIngredient = global["removeIngredient"];
-    global["AddNewIngredient"] = BindJSCallback(&Ingredients::AddNewIngredient);
+    global["AddNewIngredient"] = BindJSCallbackWithRetval(&Ingredients::AddNewIngredient);
+}
+
+void Ingredients::prep() {
+    JSObject global = JSGlobalObject();
+    displayIngredients = global["displayIngredients"];
+    addIngredient = global["addIngredient"];
+    removeIngredient = global["removeIngredient"];
+    global["AddNewIngredient"] = BindJSCallbackWithRetval(&Ingredients::AddNewIngredient);
 }
 
 //Ingredients::~Ingredients() {};
 
-void Ingredients::AddNewIngredient(const JSObject& thisObject, const JSArgs& args){
+JSValue Ingredients::AddNewIngredient(const JSObject& thisObject, const JSArgs& args){
     //RefPtr<JSContext> lock(view() -> LockJSContext());
     //addIngredient(String newIngredient);
     std::vector<string> ingredients;
     std::cout<< "add new ingredient";
+    std::cout<< thisObject;
     std::cout<< "flour "<<'\n';
     std::string input = "flour";
     ingredients.push_back(input);
+    return JSValue();
 }
 //JSValue newIngredient
 

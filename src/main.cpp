@@ -5,14 +5,16 @@
 #include "recipe.h"
 #include "Ingredients.h"
 
+
 int main()
 {
     // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
     Ingredients ni;
+    ni.prep();
 
-   // ni.AddNewIngredient("hellooo");
+   //ni.AddNewIngredient("hellooo");
 
     RecipeDatabase db;
     Recipe recipe = db.getRecipeById(38);

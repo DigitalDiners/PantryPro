@@ -30,10 +30,10 @@ class Ingredients {
 //     void removeIngredient(string removeThis);
     //void AddNewIngredient(string newIngredient);
     vector<string> ingredients;
-    void AddNewIngredient(const JSObject& thisObject, const JSArgs& args);
-
- private:
+    JSValue AddNewIngredient(const JSObject& thisObject, const JSArgs& args);
+    void prep();
     virtual void OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) ;
+ private:
 
 
 JSFunction displayIngredients;
@@ -41,5 +41,6 @@ JSFunction addIngredient;
 JSFunction removeIngredient;
 //global["GetMessage"] = BindJSCallback(&Ingredients::addNewIngredient);
 };
+
 
 #endif
