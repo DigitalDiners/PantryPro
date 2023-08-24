@@ -48,15 +48,19 @@ jobs:
       run: pip install gcovr
       shell: cmd
 
-    - name: Compile tests with coverage flags
+    - name: Compile tests and output coverage
       working-directory: ${{github.workspace}}/tests
+      # Compiles tests with specific coverage flag, links them to an executable,
+      # executes the tests and then generates an XML 
       run: |
         g++ --coverage RecipeTests.cpp -c -O0 -g
-        g++ --coverage RecipeTests.o
-        a.exe
-        gcov -b -l -p -c *.gcno
+        g++ --coverage test.cpp -c -O0 -g
+        g++ --coverage -o coverage1 RecipeTests.o
+        g++ --coverage -o coverage2 test.o
+        ./coverage1
+        ./coverage2
         gcovr --cobertura coverage.xml
-      shell: cmd
+      shell: powershell
 
     - name: Upload Report to Codecov
       uses: codecov/codecov-action@v3
