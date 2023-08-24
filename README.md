@@ -1,6 +1,7 @@
 # PantryPro
 
 [![CMake](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml/badge.svg)](https://github.com/DigitalDiners/PantryPro/actions/workflows/cmake.yml)
+[![codecov](https://codecov.io/gh/DigitalDiners/PantryPro/graph/badge.svg?token=U3QAEPXBT9)](https://codecov.io/gh/DigitalDiners/PantryPro)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0121423079c145a8a8f5d27bc725effc)](https://app.codacy.com/gh/DigitalDiners/PantryPro/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Documentation](https://codedocs.xyz/DigitalDiners/PantryPro.svg)](https://codedocs.xyz/DigitalDiners/PantryPro/)
 [![JIRA Board](https://img.shields.io/badge/JIRA%20Board-Open-blue?style=flat&logo=jira&logoColor=white)](https://cosc345-project.atlassian.net/jira/software/projects/COS/boards/1/timeline)
