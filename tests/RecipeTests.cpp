@@ -1,4 +1,4 @@
-#include "../src/recipeObject.cpp"
+#include "../src/RecipeObject.cpp"
 #include "catch_amalgamated.cpp"
 
 /**
