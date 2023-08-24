@@ -54,6 +54,7 @@ jobs:
         g++ --coverage RecipeTests.cpp -c -O0 -g
         g++ --coverage RecipeTests.o
         a.exe
+        gcov -b -l -p -c *.gcno
         gcovr --cobertura coverage.xml
       shell: cmd
 
