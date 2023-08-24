@@ -1,9 +1,4 @@
 #include "Ingredients.h"
-#include <string>
-#include <vector>
-#include <iostream>
-#include <stdio.h>
-
 
 //Link with JS here with the JS functions.
 //JS functions wanted include: 
@@ -15,13 +10,18 @@ JSObject global = JSGlobalObject();
 displayIngredients = global["displayIngredients"];
 addIngredient = global["addIngredient"];
 removeIngredient = global["removeIngredient"];
-global["GetMessage"] = BindJSCallback(&Ingredients::addNewIngredient);
+global["AddNewIngredient"] = BindJSCallback(&Ingredients::AddNewIngredient);
 
 }
 
-JSValue addNewIngredient(String newIngredient){
+Ingredients::~Ingredients() {};
+
+void AddNewIngredient(String newIngredient){
     //RefPtr<JSContext> lock(view() -> LockJSContext());
-    addIngredient(String newIngredient);
+    //addIngredient(String newIngredient);
+    std::cout<< "add new ingredient";
+    std::cout<< newIngredient;
+    ingredients.push(newIngredient);
 }
 //JSValue newIngredient
 

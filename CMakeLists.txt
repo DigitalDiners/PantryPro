@@ -64,6 +64,12 @@ set(SOURCES "src/MyApp.h"
             "src/recipeImage.cpp"
             "src/recipeDatabase.cpp"
             "src/databaseConnection.cpp"
+            "src/Ingreedients.cpp"
+            "src/Ingredients.h"
+            "src/RegisterCFunctions.cpp"
+            "src/RegisterCFunctions.h"
+            "src/recipeMethods.cpp"
+            "src/recipeMethods.h"
             "src/recipe.cpp"
             "src/main.cpp")
 

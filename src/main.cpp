@@ -3,11 +3,16 @@
 #include "recipeDatabase.h"
 #include "RegisterCFunctions.h"
 #include "recipe.h"
+#include "Ingredients.h"
 
 int main()
 {
     // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
+
+    Ingredients ni;
+
+   // ni.AddNewIngredient("hellooo");
 
     RecipeDatabase db;
     Recipe recipe = db.getRecipeById(38);
