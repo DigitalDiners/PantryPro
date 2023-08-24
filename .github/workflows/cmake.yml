@@ -7,14 +7,10 @@ on:
     branches: [ "main" ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
 jobs:
   build-windows:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: windows-latest
 
     steps:
@@ -30,57 +26,18 @@ jobs:
       # NOTE: If a boost version matching all requirements cannot be found,
       # this build step will fail
     - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTING=ON
 
     - name: Build
-      # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C build --verbose 
 
-    #OLD UPLOAD METHOD BELOW
-    # - name: Install gcovr
-    #   run: pip install gcovr
-    #   shell: cmd
-
-    # - name: Compile tests and output coverage
-    #   working-directory: ${{github.workspace}}/tests
-    #   # Compiles tests with g++ --coverage flag, links them to an executable,
-    #   # executes the tests and then generates an XML 
-    #   run: |
-    #     g++ --coverage RecipeTests.cpp -c -O0 -g
-    #     g++ --coverage test.cpp -c -O0 -g
-    #     g++ --coverage -o coverage1 RecipeTests.o
-    #     g++ --coverage -o coverage2 test.o
-
-    #     Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
-    #     Start-Process -FilePath "${{github.workspace}}/tests/coverage1.exe"
-    #     Start-Process -FilePath "${{github.workspace}}/tests/coverage2.exe"
-
-    #     Get-ChildItem -Path . -File -Recurse | ForEach-Object { Write-Host $_.FullName }
-
-    #     gcovr -r ../ --cobertura coverage.xml
-    #   shell: powershell
-
-    # - name: Upload Report to Codecov
-    #   uses: codecov/codecov-action@v3
-    #   env:
-    #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    #   with:
-    #     files: ./tests/coverage.xml
-    #     fail_ci_if_error: true
-    #     functionalities: fix
 
   build-mac:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: macos-latest
 
     steps:
@@ -93,11 +50,7 @@ jobs:
           echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
           echo "DB_PASS=${{ secrets.DB_PASS }}" >> $GITHUB_ENV
   
-        # NOTE: If a boost version matching all requirements cannot be found,
-        # this build step will fail
       - name: Configure CMake
-        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} 
   
       - name: Build
@@ -107,14 +60,12 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/build
         # Execute tests defined by the CMake configuration.
-        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
         run: ctest -C build --verbose 
 
   
   code-coverage:
     # Exectute code coverage generation and upload to CodeCov.
-    # Issues with running the test executables resulted in using this step
-    # on linux.
+    # Issues with running the test executables resulted in using this step on linux.
     runs-on: ubuntu-latest  # Use a Linux runner
     steps:
       - name: Checkout code
@@ -135,7 +86,7 @@ jobs:
           g++ --coverage test.cpp -o coverage2
           ./coverage1
           ./coverage2
-          gcovr -r . --cobertura -o coverage.xml
+          gcovr -r ../ --xml -o coverage.xml
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
