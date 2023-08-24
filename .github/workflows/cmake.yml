@@ -59,8 +59,8 @@ jobs:
         g++ --coverage -o coverage2 test.o
 
         Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
-        ./coverage1.exe
-        ./coverage2.exe
+        Start-Process -FilePath "${{github.workspace}}/tests/coverage1.exe"
+        Start-Process -FilePath "${{github.workspace}}/tests/coverage2.exe"
 
         Get-ChildItem -Path . -File -Recurse | ForEach-Object { Write-Host $_.FullName }
 
