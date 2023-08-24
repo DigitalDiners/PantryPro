@@ -4,6 +4,9 @@
 #include <AppCore/AppCore.h>
 #include <map>
 #include <memory>
+#include <stdio.h>
+#include <iostream>
+
 
 using ultralight::JSObject;
 using ultralight::JSArgs;
@@ -12,6 +15,10 @@ using namespace ultralight;
 
 
 class RegisterCFunctions{
+public:
+    RegisterCFunctions();
 
-//RegisterCFunctions::RegisterCFunctions();
+private:
+void RegisterNativeCFunctions();
+
 };

@@ -28,11 +28,11 @@ class Ingredients {
 //     void addIngredient(string newIngredient);
 //     bool haveIngredient(string newIngredient);
 //     void removeIngredient(string removeThis);
-    void AddNewIngredient(string newIngredient);
-    //void AddNewIngredient(const JSObject& thisObject, const JSArgs& args);
+    //void AddNewIngredient(string newIngredient);
+    vector<string> ingredients;
+    void AddNewIngredient(const JSObject& thisObject, const JSArgs& args);
 
  private:
-     vector<string> ingredients;
     virtual void OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) ;
 
 

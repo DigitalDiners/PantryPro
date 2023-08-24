@@ -19,7 +19,7 @@ private:
     int cookTime, prepTime, totalTime;
     std::string datePublished, description, category;
     int calories, servings, yieldQuantity;
-
+//add methods to access
     /**
      * @brief Constructs a Recipe object with given properties.
      *

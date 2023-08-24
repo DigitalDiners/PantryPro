@@ -55,23 +55,29 @@ set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(cmake/App.cmake)
 
-set(SOURCES "src/MyApp.h"
-            "src/MyApp.cpp"
+set(SOURCES 
             "src/databaseConnection.h"
-            "src/recipeDatabase.h"
-            "src/recipe.h"
-            "src/recipeImage.h"
-            "src/recipeImage.cpp"
-            "src/recipeDatabase.cpp"
             "src/databaseConnection.cpp"
+            "src/databaseQuery.cpp"
             "src/Ingredients.cpp"
             "src/Ingredients.h"
-            "src/RegisterCFunctions.cpp"
-            "src/RegisterCFunctions.h"
+            "src/main.cpp"
+            "src/MyApp.h"
+            "src/MyApp.cpp"
+            "src/recipe.h"
+            "src/recipe.cpp"
+            "src/recipeDatabase.cpp"
+            "src/recipeDatabase.h"
+            "src/recipeImage.h"
+            "src/recipeImage.cpp"
             "src/recipeMethods.cpp"
             "src/recipeMethods.h"
-            "src/recipe.cpp"
-            "src/main.cpp")
+            "src/RecipeObject.cpp"
+            "src/RegisterCFunctions.cpp"
+            "src/RegisterCFunctions.h"
+            "src/UI.cpp"
+            "src/UI.h"
+)
 
 add_app("${SOURCES}")
 

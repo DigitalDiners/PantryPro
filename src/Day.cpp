@@ -1,4 +1,14 @@
 #include "recipe.cpp"
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdio> 
+#include <unistd.h>
+#include <vector>
+#include <sstream>
+
+using namespace std;
 
 /**
  * @brief Class representing one of the days of the week.
@@ -9,10 +19,10 @@ class day
 private:
     int dayNumber;
     string dayName;
-    recipe breakfast;
-    recipe lunch;
-    recipe dinner;
-    Reicpe meals[];
+    Recipe breakfast;
+    Recipe lunch;
+    Recipe dinner;
+    Recipe meals[];
 public:
     day(int dayNumber);
 
@@ -45,7 +55,7 @@ public:
             dayName = "Sunday";
             break;
         default:
-            throw (100)
+            throw (100);
             break;
         }
     }
@@ -56,9 +66,9 @@ public:
      * @param recipe the recipe to added to this slot
      * @param meal the meal number
      */
-    void setMeal(recipe recipe, int meal){
+    void setMeal(Recipe recipe, int meal){
         if(meal > 2){
-            throw meal 
+            throw meal;
         }
         switch (meal)
         {
