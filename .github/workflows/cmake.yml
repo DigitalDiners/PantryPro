@@ -57,6 +57,8 @@ jobs:
         g++ --coverage test.cpp -c -O0 -g
         g++ --coverage -o coverage1 RecipeTests.o
         g++ --coverage -o coverage2 test.o
+
+        Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
         ./coverage1.exe
         ./coverage2.exe
 
