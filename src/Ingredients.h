@@ -39,6 +39,7 @@ class Ingredients {
 JSFunction displayIngredients;
 JSFunction addIngredient;
 JSFunction removeIngredient;
+JSFunction pleaseWork;
 //global["GetMessage"] = BindJSCallback(&Ingredients::addNewIngredient);
 };
 

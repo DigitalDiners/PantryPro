@@ -18,6 +18,7 @@ void Ingredients::prep() {
     displayIngredients = global["displayIngredients"];
     addIngredient = global["addIngredient"];
     removeIngredient = global["removeIngredient"];
+    pleaseWork = global["pleaseWork"];
     global["AddNewIngredient"] = BindJSCallbackWithRetval(&Ingredients::AddNewIngredient);
 }
 

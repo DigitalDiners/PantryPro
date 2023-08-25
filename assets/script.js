@@ -2,6 +2,12 @@ let ingredients = [];
 let saved = [];
 let planner = [];
 
+function pleaseWork(input){
+    console.log("in the javascript function");
+    AddNewIngredient(input);
+    console.log("made past addnewIngredient bit");
+}
+
 function addIngredient() {
     const inputElem = document.getElementById("ingredient-input");
     const ingredient = inputElem.value.trim();
