@@ -82,7 +82,7 @@ jobs:
       - name: Compile and run tests
         working-directory: ${{github.workspace}}/tests
         run: |
-          g++ --coverage tests.cpp -o coverage1
+          g++ --coverage test.cpp -o coverage1
           g++ --coverage recipeTests.cpp -o coverage2
           g++ --coverage plannerTests.cpp -o coverage3
           ./coverage1
