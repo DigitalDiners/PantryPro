@@ -29,11 +29,7 @@ function searchRecipes() {
 
     console.log("Ingredients:", ingredients);
 
-    const ingredientStr = ingredients.join(' ');
-
-    console.log("Ingredient string:", ingredientStr);
-
-    try {   
+    try {
 
         // debugging instructions if search recipes does not return results
         
@@ -46,7 +42,7 @@ function searchRecipes() {
 
         // 3. if json is invalid, find recipe causing issue
 
-        const jsonRecipes = SearchRecipes(ingredientStr);
+        const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
 
@@ -57,8 +53,6 @@ function searchRecipes() {
         console.error("Error fetching recipes:", error);
         alert("Failed to fetch recipes. Please try again later.");
     }
-
-    const recipeName1 = document.getElementById('recipe-name');
 }
 
 

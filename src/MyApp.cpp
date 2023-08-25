@@ -174,6 +174,7 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
                 bool is_main_frame,
