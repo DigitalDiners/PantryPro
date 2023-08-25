@@ -1,7 +1,6 @@
 #include "recipe.h"
 
 
-
 Recipe::Recipe(int id, const std::string& name, int aId,
                int cTime, int pTime, int tTime, const std::string& dPublished,
                const std::string& desc, const std::string& cat,

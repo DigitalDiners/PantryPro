@@ -1,4 +1,4 @@
-﻿.gitignore
+.gitignore
 build
 PantryPro_DB.session.sql
 .vscode
@@ -10,10 +10,6 @@ x64
 *.sln
 Testing
 cmakev1.txt
-gitignore
-.gitignore
-
-
 _deps
 Debug
 CoverageReport*
