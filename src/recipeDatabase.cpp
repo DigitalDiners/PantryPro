@@ -47,32 +47,22 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
     return RecipeImage(0, 0, "");
 }
 
-std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::string &search) {
+std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
     std::vector<Recipe> result;
 
-    // Split search string into individual words
-    std::stringstream ss(search);
-    std::string word;
-    std::vector<std::string> words;
-
-    while (ss >> word) {
-        words.push_back(word);
-    }
-
-    if (words.empty()) {
+    if (ingredients.empty()) {
         return result; // empty list
     }
 
-    // Construct SQL query using the LIKE operator for each word
-    std::string query = "SELECT * FROM recipes WHERE ";
-    for (size_t i = 0; i < words.size(); ++i) {
-        query += "recipeName LIKE '%" + words[i] + "%'";
-
-        if (i < words.size() - 1) {
-            query += " OR ";
-        }
+    // Construct SQL query using JOIN and LIKE operator for each ingredient
+    std::string query = "SELECT recipes.* FROM recipes ";
+    
+    for (size_t i = 0; i < ingredients.size(); ++i) {
+        query += "JOIN recipe_ingredients AS ri" + std::to_string(i) + " ON recipes.recipeId = ri" + std::to_string(i) + ".recipeId ";
+        query += "JOIN ingredients AS ing" + std::to_string(i) + " ON ri" + std::to_string(i) + ".ingredientId = ing" + std::to_string(i) + ".ingredientId AND ing" + std::to_string(i) + ".name LIKE '%" + ingredients[i] + "%' ";
     }
-    query += " LIMIT 20;";
+
+    query += "GROUP BY recipes.recipeId HAVING COUNT(DISTINCT recipes.recipeId) = " + std::to_string(ingredients.size()) + " LIMIT 20;";
 
     try {
         auto con = dbConn.getConnection();
@@ -93,12 +83,9 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::string &search
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    std::cout << "Number of results: " << result.size() << std::endl;
-    std::cout << "First result: " << result[0].getName() << std::endl;
-    std::cout << "Second result: " << result[1].getName() << std::endl;
-    std::cout << "Third result: " << result[2].getName() << std::endl;
-
     return result;
 }
+
+
 
 

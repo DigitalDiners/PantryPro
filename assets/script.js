@@ -19,7 +19,6 @@ function addIngredient() {
     ingredientInput.value = '';
 }
 
-
 function searchRecipes() {
     const ingredientList = document.getElementById('ingredient-list');
     const ingredients = [];
@@ -30,11 +29,7 @@ function searchRecipes() {
 
     console.log("Ingredients:", ingredients);
 
-    const ingredientStr = ingredients.join(' ');
-
-    console.log("Ingredient string:", ingredientStr);
-
-    try {   
+    try {
 
         // debugging instructions if search recipes does not return results
         
@@ -47,9 +42,8 @@ function searchRecipes() {
 
         // 3. if json is invalid, find recipe causing issue
 
-        const jsonRecipes = SearchRecipes(ingredientStr);
+        const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
-
         console.log("Recipes:", recipes);
 
         for (let recipe of recipes) {
@@ -59,9 +53,8 @@ function searchRecipes() {
         console.error("Error fetching recipes:", error);
         alert("Failed to fetch recipes. Please try again later.");
     }
-
-    const recipeName1 = document.getElementById('recipe-name');
 }
+
 
 function displayCard(recipe) {
     const searchResults = document.getElementById('search-results');

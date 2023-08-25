@@ -143,17 +143,25 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
 
 JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "SearchRecipes called" << std::endl;
-    ultralight::String jsStr = args[0].ToString();
-    std::string query = std::string(jsStr.utf8().data());
+
+    std::vector<std::string> ingredients;
+    if (args[0].IsArray()) {
+        JSArray ingredientArray = args[0].ToArray();
+        for (size_t i = 0; i < ingredientArray.length(); i++) {
+            ultralight::String jsStr = ingredientArray[i].ToString();
+            ingredients.push_back(std::string(jsStr.utf8().data()));
+        }
+    }
 
     RecipeDatabase recipeDB;
-    std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(query);
+    std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(ingredients);
     std::string jsonRecipes = convertRecipesToJson(recipes);
 
     std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
 
     return JSValue(jsonRecipes.c_str());
 }
+
 
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,

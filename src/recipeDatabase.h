@@ -50,7 +50,7 @@ public:
      * 
      * @param search 
      */
-    std::vector<Recipe> getRecipesBySearch(const std::string &search);
+    std::vector<Recipe> getRecipesBySearch(const std::vector<std::string> &ingredients);
 };
 
 #endif  // RECIPE_DATABASE_H
