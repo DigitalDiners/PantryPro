@@ -106,6 +106,11 @@ void MyApp::OnFinishLoading(ultralight::View *caller,
   ///
 }
 
+std::string MyApp::removeQuotes(const std::string& input) {
+    std::string result = input;
+    result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
+    return result;
+}
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
     std::cout << "convertRecipesToJson called" << std::endl;
@@ -115,20 +120,17 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
     for (const Recipe& recipe : recipes) {
         std::cout << "recipe: " << recipe.getName() << std::endl;
         json += "{ ";
-        json += "\"recipeId\": " + std::to_string(recipe.getId()) + ",";
-        json += "\"recipeName\": \"" + recipe.getName() + "\",";
-        json += "\"authorId\": " + std::to_string(recipe.getAuthorId()) + ",";
-
-        json += "\"cookTime\": " + std::to_string(recipe.getCookTime()) + ",";
-        json += "\"prepTime\": " + std::to_string(recipe.getPrepTime()) + ",";
-        json += "\"totalTime\": " + std::to_string(recipe.getTotalTime()) + ",";
-        json += "\"datePublished\": \"" + recipe.getDatePublished() + "\",";
-        json += "\"description\": \"" + recipe.getDescription() + "\",";
-        json += "\"category\": \"" + recipe.getCategory() + "\",";
-        json += "\"calories\": " + std::to_string(recipe.getCalories()) + ",";
-        json += "\"servings\": " + std::to_string(recipe.getServings()) + ",";
-        json += "\"yieldQuantity\": " + std::to_string(recipe.getYieldQuantity());
-        
+        json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
+        json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
+        json += "\"authorId\": " + removeQuotes(std::to_string(recipe.getAuthorId())) + ",";
+        json += "\"cookTime\": " + removeQuotes(std::to_string(recipe.getCookTime())) + ",";
+        json += "\"prepTime\": " + removeQuotes(std::to_string(recipe.getPrepTime())) + ",";
+        json += "\"totalTime\": " + removeQuotes(std::to_string(recipe.getTotalTime())) + ",";
+        json += "\"datePublished\": \"" + removeQuotes(recipe.getDatePublished()) + "\",";
+        json += "\"category\": \"" + removeQuotes(recipe.getCategory()) + "\",";
+        json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
+        json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
+        json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity()));
 
         if (json.back() == ',') json.pop_back(); 
         json += " },";
@@ -138,8 +140,6 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
 
     return json;
 }
-
-
 
 JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "SearchRecipes called" << std::endl;
@@ -155,14 +155,6 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
-JSValue MyApp::GetMessage(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetMessage called" << std::endl;
-    ///
-    /// Return our message to JavaScript as a JSValue.
-    ///
-    return JSValue("Hello from C++!<br/>Ultralight rocks!");
-}
-
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
                 bool is_main_frame,
@@ -174,12 +166,8 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   RefPtr<JSContext> context = caller->LockJSContext();
   SetJSContext(context->ctx());
 
-  ///
-  /// Get the global object (this would be the "window" object in JS)
-  ///
   JSObject global = JSGlobalObject();
 
-  global["GetMessage"] = BindJSCallbackWithRetval(&MyApp::GetMessage);
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
 }
 

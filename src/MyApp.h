@@ -38,10 +38,9 @@ public:
                                bool is_main_frame,
                                const String &url) override;
 
+  std::string removeQuotes(const std::string& input);
 
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
-
-  JSValue GetMessage(const JSObject &thisObject, const JSArgs &args);
 
   std::string convertRecipesToJson(const std::vector<Recipe>& recipes);
 

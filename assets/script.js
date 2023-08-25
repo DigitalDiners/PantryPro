@@ -1,14 +1,12 @@
-//let ingredients = [];
+let ingredients = [];
 
 function addIngredient() {
     const ingredientInput = document.getElementById('ingredient-input');
     const ingredientList = document.getElementById('ingredient-list');
-    
-    // Create a new list item.
+
     const listItem = document.createElement('li');
     listItem.textContent = ingredientInput.value;
 
-    // Optional: Add a button to remove the ingredient from the list.
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
     removeButton.onclick = function() {
@@ -16,10 +14,8 @@ function addIngredient() {
     };
     listItem.appendChild(removeButton);
 
-    // Append the list item to the ingredient list.
     ingredientList.appendChild(listItem);
 
-    // Clear the input field.
     ingredientInput.value = '';
 }
 
@@ -28,20 +24,29 @@ function searchRecipes() {
     const ingredientList = document.getElementById('ingredient-list');
     const ingredients = [];
 
-    // Gather all ingredients from the list.
     for (let i = 0; i < ingredientList.children.length; i++) {
-        ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim()); // 'Remove' is subtracted to ignore the text from the remove button.
+        ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
 
     console.log("Ingredients:", ingredients);
 
-
-    // Join ingredients into a single string.
     const ingredientStr = ingredients.join(' ');
 
     console.log("Ingredient string:", ingredientStr);
 
-    try {
+    try {   
+
+        // debugging instructions if search recipes does not return results
+        
+        // 1. uncomment the lines below, re-build and re-run application
+        //var message = SearchRecipes(ingredientStr);
+        //document.getElementById('message').innerHTML = message;
+
+        // 2. copy and paste json into following link:
+        // https://jsonlint.com
+
+        // 3. if json is invalid, find recipe causing issue
+
         const jsonRecipes = SearchRecipes(ingredientStr);
         const recipes = JSON.parse(jsonRecipes);
 
@@ -54,36 +59,37 @@ function searchRecipes() {
         console.error("Error fetching recipes:", error);
         alert("Failed to fetch recipes. Please try again later.");
     }
+
+    const recipeName1 = document.getElementById('recipe-name');
 }
 
 function displayCard(recipe) {
     const searchResults = document.getElementById('search-results');
 
-    // card container
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
     console.log("Recipe Name:", recipe.recipeName);
 
-    // RecipeName display
     const name = document.createElement('div');
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
     card.appendChild(name);
 
-    const saveButton = document.createElement('button');
-    saveButton.textContent = 'Save';
-    saveButton.onclick = function() {
-        addToSaved(recipe.recipeId);
-    };
-    card.appendChild(saveButton);
+    // const saveButton = document.createElement('button');
+    // saveButton.textContent = 'Save';
+    // saveButton.onclick = function() {
+    //     addToSaved(recipe.recipeId);
+    // };
+    // card.appendChild(saveButton);
 
-    const addToPlannerButton = document.createElement('button');
-    addToPlannerButton.textContent = 'Add to Planner';
-    addToPlannerButton.onclick = function() {
-        addToPlanner(recipe.recipeId, 'Monday');
-    };
-    card.appendChild(addToPlannerButton);
+    // const addToPlannerButton = document.createElement('button');
+    // addToPlannerButton.textContent = 'Add to Planner';
+    // addToPlannerButton.onclick = function() {
+    //     addToPlanner(recipe.recipeId, 'Monday');
+    // };
+    // card.appendChild(addToPlannerButton);
+    
 
     searchResults.appendChild(card);
 }

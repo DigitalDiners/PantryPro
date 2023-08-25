@@ -72,7 +72,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::string &search
             query += " OR ";
         }
     }
-    query += " LIMIT 10;";
+    query += " LIMIT 20;";
 
     try {
         auto con = dbConn.getConnection();
