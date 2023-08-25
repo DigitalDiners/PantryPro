@@ -4,6 +4,7 @@
 #include "RegisterCFunctions.h"
 #include "recipe.h"
 #include "Ingredients.h"
+#include "UltralightInitialiser.h"
 
 
 int main()
@@ -11,9 +12,10 @@ int main()
     // Example of using the recipeDatabase class to create an instance of a recipe object 
     // and return its value
 
-    Ingredients ni;
-    ni.prep();
-
+    // Ingredients ni;
+    // ni.prep();
+    UltralightInitializer ultralightInitializer;
+    ultralightInitializer.Initialize();
    //ni.AddNewIngredient("hellooo");
 
     RecipeDatabase db;
@@ -25,6 +27,8 @@ int main()
 
     MyApp app;
     app.Run();
+
+    ultralightInitializer.Shutdown();
 
     return 0;
 }

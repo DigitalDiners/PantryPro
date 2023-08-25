@@ -77,6 +77,8 @@ set(SOURCES
             "src/RegisterCFunctions.h"
             "src/UI.cpp"
             "src/UI.h"
+            "src/UltralightInitialiser.cpp"
+            "src/UltralightInitialiser.h"
 )
 
 add_app("${SOURCES}")
