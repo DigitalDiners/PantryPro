@@ -5,6 +5,17 @@
   <meta charset="utf-8" />
   <title>PantryPro</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <script type="text/javascript">
+    function HandleButton(evt) {
+      // Call our C++ callback 'GetMessage'
+      var message = GetMessage();
+      
+      // Display the result in our 'message' div element and apply the
+      // rainbow effect to our document's body.
+      document.getElementById('message').innerHTML = message;
+      document.body.classList.add('rainbow');
+    }
+    </script>
 </head>
 
 <body>
@@ -22,6 +33,8 @@
     <ul id="ingredient-list"></ul>
     <button id="search-button" onclick="searchrecipes()">Search Recipes</button>
   </div>
+  <button onclick="HandleButton(event);">Get the Secret Message!</button>
+    <div id="message"></div>
   <div id="search-results"></div>
   <script src="script.js"></script>
 
