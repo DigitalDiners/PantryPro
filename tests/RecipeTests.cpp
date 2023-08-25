@@ -1,23 +1,25 @@
-#include "../src/RecipeObject.cpp"
+#include "../src/recipeObject.h"
+#include "../src/recipeObject.cpp"
+#include "../src/recipeImage.cpp"
 #include "catch_amalgamated.cpp"
 
 /**
- * @brief First test case for recipe objects
- *  Testing Constructors, setters and getters.
+ * @brief Test case for recipe objects
+ * @details Test case for RecipeObject.cpp constructors, setters and getters.
  */
 TEST_CASE( "Check all methods", "[classic]" )  
-{
+{   
     SECTION("Tests that the constructor works correctly"){
-        recipeObject testrecipe1(1);
-        REQUIRE(testrecipe1.getrecipeID() == 1);
-        recipeObject testrecipe2(10202);
-        REQUIRE(testrecipe2.getrecipeID() == 10202);
-        recipeObject testrecipe3(777);
-        REQUIRE(testrecipe3.getrecipeID() == 777);
+        RecipeObject testrecipe1(1);
+        REQUIRE(testrecipe1.getRecipeID() == 1);
+        RecipeObject testrecipe2(10202);
+        REQUIRE(testrecipe2.getRecipeID() == 10202);
+        RecipeObject testrecipe3(777);
+        REQUIRE(testrecipe3.getRecipeID() == 777);
     }
 
     SECTION("Positive tests check the setters and getters work correctly"){
-        recipeObject testrecipe1(1);
+        RecipeObject testrecipe1(1);
         testrecipe1.setName("aaa");
         testrecipe1.setPrepTime("PT10M");
         testrecipe1.setTotalTime("PT10H");
@@ -31,11 +33,44 @@ TEST_CASE( "Check all methods", "[classic]" )
     }
 
     SECTION("Negative test, where applicable"){
-        recipeObject testrecipe1(1);
+        RecipeObject testrecipe1(1);
         testrecipe1.setCalories(1000);
         REQUIRE(testrecipe1.getCalories() != 100);
         REQUIRE(testrecipe1.getCalories() != 10000);
         REQUIRE(testrecipe1.getCalories() != 1);
     }
     
+}
+
+/**
+ * @brief Tests for recipeImage.cpp
+ * @details Checking constructors working correctly. 
+ */
+TEST_CASE( "Check that recipeImage returns expected values", "[classic]")
+{
+    SECTION("Positive tests checking getters after construction")
+    {
+        GIVEN("This instance of recipe image")
+        {
+            RecipeImage testRecipeImage(1, 1, "imageURL");
+    
+            THEN("The datafields should be set, and getters return the correct values"){
+                REQUIRE(testRecipeImage.getRecipeId() == 1);
+                REQUIRE(testRecipeImage.getImageNumber() == 1);
+                REQUIRE(testRecipeImage.getImageURL() == "imageURL");
+
+            }
+        }
+        GIVEN("This instance of recipe image")
+        {
+            RecipeImage testRecipeImage(10001,5,"anotherURL");
+
+            THEN("The datafields should be set, and getters return the correct values"){
+                REQUIRE(testRecipeImage.getRecipeId() == 10001);
+                REQUIRE(testRecipeImage.getImageNumber() == 5);
+                REQUIRE(testRecipeImage.getImageURL() == "anotherURL");
+
+            }
+        }
+    }
 }

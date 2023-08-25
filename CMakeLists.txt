@@ -134,18 +134,21 @@ if(BUILD_TESTING)
     FetchContent_MakeAvailable(Catch2)
     list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 
-    add_executable(tests "tests/test.cpp")
-    add_executable(UnitTests "tests/recipeTests.cpp")
+    add_executable(dummyTests "tests/test.cpp")
+    add_executable(recipeTests "tests/recipeTests.cpp")
+    add_executable(plannerTests "tests/plannerTests.cpp")
 
-    target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
-    target_link_libraries(UnitTests PRIVATE Catch2::Catch2WithMain)
+    target_link_libraries(dummyTests PRIVATE Catch2::Catch2WithMain)
+    target_link_libraries(recipeTests PRIVATE Catch2::Catch2WithMain)
+    target_link_libraries(plannerTests PRIVATE Catch2::Catch2WithMain)
 
     include(CTest)
     include(Catch)
 
     enable_testing()
 
-    catch_discover_tests(tests)
-    catch_discover_tests(UnitTests)
+    catch_discover_tests(dummyTests)
+    catch_discover_tests(recipeTests)
+    catch_discover_tests(plannerTests)
     
 endif()

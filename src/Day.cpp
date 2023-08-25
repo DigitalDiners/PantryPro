@@ -1,123 +1,82 @@
-#include "recipe.cpp"
+#include "recipeObject.cpp"
+#include "day.h"
+#include <string>
 
-/**
- * @brief Class representing one of the days of the week.
- * 
- */
-class day
+Day::Day(int dayNumber)
 {
-private:
-    int dayNumber;
-    string dayName;
-    recipe breakfast;
-    recipe lunch;
-    recipe dinner;
-    Reicpe meals[];
-public:
-    day(int dayNumber);
-
-    /**
-     * @brief Set the Day Name
-     *  Sets the name of this day object, uses the int passed when constructed.
-     */
-    void setDayName(){
-        switch (dayNumber)
-        {
-        case 0:
-            dayName = "Monday";
-            break;
-        case 1:
-            dayName = "Tuesday";
-            break;
-        case 2:
-            dayName = "Wednesday";
-            break;
-        case 3:
-            dayName = "Thursday";
-            break;
-        case 4:
-            dayName = "Friday";
-            break;
-        case 5:
-            dayName = "Saturday";
-            break;
-        case 6:
-            dayName = "Sunday";
-            break;
-        default:
-            throw (100)
-            break;
-        }
-    }
-
-    /**
-     * @brief Set a recipe into a meal slot of this object
-     * 
-     * @param recipe the recipe to added to this slot
-     * @param meal the meal number
-     */
-    void setMeal(recipe recipe, int meal){
-        if(meal > 2){
-            throw meal 
-        }
-        switch (meal)
-        {
-        case 0:
-            this->breakfast = recipe;
-            break;
-        case 1:
-            this->lunch = recipe;
-            break;
-        case 2:
-            this->dinner = recipe;
-            break;
-        default:
-            break;
-        }
-    }
-
-    /**
-     * @brief Get the Meals Array of this object
-     * 
-     * @return recipe[] All the meals in this day
-     */
-    Recipe[] getMealsArray(){
-        return {breakfast, lunch, dinner};
-    }
-
-    /**
-     * @brief Get the Day Num object
-     * 
-     * @return int the number representing this day of the week
-     */
-    int getDayNum(){
-        return this->dayNumber;
-    }
-
-    /**
-     * @brief Get the Day Name object
-     * 
-     * @return string the name of this day of the week
-     */
-    string getDayName(){
-        return this.dayName;
-    }
-
-};
-
-/**
- * @brief Construct a new day::day object
- * 
- * @param dayNumber the day of the week, starting from 0.
- */
-day::day(int dayNumber)
-{
-    if(dayNumber < 8 && dayNumber => 0){
+    if(dayNumber < 8 && dayNumber > -1){
         this->dayNumber = dayNumber;
         setDayName();
     }else{
-        throw dayNumber
+        std::cout << "Not a valid number for day" << std::endl;
     }
 }
-    
 
+void Day::setDayName(){
+    switch (dayNumber)
+    {
+    case 0:
+        dayName = "Monday";
+        break;
+    case 1:
+        dayName = "Tuesday";
+        break;
+    case 2:
+        dayName = "Wednesday";
+        break;
+    case 3:
+        dayName = "Thursday";
+        break;
+    case 4:
+        dayName = "Friday";
+        break;
+    case 5:
+        dayName = "Saturday";
+        break;
+    case 6:
+        dayName = "Sunday";
+        break;
+    default:
+        throw (101);
+        break;
+    }
+}
+
+void Day::setMeal(RecipeObject &recipe, int meal){
+    if(meal > 2){
+        throw meal;
+    }
+    switch (meal){
+    case 0:
+        this->breakfastPtr = &recipe;
+        break;
+    case 1:
+        this->lunchPtr = &recipe;
+        break;
+    case 2:
+        this->dinnerPtr = &recipe;
+        break;
+    default:
+        break;
+    }
+}
+
+RecipeObject* Day::getBreakfast() const{
+    return this->breakfastPtr;
+}
+
+RecipeObject* Day::getLunch() const{
+    return this->lunchPtr;
+}
+
+RecipeObject* Day::getDinner() const{
+    return this->dinnerPtr;
+}
+
+int Day::getDayNumber() const{
+    return this->dayNumber;
+}
+
+std::string Day::getDayName() const{
+    return this->dayName;
+}

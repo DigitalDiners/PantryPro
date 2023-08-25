@@ -82,10 +82,12 @@ jobs:
       - name: Compile and run tests
         working-directory: ${{github.workspace}}/tests
         run: |
-          g++ --coverage RecipeTests.cpp -o coverage1
-          g++ --coverage test.cpp -o coverage2
+          g++ --coverage dummyTests.cpp -o coverage1
+          g++ --coverage recipeTests.cpp -o coverage2
+          g++ --coverage plannerTests.cpp -o coverage3
           ./coverage1
           ./coverage2
+          ./coverage3
           gcovr -r ../ --xml -o coverage.xml
 
       - name: Upload coverage report to Codecov
