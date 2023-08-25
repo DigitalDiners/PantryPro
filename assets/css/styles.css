@@ -1,3 +1,189 @@
-﻿body{
-    font-family: -apple-system, 'Segoe UI Light', Ubuntu, Arial, sans-serif;
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px;
+
 }
+
+h1 {
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: auto;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav h2 {
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+nav a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    background-color: lightgrey;
+    padding: 10px 50px;
+    border-radius: 20px;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 0 10px lightgrey;
+    cursor: pointer;
+}
+
+nav a:hover {
+    background-color: grey;
+}
+
+nav a:active {
+    transform: scale(0.9);
+}
+
+nav a.visited {
+    color: black;
+}
+
+#search-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px lightgrey;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+button, #add-button, #search-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: lightgrey;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 0 10px lightgrey;
+}
+
+#search-button {
+    width: 100%;
+}
+
+button:hover {
+    background-color: grey;
+}
+
+#add-button:hover, #search-button:hover {
+    background-color: rgb(0, 74, 160);
+}
+
+button:active, #add-button:active, #search-button:active {
+    transform: scale(0.9);
+}
+
+#add-button, #search-button {
+    font-size: 1em;
+    color: white;
+    background-color: rgb(0, 119, 255);
+}
+
+#ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+   
+}
+
+#ingredient-list li {
+    list-style-type: none;
+    padding: 5px 10px;
+    padding-right: 5px;
+    background-color: lightgray;
+    border-radius: 10px;
+    align-items: center;
+}
+
+#ingredient-list li button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    color: black;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+#ingredient-list li button:hover {
+    background-color: #ff5454;
+}
+
+/* PLANNER STYLING */
+.meal-planner {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.meal-planner th, .meal-planner td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.meal-planner th {
+    background-color: #f2f2f2;
+}
+
+.meal-planner tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* recipe CARD STYLING */
+.recipe-card {
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 0 10px lightgrey;
+}
+
+.recipe-info {
+    margin-bottom: 10px;
+}
+
+.recipe-card button {
+    margin-right: 10px;
+}
+
+.recipe-image {
+    width: 100px;  
+    height: 100px; 
+    overflow: hidden;
+}
+
+.recipe-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.recipe-card h3 {
+    margin: 0;
+}
+
