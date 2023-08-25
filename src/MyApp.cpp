@@ -106,9 +106,57 @@ void MyApp::OnFinishLoading(ultralight::View *caller,
   ///
 }
 
-// MyApp.cpp
+
+std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
+    std::cout << "convertRecipesToJson called" << std::endl;
+    std::string json = "[";
+
+    std::cout << "recipes.size(): " << recipes.size() << std::endl;
+    for (const Recipe& recipe : recipes) {
+        std::cout << "recipe: " << recipe.getName() << std::endl;
+        json += "{ ";
+        json += "\"recipeId\": " + std::to_string(recipe.getId()) + ",";
+        json += "\"recipeName\": \"" + recipe.getName() + "\",";
+        json += "\"authorId\": " + std::to_string(recipe.getAuthorId()) + ",";
+
+        json += "\"cookTime\": " + std::to_string(recipe.getCookTime()) + ",";
+        json += "\"prepTime\": " + std::to_string(recipe.getPrepTime()) + ",";
+        json += "\"totalTime\": " + std::to_string(recipe.getTotalTime()) + ",";
+        json += "\"datePublished\": \"" + recipe.getDatePublished() + "\",";
+        json += "\"description\": \"" + recipe.getDescription() + "\",";
+        json += "\"category\": \"" + recipe.getCategory() + "\",";
+        json += "\"calories\": " + std::to_string(recipe.getCalories()) + ",";
+        json += "\"servings\": " + std::to_string(recipe.getServings()) + ",";
+        json += "\"yieldQuantity\": " + std::to_string(recipe.getYieldQuantity());
+        
+
+        if (json.back() == ',') json.pop_back(); 
+        json += " },";
+    }
+    if (json.back() == ',') json.pop_back();
+    json += "]";
+
+    return json;
+}
+
+
+
+JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
+    std::cout << "SearchRecipes called" << std::endl;
+    ultralight::String jsStr = args[0].ToString();
+    std::string query = std::string(jsStr.utf8().data());
+
+    RecipeDatabase recipeDB;
+    std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(query);
+    std::string jsonRecipes = convertRecipesToJson(recipes);
+
+    std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
+
+    return JSValue(jsonRecipes.c_str());
+}
 
 JSValue MyApp::GetMessage(const JSObject& thisObject, const JSArgs& args) {
+    std::cout << "GetMessage called" << std::endl;
     ///
     /// Return our message to JavaScript as a JSValue.
     ///
@@ -119,6 +167,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
                 bool is_main_frame,
                 const String &url) {
+  std::cout << "OnDOMReady called" << std::endl;
   ///
   /// Set our View's JSContext as the one to use in subsequent JSHelper calls
   ///
@@ -131,6 +180,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["GetMessage"] = BindJSCallbackWithRetval(&MyApp::GetMessage);
+  global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,

@@ -6,6 +6,8 @@
 #include <JavaScriptCore/JSObjectRef.h>
 #include <JavaScriptCore/JSValueRef.h>
 
+#include "recipeDatabase.h"
+
 using namespace ultralight;
 
 class MyApp : public AppListener,
@@ -36,7 +38,12 @@ public:
                                bool is_main_frame,
                                const String &url) override;
 
+
+  JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
+
   JSValue GetMessage(const JSObject &thisObject, const JSArgs &args);
+
+  std::string convertRecipesToJson(const std::vector<Recipe>& recipes);
 
   // This is called when the DOM has loaded in one of its frames.
   virtual void OnDOMReady(ultralight::View *caller,

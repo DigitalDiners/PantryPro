@@ -5,6 +5,8 @@
 #include "recipeImage.h"
 #include "databaseConnection.h"
 #include <string>
+#include <sstream>
+
 
 /**
  * @class RecipeDatabase
@@ -42,6 +44,13 @@ public:
      * @return The RecipeImage object corresponding to the given ID or a default RecipeImage object if not found.
      */
     RecipeImage getRecipeImage(int id, int imageNumber);
+
+    /**
+     * @brief Construct a new Recipe Database::get Recipes By Search object
+     * 
+     * @param search 
+     */
+    std::vector<Recipe> getRecipesBySearch(const std::string &search);
 };
 
 #endif  // RECIPE_DATABASE_H
