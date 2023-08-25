@@ -7,10 +7,39 @@
 #define WINDOW_HEIGHT 400
 
 MyApp::MyApp() {
+      // Example of using the RecipeDatabase class to create an instance of a Recipe object 
+    // and return its value
+	ultralight::Config config;
+  ultralight::Settings settings;
+
+	ultralight::Platform::instance().set_config(config);
+    
+    //ultralight::Platform& ultralight::Platform::instance();
+    // ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
+
+    // ultralight::RefPtr<ultralight::View> view = ultralight::Renderer::CreateView(renderer.get(), 800, 600, false);
+
+    ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
+    
+    const ultralight::ViewConfig viewFig;
+
+    ultralight::RefPtr<ultralight::View> view = renderer->CreateView(800, 600, viewFig, nullptr);
+
+
+// ul::RefPtr<ul::View> newView;
+// 	newView = renderer->CreateView(800, 600, false, nullptr);
+
+    RecipeDatabase db;
+    Recipe recipe = db.getRecipeById(38);
+
+  RecipeAPI* recipeApi = new RecipeAPI(&recipe); // Instantiate your C++ class
+
+// overlay->view()->SetJSContextGlobalObject("RecipeAPI", &recipeApi); // Expose the C++ object to JavaScript
+// overlay->view()->LoadURL("your_html_file.html");
   ///
   /// Create our main App instance.
   ///
-  app_ = App::Create();
+  app_ = App::Create(settings, config);
 
   ///
   /// Create a resizable window by passing by OR'ing our window flags with
@@ -23,7 +52,8 @@ MyApp::MyApp() {
   /// Create our HTML overlay-- we don't care about its initial size and
   /// position because it'll be calculated when we call OnResize() below.
   ///
-  overlay_ = Overlay::Create(window_, 1, 1, 0, 0);
+  //overlay_ = Overlay::Create(window_, 1, 1, 0, 0);
+ultralight::RefPtr<ultralight::Overlay> overlay = ultralight::Overlay::Create(window_, view, 0, 0);
 
   ///
   /// Force a call to OnResize to perform size/layout of our overlay.

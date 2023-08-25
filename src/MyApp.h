@@ -5,6 +5,14 @@
 #include <JavaScriptCore/JSStringRef.h>
 #include <JavaScriptCore/JSObjectRef.h>
 #include <JavaScriptCore/JSValueRef.h>
+#include "recipeAPI.h"
+#include <Ultralight/Ultralight.h>
+#include <Ultralight/platform/Config.h>
+#include <Ultralight/platform/Platform.h>
+#include <Ultralight/Renderer.h>
+#include <Ultralight/View.h>
+#include <Ultralight/String.h> // Include this for Ultralight String type
+
 
 using namespace ultralight;
 

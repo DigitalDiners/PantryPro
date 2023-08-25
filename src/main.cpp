@@ -7,24 +7,12 @@
 #include <Ultralight/platform/Config.h>
 #include <Ultralight/platform/Platform.h>
 #include <Ultralight/Renderer.h>
+#include <Ultralight/View.h>
 #include <Ultralight/String.h> // Include this for Ultralight String type
 
 
 int main()
 {
-    // Example of using the RecipeDatabase class to create an instance of a Recipe object 
-    // and return its value
-    ultralight::RefPtr<ultralight::Platform> platform = ultralight::Platform::Create();
-    ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
-
-    ultralight::RefPtr<ultralight::View> view = ultralight::View::Create(renderer.get(), 800, 600, false);
-    ultralight::RefPtr<ultralight::Overlay> overlay = ultralight::Overlay::Create(*view, 800, 600, 0, 0);
-
-    RecipeAPI recipeApi; // Instantiate your C++ class
-
-    overlay->view()->SetJSContextGlobalObject("RecipeAPI", &recipeApi); // Expose the C++ object to JavaScript
-    overlay->view()->LoadURL("your_html_file.html");
-
     RecipeDatabase db;
     Recipe recipe = db.getRecipeById(38);
     std::cout << "Recipe Name: " << recipe.getName() << std::endl;
