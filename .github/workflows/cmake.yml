@@ -82,13 +82,14 @@ jobs:
       - name: Compile and run tests
         working-directory: ${{github.workspace}}/tests
         run: |
-          Get-ChildItem -Path . -File -Recurse | ForEach-Object { Write-Host $_.FullName }
+          ls -R
           g++ --coverage test.cpp -o coverage1
           g++ --coverage plannerTests.cpp -o coverage2
           g++ --coverage recipeTests.cpp -o coverage3
           ./coverage1
           ./coverage2
           ./coverage3
+          ls -R
           gcovr -r ../ --xml -o coverage.xml
 
       - name: Upload coverage report to Codecov
