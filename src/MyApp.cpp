@@ -11,9 +11,11 @@ MyApp::MyApp() {
     // and return its value
 	ultralight::Config config;
   ultralight::Settings settings;
+  std::cout<<"config and settings";
 
 	ultralight::Platform::instance().set_config(config);
-    
+  std::cout<<" set platform instance";
+ 
     //ultralight::Platform& ultralight::Platform::instance();
     // ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
 
@@ -21,9 +23,12 @@ MyApp::MyApp() {
 
     ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
     
+  std::cout<<"create renderer";
+
     const ultralight::ViewConfig viewFig;
 
     ultralight::RefPtr<ultralight::View> view = renderer->CreateView(800, 600, viewFig, nullptr);
+  std::cout<<"create view";
 
 
 // ul::RefPtr<ul::View> newView;
@@ -33,6 +38,7 @@ MyApp::MyApp() {
     Recipe recipe = db.getRecipeById(38);
 
   RecipeAPI* recipeApi = new RecipeAPI(&recipe); // Instantiate your C++ class
+  std::cout<<"instantiate c++ class";
 
 // overlay->view()->SetJSContextGlobalObject("RecipeAPI", &recipeApi); // Expose the C++ object to JavaScript
 // overlay->view()->LoadURL("your_html_file.html");
@@ -40,6 +46,7 @@ MyApp::MyApp() {
   /// Create our main App instance.
   ///
   app_ = App::Create(settings, config);
+  std::cout<<"create app";
 
   ///
   /// Create a resizable window by passing by OR'ing our window flags with
@@ -47,6 +54,7 @@ MyApp::MyApp() {
   ///
   window_ = Window::Create(app_->main_monitor(), WINDOW_WIDTH, WINDOW_HEIGHT,
     false, kWindowFlags_Titled | kWindowFlags_Resizable);
+  std::cout<<"create window";
 
   ///
   /// Create our HTML overlay-- we don't care about its initial size and
@@ -54,6 +62,7 @@ MyApp::MyApp() {
   ///
   //overlay_ = Overlay::Create(window_, 1, 1, 0, 0);
 ultralight::RefPtr<ultralight::Overlay> overlay = ultralight::Overlay::Create(window_, view, 0, 0);
+  std::cout<<"create overlay";
 
   ///
   /// Force a call to OnResize to perform size/layout of our overlay.
@@ -64,6 +73,7 @@ ultralight::RefPtr<ultralight::Overlay> overlay = ultralight::Overlay::Create(wi
   /// Load a page into our overlay's View
   ///
   overlay_->view()->LoadURL("file:///app.html");
+  std::cout<<"load url";
 
   ///
   /// Register our MyApp instance as an AppListener so we can handle the
