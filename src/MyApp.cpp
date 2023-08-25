@@ -94,15 +94,24 @@ void MyApp::OnFinishLoading(ultralight::View* caller,
   ///
 }
 
-void MyApp::OnDOMReady(ultralight::View* caller,
-                       uint64_t frame_id,
-                       bool is_main_frame,
-                       const String& url) {
-  ///
-  /// This is called when a frame's DOM has finished loading on the page.
-  ///
-  /// This is the best time to setup any JavaScript bindings.
-  ///
+void MyApp::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+    JSObject global = JSGlobalObject();
+    displayIngredients = global["displayIngredients"];
+    addIngredient = global["addIngredient"];
+    removeIngredient = global["removeIngredient"];
+    global["AddNewIngredient"] = BindJSCallbackWithRetval(&MyApp::AddNewIngredient);
+}
+
+JSValue MyApp::AddNewIngredient(const JSObject& thisObject, const JSArgs& args){
+    //RefPtr<JSContext> lock(view() -> LockJSContext());
+    //addIngredient(String newIngredient);
+    //std::vector<string> ingredients;
+    std::cout<< "add new ingredient";
+    //std::cout<< thisObject;
+    std::cout<< "flour "<<'\n';
+    //std::string input = "flour";
+    //ingredients.push_back(input);
+    return JSValue();
 }
 
 void MyApp::OnChangeCursor(ultralight::View* caller,

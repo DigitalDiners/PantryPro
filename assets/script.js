@@ -13,6 +13,12 @@ function addIngredient() {
     }
 }
 
+function pleaseWork(input){
+    console.log("in the function");
+    AddNewIngredient(input);
+    console.log("after bind method");
+}
+
 add_button = document.getElementById("add-button");
 document.getElementById("ingredient-input").addEventListener('keydown', function(event) {
     if (event.keyCode === 13) {

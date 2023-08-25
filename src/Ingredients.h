@@ -18,8 +18,6 @@ using ultralight::JSArgs;
 using ultralight::JSFunction;
 using namespace ultralight;
 
-using namespace std;
-
 
 class Ingredients {
  public:

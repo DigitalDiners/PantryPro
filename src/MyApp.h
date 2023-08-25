@@ -1,5 +1,21 @@
 #pragma once
 #include <AppCore/AppCore.h>
+#include <string>
+#include <vector>
+#include <AppCore/AppCore.h>
+#include <map>
+#include <memory>
+#include <iostream>
+#include <stdio.h>
+#include "Ingredients.h"
+
+using namespace std;
+
+using ultralight::JSObject;
+using ultralight::JSArgs;
+using ultralight::JSFunction;
+using namespace ultralight;
+
 
 using namespace ultralight;
 
@@ -42,6 +58,13 @@ public:
 
   virtual void OnChangeTitle(ultralight::View* caller,
     const String& title) override;
+
+JSFunction displayIngredients;
+JSFunction addIngredient;
+JSFunction removeIngredient;
+
+    JSValue AddNewIngredient(const JSObject& thisObject, const JSArgs& args);
+
 
 protected:
   RefPtr<App> app_;

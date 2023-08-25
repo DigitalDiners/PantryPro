@@ -5,13 +5,14 @@
 //Add ingredient
 //Remove ingredient
 //Display ingredients
-void Ingredients::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
-    JSObject global = JSGlobalObject();
-    displayIngredients = global["displayIngredients"];
-    addIngredient = global["addIngredient"];
-    removeIngredient = global["removeIngredient"];
-    global["AddNewIngredient"] = BindJSCallbackWithRetval(&Ingredients::AddNewIngredient);
-}
+
+// void Ingredients::OnDOMReady(View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+//     JSObject global = JSGlobalObject();
+//     displayIngredients = global["displayIngredients"];
+//     addIngredient = global["addIngredient"];
+//     removeIngredient = global["removeIngredient"];
+//     global["AddNewIngredient"] = BindJSCallbackWithRetval(&Ingredients::AddNewIngredient);
+// }
 
 void Ingredients::prep() {
     JSObject global = JSGlobalObject();
