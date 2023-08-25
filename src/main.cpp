@@ -15,8 +15,8 @@ int main()
     // Ingredients ni;
     // ni.prep();
 
-    // UltralightInitializer ultralightInitializer;
-    // ultralightInitializer.Initialize();
+    UltralightInitializer ultralightInitializer;
+    ultralightInitializer.Initialize();
 
    //ni.AddNewIngredient("hellooo");
 
@@ -30,7 +30,7 @@ int main()
     MyApp app;
     app.Run();
 
-    // ultralightInitializer.Shutdown();
+    ultralightInitializer.Shutdown();
 
     return 0;
 }
