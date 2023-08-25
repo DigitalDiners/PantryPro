@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "recipeDatabase.h"
 #include <iostream>
@@ -91,3 +92,5 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
 }
 
 >>>>>>> 125ec19 (added feature to query reviews)
+=======
+>>>>>>> e6d7d60 (added methods in MyApp to send recipe json to js)

@@ -1,4 +1,4 @@
-let ingredients = [];
+//let ingredients = [];
 
 function addIngredient() {
     const ingredientInput = document.getElementById('ingredient-input');
