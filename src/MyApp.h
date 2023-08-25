@@ -1,4 +1,9 @@
 #pragma once
+#include <string>
+#include "recipe.h"
+#include "recipeAPI.h"
+#include "recipeDatabase.h"
+
 #include <AppCore/AppCore.h>
 #include <JavaScriptCore/JSBase.h>
 #include <JavaScriptCore/JSContextRef.h>

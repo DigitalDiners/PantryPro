@@ -18,6 +18,12 @@ set(SSL_LIB "${MYSQLCPPCON_LIB_DIR}/libssl.3.dylib")
 
 include(cmake/App.cmake)
 
+
+# Define BASE_DIR macro
+add_compile_definitions(BASE_DIRECT="${CMAKE_SOURCE_DIR}")
+message("${CMAKE_SOURCE_DIR}")
+
+
 set(SOURCES "src/MyApp.h"
             "src/MyApp.cpp"
             "src/databaseConnection.h"

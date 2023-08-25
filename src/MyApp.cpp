@@ -13,15 +13,38 @@ MyApp::MyApp() {
   ultralight::Settings settings;
   std::cout<<"config and settings";
 
-	ultralight::Platform::instance().set_config(config);
-  std::cout<<" set platform instance";
+	// ultralight::Platform::instance().set_config(config);
  
-    //ultralight::Platform& ultralight::Platform::instance();
-    // ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
+// Get the Platform singleton (maintains global library state)
+auto& platform = Platform::instance();
+ 
+  std::cout<<" set platform instance";
+// Setup config
+Config my_config;
+platform.set_config(my_config);
+ 
+// Create platform handlers (these are the minimum required)
+// (This is pseudo-code, you will need to define your own)
+ultralight::String filePath = BASE_DIRECT;
+// MyFileSystem* file_system = new ultralight::GetPlatformFileSystem (&baseDir);
+// MyFontLoader* font_loader = new ultralight::GetPlatformFontLoader;
 
-    // ultralight::RefPtr<ultralight::View> view = ultralight::Renderer::CreateView(renderer.get(), 800, 600, false);
+FileSystem* file_system = ultralight::GetPlatformFileSystem(filePath);
+  std::cout<<"create file system";
 
-    ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
+FontLoader* font_loader = ultralight::GetPlatformFontLoader	(		)	;
+  std::cout<<"create font loader";
+
+ 	
+// Setup platform handlers
+platform.set_file_system(file_system);
+platform.set_font_loader(font_loader);
+  std::cout<<"set platform";
+
+ 
+// Create the Renderer
+RefPtr<Renderer> renderer = Renderer::Create();
+    //ultralight::RefPtr<ultralight::Renderer> renderer = ultralight::Renderer::Create();
     
   std::cout<<"create renderer";
 
@@ -45,7 +68,7 @@ MyApp::MyApp() {
   ///
   /// Create our main App instance.
   ///
-  app_ = App::Create(settings, config);
+  app_ = App::Create();
   std::cout<<"create app";
 
   ///
