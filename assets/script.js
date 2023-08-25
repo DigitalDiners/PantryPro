@@ -87,10 +87,9 @@ function displayCard(recipe) {
     // };
     // card.appendChild(addToPlannerButton);
     
-
+    // Create and set the recipeInfo display
     searchResults.appendChild(card);
 }
-
 
 // add_button = document.getElementById("add-button");
 // document.getElementById("ingredient-input").addEventListener('keydown', function(event) {

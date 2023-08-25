@@ -1,5 +1,6 @@
 #include "recipeDatabase.h"
 #include <iostream>
+#include <vector>
 
 Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
@@ -130,3 +131,4 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
 
     return reviews;
 }
+

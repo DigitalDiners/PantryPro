@@ -4,14 +4,10 @@
 
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
-#include "recipe.h"
-#include "recipeDatabase.h"
 
-#include <AppCore/JSHelpers.h>
-#include <Ultralight/Ultralight.h>
-
-#define WINDOW_WIDTH 1000
+#define WINDOW_WIDTH  1000
 #define WINDOW_HEIGHT 800
+
 
 MyApp::MyApp()
 {

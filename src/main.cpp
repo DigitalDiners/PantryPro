@@ -6,11 +6,9 @@
 
 #include <vector>
 
-
-
 int main()
 {
-    // Example of using the recipeDatabase class to create an instance of a recipe object
+    // Example of using the RecipeDatabase class to create an instance of a Recipe object
     // and return its name and instructions
     std::cout << "-------------" << std::endl;
     RecipeDatabase db;

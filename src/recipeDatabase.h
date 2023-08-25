@@ -47,6 +47,7 @@ public:
     RecipeImage getRecipeImage(int id, int imageNumber);
 
     /**
+
      * @brief Construct a new Recipe Database::get Recipes By Search object
      * 
      * @param search 
@@ -54,13 +55,13 @@ public:
     std::vector<Recipe> getRecipesBySearch(const std::vector<std::string> &ingredients);
 
     /**
+
      * @brief Get the Reviews By Recipe Id object
      * 
      * @param recipeId The unique identifier of the recipe to fetch the reviews from.
      * @return A vector of Review objects corresponding to the given recipe ID or an empty vector if not found.
      */
     std::vector<Review> getReviewsByRecipeId(int recipeId);
-
 
 };
 
