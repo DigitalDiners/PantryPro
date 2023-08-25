@@ -1,69 +1,64 @@
-#include "Recipe.h"
-
-using namespace std;
+#include "recipe.h"
 
 
-/**
- * setting methods to create or edit recipes
-*/
 
-void Recipe::setRecipeID(int id) {
-    recipeID = id;
+Recipe::Recipe(int id, const std::string& name, int aId,
+               int cTime, int pTime, int tTime, const std::string& dPublished,
+               const std::string& desc, const std::string& cat,
+               int cal, int serv, int yieldQ, const std::string& instructions) 
+    : recipeId(id), recipeName(name), authorId(aId),
+      cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
+      description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ), instructions(instructions) {}
+
+Recipe::Recipe(){}
+int Recipe::getId() const {
+    return recipeId;
 }
 
-void Recipe::setRecipeName(const std::string& name) {
-    recipeName = name;
+std::string Recipe::getName() const {
+    return recipeName;
 }
 
-void Recipe::setPrepTime(const std::string& prep) {
-    prepTime = prep;
+int Recipe::getAuthorId() const {
+    return authorId;
 }
 
-void Recipe::setTotalTime(const std::string& total) {
-    totalTime = total;
+int Recipe::getCookTime() const {
+    return cookTime;
 }
 
-void Recipe::setCategory(const std::string& cat) {
-    category = cat;
+int Recipe::getPrepTime() const {
+    return prepTime;
 }
 
-void Recipe::setCalories(float cal) {
-    calories = cal;
+int Recipe::getTotalTime() const {
+    return totalTime;
 }
 
-void Recipe::addIngredient(const Ingredients& ingredient) {
-    ingredients.push_back(ingredient);
+std::string Recipe::getDatePublished() const {
+    return datePublished;
 }
 
-
-
-/**
- * getting methods to get all parts of each recipe
- */
-int Recipe::getRecipeID(Recipe recipe) { 
-    return recipe.recipeID; 
-}
-    
-string Recipe::getRecipeName(Recipe recipe) { 
-    return recipe.recipeName; 
-}
-    
-string Recipe::getPrepTime(Recipe recipe) { 
-    return recipe.prepTime; 
-}
-    
-string Recipe::getTotalTime(Recipe recipe) { 
-    return recipe.totalTime; 
+std::string Recipe::getDescription() const {
+    return description;
 }
 
-string Recipe::getCategory(Recipe recipe) {
-     return recipe.category; 
+std::string Recipe::getCategory() const {
+    return category;
 }
 
-float Recipe::getCalories(Recipe recipe) { 
-    return recipe.calories; 
+int Recipe::getCalories() const {
+    return calories;
 }
 
-const vector<Ingredients>& Recipe::getIngredients() const {
-    return ingredients;
+int Recipe::getServings() const {
+    return servings;
+}
+
+int Recipe::getYieldQuantity() const {
+    return yieldQuantity;
+}
+
+std::string Recipe::getInstructions() const {
+    return instructions;
 }
