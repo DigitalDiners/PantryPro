@@ -106,30 +106,3 @@ function addToPlanner(recipeID, day) {
 const samplerecipe = getrecipeInfo(1);
 displayCard(samplerecipe);
 
-/* GPTD */
-function exportTableToCSV(filename) {
-    var csv = [];
-    var rows = document.querySelectorAll(".meal-planner tr");
-    
-    for (var i = 0; i < rows.length; i++) {
-        var row = [], cols = rows[i].querySelectorAll("td, th");
-        
-        for (var j = 0; j < cols.length; j++) {
-            // To handle commas in the content and multiline data:
-            var cellContent = cols[j].innerText.replace(/"/g, '""');
-            cellContent = '"' + cellContent + '"';
-            row.push(cellContent);
-        }
-        
-        csv.push(row.join(","));        
-    }
-
-    // Create CSV file and download
-    var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-    var downloadLink = document.createElement("a");
-    downloadLink.download = filename;
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-    downloadLink.style.display = "none";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-}
