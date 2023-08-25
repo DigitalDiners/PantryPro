@@ -9,18 +9,12 @@ int main()
     // Example of using the RecipeDatabase class to create an instance of a Recipe object 
     // and return its value
 
-    std::cout << "Test" << std::endl;
-
     RecipeDatabase db;
     Recipe recipe = db.getRecipeById(38);
     std::cout << "Recipe Name: " << recipe.getName() << std::endl;
 
     RecipeImage image = db.getRecipeImage(39, 1);
     std::cout << "Recipe Image URL: " << image.getImageURL() << std::endl;
-
-    std::vector<Recipe> results = db.getRecipesBySearch("chicken");
-    std::cout << "Number of results: " << results.size() << std::endl;
-    std::cout << "First result: " << results[0].getName() << std::endl;
 
     MyApp app;
     app.Run();
