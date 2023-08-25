@@ -8,9 +8,14 @@
 #include "recipeAPI.h"
 #include "recipeDatabase.h"
 
-#define WINDOW_WIDTH  1000
+#include <AppCore/JSHelpers.h>
+#include <Ultralight/Ultralight.h>
+
+#define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 800
 
+MyApp::MyApp()
+{
 MyApp::MyApp()
 {
   ///
@@ -177,46 +182,24 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   /// This is the best time to setup any JavaScript bindings.
   ///
 
-  auto jsContextLock = caller->LockJSContext(); 
-  JSContextRef ctx = jsContextLock->ctx();
+void MyApp::OnDOMReady(ultralight::View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+    if (!is_main_frame)
+        return;
 
-    RecipeDatabase db;
-    Recipe myRecipe = db.getRecipeById(38);
-    RecipeAPI* recipeAPI = new RecipeAPI(&myRecipe);
+    auto& global_context = caller->LockJSContext();
+    ultralight::SetJSContext(global_context);
 
-    JSClassDefinition classDef = kJSClassDefinitionEmpty;
-    classDef.className = "RecipeAPI";
-    classDef.finalize = [](JSObjectRef obj) {
-        RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(obj));
-        delete api;
-    };
+    auto global_object = ultralight::JSGlobalObject();
 
-    JSStaticFunction staticFunctions[] = {
-        { "getId", &RecipeAPI::getId, kJSPropertyAttributeNone },
-        { "getName", &RecipeAPI::getName, kJSPropertyAttributeNone },
-        { "getAuthorId", &RecipeAPI::getAuthorId, kJSPropertyAttributeNone },
-        { "getCookTime", &RecipeAPI::getCookTime, kJSPropertyAttributeNone },
-        { "getPrepTime", &RecipeAPI::getPrepTime, kJSPropertyAttributeNone },
-        { "getTotalTime", &RecipeAPI::getTotalTime, kJSPropertyAttributeNone },
-        { "getDatePublished", &RecipeAPI::getDatePublished, kJSPropertyAttributeNone },
-        { "getDescription", &RecipeAPI::getDescription, kJSPropertyAttributeNone },
-        { "getCategory", &RecipeAPI::getCategory, kJSPropertyAttributeNone },
-        { "getCalories", &RecipeAPI::getCalories, kJSPropertyAttributeNone },
-        { "getServings", &RecipeAPI::getServings, kJSPropertyAttributeNone },
-        { "getYieldQuantity", &RecipeAPI::getYieldQuantity, kJSPropertyAttributeNone},
-        { NULL, NULL, 0 }
-    };
+    // Set up the RecipeAPI object
+    ultralight::JSObject recipeAPI = ultralight::JSObject::MakeEmptyObject();
 
-    classDef.staticFunctions = staticFunctions;
+    recipeAPI["getId"] = BindJSCallbackWithRetval(&RecipeAPI::GetId);
+    // ... Bind other methods similarly
 
-    JSClassRef classRef = JSClassCreate(&classDef);
-    JSObjectRef obj = JSObjectMake(ctx, classRef, recipeAPI);
+    global_object["recipeAPI"] = recipeAPI;
 
-    // Set the RecipeAPI object in the global JavaScript context.
-    JSStringRef str = JSStringCreateWithUTF8CString("recipeAPI");
-    JSObjectSetProperty(ctx, JSContextGetGlobalObject(ctx), str, obj, kJSPropertyAttributeNone, NULL);
-    JSStringRelease(str);
-
+    caller->UnlockJSContext();
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
@@ -240,5 +223,3 @@ void MyApp::OnChangeTitle(ultralight::View *caller,
   ///
   window_->SetTitle(title.utf8().data());
 }
-
-
