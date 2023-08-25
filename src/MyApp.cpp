@@ -118,6 +118,11 @@ std::string MyApp::removeQuotes(const std::string& input) {
     result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
     return result;
 }
+std::string MyApp::removeQuotes(const std::string& input) {
+    std::string result = input;
+    result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
+    return result;
+}
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
     std::cout << "convertRecipesToJson called" << std::endl;
@@ -169,7 +174,22 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+void MyApp::OnDOMReady(ultralight::View *caller,
+                uint64_t frame_id,
+                bool is_main_frame,
+                const String &url) {
+  std::cout << "OnDOMReady called" << std::endl;
+  ///
+  /// Set our View's JSContext as the one to use in subsequent JSHelper calls
+  ///
+  RefPtr<JSContext> context = caller->LockJSContext();
+  SetJSContext(context->ctx());
 
+  JSObject global = JSGlobalObject();
+
+  global["GetMessage"] = BindJSCallbackWithRetval(&MyApp::GetMessage);
+  global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+}
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
                            Cursor cursor)
