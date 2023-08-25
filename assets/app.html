@@ -8,11 +8,12 @@
   <script>
     function testBindings() {
       try {
+        console.log("testBindings called");
         // Calling the C++ bound methods.
-        let id = Recipe.getId();
-        let name = Recipe.getName();
-        let authorId = Recipe.getAuthorId();
-        let cookTime = Recipe.getCookTime();
+        let id = recipeAPI.getId();
+        let name = recipeAPI.getName();
+        let authorId = recipeAPI.getAuthorId();
+        let cookTime = recipeAPI.getCookTime();
 
         // Displaying the results.
         document.getElementById('id').textContent = id;
@@ -23,6 +24,7 @@
         console.error("Error in testBindings:", error);
       }
     }
+
   </script>
 </head>
 

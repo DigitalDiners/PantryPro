@@ -3,10 +3,14 @@
 #include "recipeAPI.h"
 #include "recipeDatabase.h"
 
-#define WINDOW_WIDTH  600
+#include <AppCore/JSHelpers.h>
+#include <Ultralight/Ultralight.h>
+
+#define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 400
 
-MyApp::MyApp() {
+MyApp::MyApp()
+{
   ///
   /// Create our main App instance.
   ///
@@ -17,7 +21,7 @@ MyApp::MyApp() {
   /// kWindowFlags_Resizable.
   ///
   window_ = Window::Create(app_->main_monitor(), WINDOW_WIDTH, WINDOW_HEIGHT,
-    false, kWindowFlags_Titled | kWindowFlags_Resizable);
+                           false, kWindowFlags_Titled | kWindowFlags_Resizable);
 
   ///
   /// Create our HTML overlay-- we don't care about its initial size and
@@ -60,14 +64,17 @@ MyApp::MyApp() {
   overlay_->view()->set_view_listener(this);
 }
 
-MyApp::~MyApp() {
+MyApp::~MyApp()
+{
 }
 
-void MyApp::Run() {
+void MyApp::Run()
+{
   app_->Run();
 }
 
-void MyApp::OnUpdate() {
+void MyApp::OnUpdate()
+{
   ///
   /// This is called repeatedly from the application's update loop.
   ///
@@ -75,11 +82,13 @@ void MyApp::OnUpdate() {
   ///
 }
 
-void MyApp::OnClose(ultralight::Window* window) {
+void MyApp::OnClose(ultralight::Window *window)
+{
   app_->Quit();
 }
 
-void MyApp::OnResize(ultralight::Window* window, uint32_t width, uint32_t height) {
+void MyApp::OnResize(ultralight::Window *window, uint32_t width, uint32_t height)
+{
   ///
   /// This is called whenever the window changes size (values in pixels).
   ///
@@ -88,69 +97,43 @@ void MyApp::OnResize(ultralight::Window* window, uint32_t width, uint32_t height
   overlay_->Resize(width, height);
 }
 
-void MyApp::OnFinishLoading(ultralight::View* caller,
+void MyApp::OnFinishLoading(ultralight::View *caller,
                             uint64_t frame_id,
                             bool is_main_frame,
-                            const String& url) {
+                            const String &url)
+{
   ///
   /// This is called when a frame finishes loading on the page.
   ///
 }
 
-void MyApp::OnDOMReady(ultralight::View* caller,
-                       uint64_t frame_id,
-                       bool is_main_frame,
-                       const String& url) {
-  ///
-  /// This is called when a frame's DOM has finished loading on the page.
-  ///
-  /// This is the best time to setup any JavaScript bindings.
-  ///
+// MyApp.cpp
 
-  auto jsContextLock = caller->LockJSContext(); 
-  JSContextRef ctx = jsContextLock->ctx();
+void MyApp::OnDOMReady(ultralight::View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
+    if (!is_main_frame)
+        return;
 
-    RecipeDatabase db;
-    Recipe myRecipe = db.getRecipeById(38);
-    RecipeAPI* recipeAPI = new RecipeAPI(&myRecipe);
+    auto& global_context = caller->LockJSContext();
+    ultralight::SetJSContext(global_context);
 
-    JSClassDefinition classDef = kJSClassDefinitionEmpty;
-    classDef.className = "RecipeAPI";
-    classDef.finalize = [](JSObjectRef obj) {
-        RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(obj));
-        delete api;
-    };
+    auto global_object = ultralight::JSGlobalObject();
 
-    JSStaticFunction staticFunctions[] = {
-        { "getId", &RecipeAPI::getId, kJSPropertyAttributeNone },
-        { "getName", &RecipeAPI::getName, kJSPropertyAttributeNone },
-        { "getAuthorId", &RecipeAPI::getAuthorId, kJSPropertyAttributeNone },
-        { "getCookTime", &RecipeAPI::getCookTime, kJSPropertyAttributeNone },
-        { "getPrepTime", &RecipeAPI::getPrepTime, kJSPropertyAttributeNone },
-        { "getTotalTime", &RecipeAPI::getTotalTime, kJSPropertyAttributeNone },
-        { "getDatePublished", &RecipeAPI::getDatePublished, kJSPropertyAttributeNone },
-        { "getDescription", &RecipeAPI::getDescription, kJSPropertyAttributeNone },
-        { "getCategory", &RecipeAPI::getCategory, kJSPropertyAttributeNone },
-        { "getCalories", &RecipeAPI::getCalories, kJSPropertyAttributeNone },
-        { "getServings", &RecipeAPI::getServings, kJSPropertyAttributeNone },
-        { "getYieldQuantity", &RecipeAPI::getYieldQuantity, kJSPropertyAttributeNone},
-        { NULL, NULL, 0 }
-    };
+    // Set up the RecipeAPI object
+    ultralight::JSObject recipeAPI = ultralight::JSObject::MakeEmptyObject();
 
-    classDef.staticFunctions = staticFunctions;
+    recipeAPI["getId"] = BindJSCallbackWithRetval(&RecipeAPI::GetId);
+    // ... Bind other methods similarly
 
-    JSClassRef classRef = JSClassCreate(&classDef);
-    JSObjectRef obj = JSObjectMake(ctx, classRef, recipeAPI);
+    global_object["recipeAPI"] = recipeAPI;
 
-    // Set the RecipeAPI object in the global JavaScript context.
-    JSStringRef str = JSStringCreateWithUTF8CString("recipeAPI");
-    JSObjectSetProperty(ctx, JSContextGetGlobalObject(ctx), str, obj, kJSPropertyAttributeNone, NULL);
-    JSStringRelease(str);
-
+    caller->UnlockJSContext();
 }
 
-void MyApp::OnChangeCursor(ultralight::View* caller,
-                           Cursor cursor) {
+
+
+void MyApp::OnChangeCursor(ultralight::View *caller,
+                           Cursor cursor)
+{
   ///
   /// This is called whenever the page requests to change the cursor.
   ///
@@ -159,8 +142,9 @@ void MyApp::OnChangeCursor(ultralight::View* caller,
   window_->SetCursor(cursor);
 }
 
-void MyApp::OnChangeTitle(ultralight::View* caller,
-                          const String& title) {
+void MyApp::OnChangeTitle(ultralight::View *caller,
+                          const String &title)
+{
   ///
   /// This is called whenever the page requests to change the title.
   ///
@@ -168,5 +152,3 @@ void MyApp::OnChangeTitle(ultralight::View* caller,
   ///
   window_->SetTitle(title.utf8().data());
 }
-
-

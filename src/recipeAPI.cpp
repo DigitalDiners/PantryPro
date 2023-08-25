@@ -1,77 +1,44 @@
 #include "recipeAPI.h"
+#include "recipeDatabase.h"
 
-RecipeAPI::RecipeAPI(Recipe* recipe) : recipe_(recipe) {}
+#include <Ultralight/Ultralight.h>
+#include <AppCore/JSHelpers.h>
+#include <b/Ultralight/View.h>
 
-JSValueRef RecipeAPI::getId(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getId());
+
+void RecipeAPI::BindToJS(ultralight::View* view) {
+    auto& js_context = view->js_context();
+    ultralight::SetJSContext(js_context);
+    auto global_object = ultralight::JSGlobalObject();
+
+    // Create our "recipeAPI" JavaScript object.
+    ultralight::JSObject recipeAPI;
+
+    recipeAPI["getId"] = ultralight::Bind(RecipeAPI::GetId);
+    recipeAPI["getName"] = ultralight::Bind(RecipeAPI::GetName);
+    recipeAPI["getAuthorId"] = ultralight::Bind(RecipeAPI::GetAuthorId);
+    recipeAPI["getCookTime"] = ultralight::Bind(RecipeAPI::GetCookTime);
+
+    // Add the "recipeAPI" object to the global JS context so it can be accessed from JS.
+    global_object["recipeAPI"] = recipeAPI;
 }
 
-JSValueRef RecipeAPI::getName(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    JSStringRef str = JSStringCreateWithUTF8CString(api->recipe_->getName().c_str());
-    JSValueRef result = JSValueMakeString(ctx, str);
-    JSStringRelease(str);
-    return result;
+ultralight::JSValue RecipeAPI::GetId(const ultralight::JSObject&, const ultralight::JSArgs&) {
+    Recipe recipe = RecipeDatabase::getRecipeById(1);  // Assuming 1 for demonstration. You might get the ID from JSArgs in a real-world scenario.
+    return ultralight::JSValue((int32_t)recipe.getId());
 }
 
-JSValueRef RecipeAPI::getAuthorId(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getAuthorId());
+ultralight::JSValue RecipeAPI::GetName(const ultralight::JSObject&, const ultralight::JSArgs&) {
+    Recipe recipe = RecipeDatabase::getRecipeById(1);
+    return ultralight::JSValue(recipe.getName().c_str());
 }
 
-JSValueRef RecipeAPI::getCookTime(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getCookTime());
+ultralight::JSValue RecipeAPI::GetAuthorId(const ultralight::JSObject&, const ultralight::JSArgs&) {
+    Recipe recipe = RecipeDatabase::getRecipeById(1);
+    return ultralight::JSValue((int32_t)recipe.getAuthorId());
 }
 
-JSValueRef RecipeAPI::getPrepTime(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getPrepTime());
+ultralight::JSValue RecipeAPI::GetCookTime(const ultralight::JSObject&, const ultralight::JSArgs&) {
+    Recipe recipe = RecipeDatabase::getRecipeById(1);
+    return ultralight::JSValue((int32_t)recipe.getCookTime());
 }
-
-JSValueRef RecipeAPI::getTotalTime(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getTotalTime());
-}
-
-JSValueRef RecipeAPI::getDatePublished(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    JSStringRef str = JSStringCreateWithUTF8CString(api->recipe_->getDatePublished().c_str());
-    JSValueRef result = JSValueMakeString(ctx, str);
-    JSStringRelease(str);
-    return result;
-}
-
-JSValueRef RecipeAPI::getDescription(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    JSStringRef str = JSStringCreateWithUTF8CString(api->recipe_->getDescription().c_str());
-    JSValueRef result = JSValueMakeString(ctx, str);
-    JSStringRelease(str);
-    return result;
-}
-
-JSValueRef RecipeAPI::getCategory(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception) {
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    JSStringRef str = JSStringCreateWithUTF8CString(api->recipe_->getCategory().c_str());
-    JSValueRef result = JSValueMakeString(ctx, str);
-    JSStringRelease(str);
-    return result;
-}
-
-JSValueRef RecipeAPI::getCalories(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception){
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getCalories());
-}
-
-JSValueRef RecipeAPI::getServings(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception){
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getServings());
-}
-
-JSValueRef RecipeAPI::getYieldQuantity(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception){
-    RecipeAPI* api = static_cast<RecipeAPI*>(JSObjectGetPrivate(thisObject));
-    return JSValueMakeNumber(ctx, api->recipe_->getYieldQuantity());
-}
-
-
