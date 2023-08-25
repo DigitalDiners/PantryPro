@@ -5,7 +5,6 @@
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
 #include "recipe.h"
-#include "recipeAPI.h"
 #include "recipeDatabase.h"
 
 #include <AppCore/JSHelpers.h>
@@ -171,36 +170,6 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
 }
 
 
-void MyApp::OnDOMReady(ultralight::View *caller,
-                uint64_t frame_id,
-                bool is_main_frame,
-                const String &url) {
-  std::cout << "OnDOMReady called" << std::endl;
-  ///
-  /// Set our View's JSContext as the one to use in subsequent JSHelper calls
-  ///
-  /// This is the best time to setup any JavaScript bindings.
-  ///
-
-void MyApp::OnDOMReady(ultralight::View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
-    if (!is_main_frame)
-        return;
-
-    auto& global_context = caller->LockJSContext();
-    ultralight::SetJSContext(global_context);
-
-    auto global_object = ultralight::JSGlobalObject();
-
-    // Set up the RecipeAPI object
-    ultralight::JSObject recipeAPI = ultralight::JSObject::MakeEmptyObject();
-
-    recipeAPI["getId"] = BindJSCallbackWithRetval(&RecipeAPI::GetId);
-    // ... Bind other methods similarly
-
-    global_object["recipeAPI"] = recipeAPI;
-
-    caller->UnlockJSContext();
-}
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
                            Cursor cursor)
