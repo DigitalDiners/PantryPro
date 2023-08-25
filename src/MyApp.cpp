@@ -1,6 +1,5 @@
 #include "MyApp.h"
 #include "recipe.h"
-#include "recipeAPI.h"
 #include "recipeDatabase.h"
 
 #include <AppCore/JSHelpers.h>
@@ -109,27 +108,30 @@ void MyApp::OnFinishLoading(ultralight::View *caller,
 
 // MyApp.cpp
 
-void MyApp::OnDOMReady(ultralight::View* caller, uint64_t frame_id, bool is_main_frame, const String& url) {
-    if (!is_main_frame)
-        return;
-
-    auto& global_context = caller->LockJSContext();
-    ultralight::SetJSContext(global_context);
-
-    auto global_object = ultralight::JSGlobalObject();
-
-    // Set up the RecipeAPI object
-    ultralight::JSObject recipeAPI = ultralight::JSObject::MakeEmptyObject();
-
-    recipeAPI["getId"] = BindJSCallbackWithRetval(&RecipeAPI::GetId);
-    // ... Bind other methods similarly
-
-    global_object["recipeAPI"] = recipeAPI;
-
-    caller->UnlockJSContext();
+JSValue MyApp::GetMessage(const JSObject& thisObject, const JSArgs& args) {
+    ///
+    /// Return our message to JavaScript as a JSValue.
+    ///
+    return JSValue("Hello from C++!<br/>Ultralight rocks!");
 }
 
+void MyApp::OnDOMReady(ultralight::View *caller,
+                uint64_t frame_id,
+                bool is_main_frame,
+                const String &url) {
+  ///
+  /// Set our View's JSContext as the one to use in subsequent JSHelper calls
+  ///
+  RefPtr<JSContext> context = caller->LockJSContext();
+  SetJSContext(context->ctx());
 
+  ///
+  /// Get the global object (this would be the "window" object in JS)
+  ///
+  JSObject global = JSGlobalObject();
+
+  global["GetMessage"] = BindJSCallbackWithRetval(&MyApp::GetMessage);
+}
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
                            Cursor cursor)

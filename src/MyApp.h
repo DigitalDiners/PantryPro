@@ -36,6 +36,8 @@ public:
                                bool is_main_frame,
                                const String &url) override;
 
+  JSValue GetMessage(const JSObject &thisObject, const JSArgs &args);
+
   // This is called when the DOM has loaded in one of its frames.
   virtual void OnDOMReady(ultralight::View *caller,
                           uint64_t frame_id,
