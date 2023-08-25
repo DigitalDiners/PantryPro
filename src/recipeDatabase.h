@@ -62,12 +62,6 @@ public:
     std::vector<Review> getReviewsByRecipeId(int recipeId);
 
 
-    /**
-     * @brief Construct a new Recipe Database::get Recipes By Search object
-     * 
-     * @param search 
-     */
-    std::vector<Recipe> getRecipesBySearch(const std::vector<std::string> &ingredients);
 };
 
 #endif  // recipe_DATABASE_H

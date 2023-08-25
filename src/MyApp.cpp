@@ -15,8 +15,6 @@
 
 MyApp::MyApp()
 {
-MyApp::MyApp()
-{
   ///
   /// Create our main App instance.
   ///
@@ -118,11 +116,6 @@ std::string MyApp::removeQuotes(const std::string& input) {
     result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
     return result;
 }
-std::string MyApp::removeQuotes(const std::string& input) {
-    std::string result = input;
-    result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
-    return result;
-}
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
     std::cout << "convertRecipesToJson called" << std::endl;
@@ -188,7 +181,6 @@ void MyApp::OnDOMReady(ultralight::View *caller,
 
   JSObject global = JSGlobalObject();
 
-  global["GetMessage"] = BindJSCallbackWithRetval(&MyApp::GetMessage);
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
 }
 

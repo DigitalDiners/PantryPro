@@ -20,6 +20,10 @@ function addIngredient() {
 }
 
 function searchRecipes() {
+
+    const searchResults = document.getElementById('search-results');
+    searchResults.innerHTML = '';
+
     const ingredientList = document.getElementById('ingredient-list');
     const ingredients = [];
 
