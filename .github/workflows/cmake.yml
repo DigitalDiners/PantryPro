@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest  # Use a Linux runner
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
     
       - name: Install C++ compiler and dependencies
         run: |
@@ -82,10 +82,14 @@ jobs:
       - name: Compile and run tests
         working-directory: ${{github.workspace}}/tests
         run: |
-          g++ --coverage RecipeTests.cpp -o coverage1
-          g++ --coverage test.cpp -o coverage2
+          ls -R
+          g++ --coverage test.cpp -o coverage1
+          g++ --coverage plannerTests.cpp -o coverage2
+          g++ --coverage recipeTests.cpp -o coverage3
           ./coverage1
           ./coverage2
+          ./coverage3
+          ls -R
           gcovr -r ../ --xml -o coverage.xml
 
       - name: Upload coverage report to Codecov

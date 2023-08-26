@@ -1,64 +1,57 @@
-/**
- * @file recipe.cpp
- * @author Luke 
- * @brief Class abstraction for recipe objects
- * @version 0.1
- * @date 2023-08-18
- * 
- */
+#ifndef RECIPEOBJECT_H
+#define RECIPEOBJECT_H
 
 #include <string>
 
-using namespace std;
-
 /**
- * @brief recipe information
- *  Represents information related to a particular recipe in the database.
+ * @brief Class representing a Recipe
+ * @details Represents information related to a particular recipe in the database.
  *  Upon construction, we pass only the recipe ID.
  *  Once database has been set up, we can get the rest of the information 
  *  about a recipe by passing only the recipe ID.
  * 
  */
-class recipeObject
+class RecipeObject
 {
 private:
     /* data */
-    long recipeID;
-    string name;
-    string prepTime;
-    string totalTime;
-    string category;
+    int recipeID;
+    std::string name;
+    std::string prepTime;
+    std::string totalTime;
+    std::string category;
     float calories;
     
 public:
-    
-    explicit recipeObject(long recipeID);
+    /**
+     * @brief Construct a new recipe:: recipe object
+     *  When constructing a recipe object, we pass only the recipe ID, as the rest of the information can be
+     *  obtained from the database and assigned when needed/retrieved/available using that recipe ID.
+     * 
+     * @param recipeID the coded ID of this recipe, as it is represented in the data of the database.
+     */
+    RecipeObject(int recipeID);
 
     /**
      * @brief Get the recipe ID of this object
      * 
      * @return long the ID of this object in the database
      */
-    long getrecipeID(){
-        return recipeID;
-    }
+    int getRecipeID() const;
 
     /**
      * @brief Set the Name recipe object
      * 
      * @param name name of the recipe
      */
-    void setName(const string name){
-        this->name = name;
-    }
+    void setName(const std::string &name);
+
     /**
      * @brief Get the Name of this recipe object
      * 
      * @return string name of the recipe object
      */
-    string getName(){
-        return name;
-    }
+    std::string getName() const;
 
     /**
      * @brief Set the Prep Time of this recipe object
@@ -69,17 +62,14 @@ public:
      * 
      * @param prepTime the time to prepare this recipe
      */
-    void setPrepTime(const string prepTime){
-        this->prepTime = prepTime;
-    }
+    void setPrepTime(const std::string &prepTime) ;
+
     /**
      * @brief Get the Prep Time of this recipe
      * 
      * @return string the prep time as a string
      */
-    string getPrepTime(){
-        return prepTime;
-    }
+    std::string getPrepTime() const;
 
     /**
      * @brief Set the Total Time of this recipe
@@ -90,62 +80,42 @@ public:
      * 
      * @param totalTime the total time to make this recipe as a string
      */
-    void setTotalTime(const string totalTime){
-        this->totalTime = totalTime;
-    }
+    void setTotalTime(const std::string &totalTime);
+
     /**
      * @brief Get the Total Time to make this recipe.
      * 
      * @return string the total time to make this recipe as a string
      */
-    string getTotalTime(){
-        return totalTime;
-    }
+    std::string getTotalTime() const;
 
     /**
      * @brief Set the Category of this recipe object
      * 
      * @param category the category of this recipe
      */
-    void setCategory(const string category){
-        this->category = category;
-    }
+    void setCategory(const std::string &category) ;
+
     /**
      * @brief Get the Category of this recipe.
      * 
      * @return string the category of this recipe
      */
-    string getCategory(){
-        return category;
-    }
+    std::string getCategory() const;
 
     /**
      * @brief Set the Calories of this recipe object
      * 
      * @param calories the number of calories in this recipe
      */
-    void setCalories(const float calories){
-        this->calories = calories;
-    }
+    void setCalories(float calories) ;
+
     /**
      * @brief Get the Calories of this recipe object
      * 
      * @return float the number of calories in this recipe.
      */
-    float getCalories(){
-        return calories;
-    }
+    float getCalories() const;
 
 };
-
-/**
- * @brief Construct a new recipe:: recipe object
- *  When constructing a recipe object, we pass only the recipe ID, as the rest of the information can be
- *  obtained from the database and assigned when needed/retrieved/available using that recipe ID.
- * 
- * @param recipeID the coded ID of this recipe, as it is represented in the data of the database.
- */
-recipeObject::recipeObject(long recipeID)
-{
-    this->recipeID = recipeID;
-}
+#endif
