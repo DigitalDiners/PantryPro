@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        Recipes
+    </title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <h1><%= recipe.name %></h1>
+    <nav>
+        <h2><a href="planner.html">Planner</a></h2>
+        <h2><a href="app.html">Home</a></h2>
+        <h2><a href="#!">Recipes</a></h2>
+    </nav>
+
+
+
+    <!-- <%- include('partials/header') %>
+    <%- include('partials/sidebar', { status: null, results: null })%> -->
+    <main id="birds">
+        <div class="card">
+            <div class="card-image">
+                <div class="card-title">
+                    <p lang="mi">
+                        <%= bird.primary_name %>
+                    </p>
+                    <span>© <%= bird.photographer %></span>
+                </div>
+                <img src="/images/<%= bird.filename %>" alt="<%= bird.primary_name %>">
+                <div class="circle" style="background: <%= bird.status_colour %>"></div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">
+                    <%= bird.english_name %>
+                </h2>
+                <ul>
+                    <li><b>Scientific Name</b><span>
+                            <%= bird.scientific_name %>
+                        </span></li>
+                    <li><b>Family</b><span>
+                            <%= bird.family %>
+                        </span></li>
+                    <li><b>Order</b><span>
+                            <%= bird.order_name %>
+                        </span></li>
+                    <li><b>Status</b><span>
+                            <%= bird.status_name %>
+                        </span></li>
+                    <li><b>Length</b><span>
+                            <%= bird.length %> cm
+                        </span></li>
+                    <li><b>Weight</b><span>
+                            <%= bird.weight %> g
+                        </span></li>
+                </ul>
+                <a class="button" href="/bird/edit/<%=bird.bird_id %>">Edit</a>
+                <a class="button" href="/bird/delete/<%=bird.bird_id %>">Delete</a>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<body>
+    <h1>Saved Recipes</h1>
+    <nav>
+        <h2><a href="planner.html">Planner</a></h2>
+        <h2><a href="app.html">Home</a></h2>
+        <h2><a href="#!">Recipes</a></h2>
+    </nav>
+
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 let ingredients = [];
+let currRecipeId;
 
 function addIngredient() {
     const ingredientInput = document.getElementById('ingredient-input');
@@ -137,15 +138,32 @@ function displayCard(recipe) {
 //     };
 // }
 
-// function addToSaved(recipeID) {
-//     // Communicate with your C++ method to save the recipe
-//     console.log("Recipe with ID " + recipeID + " saved!");
-// }
+function addToSaved(recipeID) {
+    // Communicate with C++ method to save the recipe
+    console.log("Recipe with ID " + recipeID + " saved!");
+}
 
-// function addToPlanner(recipeID, day) {
-//     // Communicate with your C++ method to add the recipe to the planner on the given day
-//     console.log("Recipe with ID " + recipeID + " added to planner for " + day + "!");
-// }
+function addToPlanner(recipeID) {
+    // Communicate with C++ method to add the recipe to the planner on the given day
+    const dayOptions = document.getElementById('day-options');
+    const mealOptions = document.getElementById('meal-options');
+    const selectedDay = dayOptions.value;
+    const selectedMeal = mealOptions.value;
+    console.log("Recipe with ID " + recipeID + " added to planner on " + selectedDay + " for " + selectedMeal +  "!");
+    closePopup();
+}
+
+// Function to open the popup
+function openPopup(recipeID) {
+    currRecipeId = recipeID;
+    popup.style.display = 'block';
+}
+
+// Function to close the popup
+function closePopup() {
+    popup.style.display = 'none';
+}
+
 
 // // Sample call to display a card (replace with actual method to get results from backend)
 // const sampleRecipe = getRecipeInfo(1);
@@ -178,3 +196,4 @@ function displayCard(recipe) {
 //     document.body.appendChild(downloadLink);
 //     downloadLink.click();
 // }
+
