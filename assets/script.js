@@ -73,24 +73,24 @@ function displayCard(recipe) {
     const name = document.createElement('div');
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
-    card.appendChild(name);
+    //card.appendChild(name);
 
     const cardContent = `
                 <div class="card">
-                <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                <img src="<%= recipe.image %>" alt="<%= recipe.recipeName %>">
                 <!-- link to individual recipe function -->
                 <div class="card-content">
                     <div class="card-title">
-                        <!-- <%= recipe.title %> -->
+                        <!-- <%= recipe.recipeName %> -->
                         <h3>
-                            <%= recipe.title %>
+                            <%= recipe.recipeName %>
                         </h3>
                         <div class="favourite-icon" onclick="">
                             <img src="/assets/outline-heart.png" alt="Save" onclick="addToSaved(<%= recipe.id %>)">
                         </div>
                         <div class="add-symbol">
                             <img src="/assets/add-symbol.png" id="open-popup" alt="Add to meal planner"
-                                onclick="openPopup(<%= recipe.id %>)">
+                                onclick="openPopup(<%= recipe.recipeName %>)">
                             <!-- <button class="add-symbol" onclick="openPopup()">+</button> -->
                             <div id="popup" class="popup-container">
                                 <div class="popup">

@@ -3,8 +3,7 @@
 #include <vector>
 
 Recipe RecipeDatabase::getRecipeById(int id) {
-    std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
-
+    std::string query = "SELECT r.*,  i.imageURL , i.`imageNumber` FROM recipes AS r JOIN images AS i WHERE r.`recipeId`=" + std::to_string(id) + " AND i.`recipeId`= " + std::to_string(id) + "AND i.imageNumber=1;";
     try {
         auto con = dbConn.getConnection();
         std::unique_ptr<sql::Statement> stmt(con->createStatement());
@@ -15,7 +14,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
                             res->getInt("authorId"),
                             res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                             res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"));
+                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"), res->getString("imageURL"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -24,7 +23,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "");
+    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "", "");
 }
 
 RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
@@ -86,7 +85,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
                                     res->getInt("authorId"),
                                     res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                                     res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                                    res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions")));
+                                    res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"), res->getString("image")));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;

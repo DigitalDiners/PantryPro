@@ -132,6 +132,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
         json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
         json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
         json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity()));
+        json += "\"imageLink\": " + removeQuotes(recipe.getImage());
 
         if (json.back() == ',') json.pop_back(); 
         json += " },";
