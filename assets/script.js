@@ -1,5 +1,14 @@
 let ingredients = [];
 let currRecipeId;
+let savedRecipes = [];
+let mealPlanner = [];
+let monday = [];
+let tuesday = [];
+let wednesday = [];
+let thursday = [];
+let friday = [];
+let saturday = [];
+let sunday = [];
 
 function addIngredient() {
     const ingredientInput = document.getElementById('ingredient-input');
@@ -187,6 +196,11 @@ function displayCard(recipe) {
 function addToSaved(recipeID) {
     // Communicate with C++ method to save the recipe
     console.log("Recipe with ID " + recipeID + " saved!");
+    savedRecipes.push(recipeID);
+    console.log("saved recipe(s):\n")
+    for(let i=0; i<savedRecipes.length; i++){
+        console.log(savedRecipes[i]+"\n");
+    }
 }
 
 /**
@@ -202,6 +216,10 @@ function addToPlanner() {
     const selectedDay = dayOptions.value;
     const selectedMeal = mealOptions.value;
     console.log("Recipe with ID " + recipeID + " added to planner on " + selectedDay + " for " + selectedMeal +  "!");
+    mealPlanner.push(dayOptions, mealOptions, recipeID);
+    for(let i=0; i<mealPlanner.length; i++){
+        console.log()
+    }
     closePopup();
 }
 
