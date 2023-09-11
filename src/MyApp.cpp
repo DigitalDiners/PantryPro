@@ -118,11 +118,16 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
     std::string json = "[";
 
     std::cout << "recipes.size(): " << recipes.size() << std::endl;
+    RecipeDatabase recipeDB;
+
     for (const Recipe& recipe : recipes) {
         std::cout << "recipe: " << recipe.getName() << std::endl;
+        RecipeImage image = recipeDB.getRecipeImage(recipe.getId(), 1); 
+
         json += "{ ";
         json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
         json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
+        json += "\"recipeImageURL\": \"" + removeQuotes(image.getImageURL()) + "\",";       
         json += "\"authorId\": " + removeQuotes(std::to_string(recipe.getAuthorId())) + ",";
         json += "\"cookTime\": " + removeQuotes(std::to_string(recipe.getCookTime())) + ",";
         json += "\"prepTime\": " + removeQuotes(std::to_string(recipe.getPrepTime())) + ",";

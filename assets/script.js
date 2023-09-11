@@ -73,6 +73,11 @@ function displayCard(recipe) {
     name.textContent = recipe.recipeName;
     card.appendChild(name);
 
+    const image = document.createElement('img');
+    image.className = 'recipe-image';
+    image.src = recipe.recipeImageURL;
+    card.appendChild(image);
+
     // const saveButton = document.createElement('button');
     // saveButton.textContent = 'Save';
     // saveButton.onclick = function() {

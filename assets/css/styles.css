@@ -157,10 +157,18 @@ button:active, #add-button:active, #search-button:active {
 }
 
 /* recipe CARD STYLING */
+#search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    
+}
+
 .recipe-card {
     border-radius: 20px;
     padding: 20px;
     margin: 10px;
+    background-color: white;
     box-shadow: 0 0 10px lightgrey;
 }
 
