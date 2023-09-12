@@ -124,6 +124,13 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
         std::cout << "recipe: " << recipe.getName() << std::endl;
         RecipeImage image = recipeDB.getRecipeImage(recipe.getId(), 1); 
 
+        // Fetch the first review rating for this recipe, if available
+        std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipe.getId());
+        std::string firstRating = "null";
+        if (!reviews.empty()) {
+            firstRating = std::to_string(reviews[0].getRating());
+        }
+
         json += "{ ";
         json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
         json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
@@ -136,7 +143,8 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
         json += "\"category\": \"" + removeQuotes(recipe.getCategory()) + "\",";
         json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
         json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
-        json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity()));
+        json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity())) + ",";
+        json += "\"firstRating\": " + firstRating + ",";
 
         if (json.back() == ',') json.pop_back(); 
         json += " },";

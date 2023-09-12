@@ -59,24 +59,75 @@ function searchRecipes() {
     }
 }
 
-
+function createStars(rating) {
+    const starsWrapper = document.createElement('div');
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.textContent = '★';
+      if (i <= rating) {
+        star.classList.add('checked');
+      }
+      starsWrapper.appendChild(star);
+    }
+    return starsWrapper;
+  }
+  
 function displayCard(recipe) {
     const searchResults = document.getElementById('search-results');
 
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
-    console.log("Recipe Name:", recipe.recipeName);
+    //console.log("Recipe Name:", recipe.recipeName);
+
+    //const name = document.createElement('div');
+    //name.className = 'recipe-name';
+    //name.textContent = recipe.recipeName;
+    //card.appendChild(name);
+
+    //const image = document.createElement('img');
+    //image.className = 'recipe-image';
+    //image.src = recipe.recipeImageURL;
+    //card.appendChild(image);
+
+    const recipeInfo = document.createElement('div');
+    recipeInfo.className = 'recipe-info';
 
     const name = document.createElement('div');
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
-    card.appendChild(name);
+    recipeInfo.appendChild(name);
 
-    const image = document.createElement('img');
-    image.className = 'recipe-image';
-    image.src = recipe.recipeImageURL;
-    card.appendChild(image);
+    if (recipe.recipeImageURL) { // Check if image URL exists
+        const imageWrapper = document.createElement('div'); // Create a wrapper for image
+        imageWrapper.className = 'recipe-image';
+
+        const image = document.createElement('img');
+        image.src = recipe.recipeImageURL;
+
+        imageWrapper.appendChild(image); // append img to its wrapper
+        card.appendChild(imageWrapper); // append the wrapper to the card
+    }
+
+    const category = document.createElement('div');
+    category.className = 'recipe-category';
+    category.textContent = recipe.category;
+    recipeInfo.appendChild(category);
+
+    const calories = document.createElement('div');
+    calories.className = 'recipe-calories';
+    calories.textContent = recipe.calories + ' Calories';
+    recipeInfo.appendChild(calories);
+
+    const rating = document.createElement('div');
+    rating.className = 'recipe-rating';
+    const starsWrapper = createStars(recipe.firstRating);
+    rating.appendChild(starsWrapper);
+    recipeInfo.appendChild(rating);
+
+    card.appendChild(recipeInfo);
+
 
     // const saveButton = document.createElement('button');
     // saveButton.textContent = 'Save';
