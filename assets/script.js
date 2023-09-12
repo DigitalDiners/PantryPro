@@ -2,13 +2,7 @@ let ingredients = [];
 let currRecipeId;
 let savedRecipes = [];
 let mealPlanner = [];
-let monday = [];
-let tuesday = [];
-let wednesday = [];
-let thursday = [];
-let friday = [];
-let saturday = [];
-let sunday = [];
+
 
 function addIngredient() {
     const ingredientInput = document.getElementById('ingredient-input');
@@ -216,10 +210,13 @@ function addToPlanner() {
     const selectedDay = dayOptions.value;
     const selectedMeal = mealOptions.value;
     console.log("Recipe with ID " + recipeID + " added to planner on " + selectedDay + " for " + selectedMeal +  "!");
-    mealPlanner.push(dayOptions, mealOptions, recipeID);
-    for(let i=0; i<mealPlanner.length; i++){
-        console.log()
-    }
+    let mealOption = [];
+    mealOption.push(selectedDay, selectedMeal, recipeID);
+    mealPlanner.push(mealOption);
+    // for(let i=0; i<mealPlanner.length; i++){
+        console.log(mealPlanner[0]+"\n");
+        // console.log("Recipe with ID " + recipeID + " added to planner on " + selectedDay + " for " + selectedMeal +  "!");
+    // }
     closePopup();
 }
 
