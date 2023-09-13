@@ -164,6 +164,25 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args){
+  std::cout<<"Recipe ingredients called"<< std::endl;
+
+  int recipeId;
+  
+    RecipeDatabase recipeDB;
+    std::vector<std::string> ingredients = recipeDB.getIngredients(recipeId);
+
+    std::string json = "[{";
+    for(const std::string& ingredient: ingredients){
+      json += ingredient;
+      json += ",";
+      std::cout<<ingredient<<std::endl;
+    }
+    json += "}]";
+    // std::string jsonRecipes = convertRecipesToJson(recipes);
+    return JSValue(json.c_str());
+
+}
 
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
@@ -179,6 +198,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+  global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,

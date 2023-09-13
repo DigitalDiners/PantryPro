@@ -53,9 +53,11 @@ function searchRecipes() {
         const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
+        let jsonIngredients = [];
 
         for (let recipe of recipes) {
             displayCard(recipe);
+            jsonIngredients.push(RecipeIngredients(recipe));
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);

@@ -44,6 +44,8 @@ public:
 
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
 
+  JSValue RecipeIngredients(const JSObject& thisObject, const JSArgs& args);
+
   std::string convertRecipesToJson(const std::vector<Recipe>& recipes);
 
   // This is called when the DOM has loaded in one of its frames.
