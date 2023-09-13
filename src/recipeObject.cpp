@@ -7,8 +7,6 @@
  * 
  */
 #include "recipeObject.h"
-#include <string>
-
 
 RecipeObject::RecipeObject(int recipeID){
     this->recipeID = recipeID;

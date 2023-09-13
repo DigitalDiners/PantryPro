@@ -1,0 +1,53 @@
+[
+    {
+        "0":{
+            "name":"Monday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "1":{
+            "name":"Tuesday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "2":{
+            "name":"Wednesday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "3":{
+            "name":"Thursday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "4":{
+            "name":"Friday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "5":{
+            "name": "Saturday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        },
+        "6":{
+            "name": "Sunday",
+            "breakfast":"Food",
+            "lunch":"MoreFood",
+            "dinner":"LessFood",
+            "snack":""
+        }
+    }
+]

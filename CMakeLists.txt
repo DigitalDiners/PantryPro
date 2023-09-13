@@ -67,7 +67,15 @@ set(SOURCES "src/MyApp.h"
             "src/recipeDatabase.cpp"
             "src/databaseConnection.cpp"
             "src/recipe.cpp"
-            "src/main.cpp")
+            "src/main.cpp"
+            "src/mealPlanner.h"
+            "src/mealPlanner.cpp"
+            "src/recipeObject.h"
+            "src/recipeObject.cpp"
+            "src/day.h"
+            "src/day.cpp"
+            "src/json.hpp"
+            )
 
 add_app("${SOURCES}")
 

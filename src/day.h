@@ -1,10 +1,12 @@
 #ifndef DAY_H
 #define DAY_H
-#include <string>
+#include <iostream>
+#include "recipeObject.h"
 
 /**
  * @brief Class representing one of the days of the week.
- * @details
+ * @details Abstracts out the day of the week and holds references to certain
+ *  RecipeObjects.
  */
 class Day
 {
@@ -76,5 +78,5 @@ public:
     std::string getDayName() const;
 
 };
-    
+
 #endif

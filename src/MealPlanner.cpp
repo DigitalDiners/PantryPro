@@ -1,22 +1,63 @@
-#include <string>
-#include "Day.cpp"
+#include "json.hpp"
+#include <fstream>
+#include <iostream>
+#include "mealPlanner.h"
 
-using namespace std;
+using json = nlohmann::json;
 
-class MealPlanner
-{
-private:
-    /* data */
+MealPlanner::MealPlanner() 
+{       
+    std::cout << "Constructing meal planner..." << std::endl;
+    std::ifstream in("../assets/data/planner.json");
+    std::string jsonString((std::istreambuf_iterator<char>(in)), 
+        std::istreambuf_iterator<char>());
+    this->plannerJson = jsonString;
+    
+    // std::ifstream planner_file("../assets/data/planner.json");
+    // json planner = json::parse(planner_file);
 
-public:
-    MealPlanner(/* args */);
-    ~MealPlanner();
-};
+    Day theDays[] = {Day(0), Day(1), Day(2), Day(3), Day(4), Day(5), Day(6) };
+    
+    days = theDays;
 
-MealPlanner::MealPlanner(/* args */)
-{
+    // for(int dayIndex = 0; dayIndex < 7; dayIndex++){
+    //     Day currentDay(dayIndex);
+        
+    //     RecipeObject breakfast(0);
+    //     RecipeObject lunch(1);
+    //     RecipeObject dinner(2);
+
+    //     breakfast.setName(planner[dayIndex]["breakfast"]);
+    //     breakfast.setName(planner[dayIndex]["lunch"]);
+    //     breakfast.setName(planner[dayIndex]["dinner"]);
+
+    //     currentDay.setMeal(breakfast, 0);
+    //     currentDay.setMeal(lunch, 1);
+    //     currentDay.setMeal(dinner, 2);
+
+    //     days.push_back(currentDay);
+    // }
 }
 
-MealPlanner::~MealPlanner()
-{
+
+MealPlanner::~MealPlanner() {
+    delete[] days; // Clean up the dynamically allocated memory
+}
+
+Day& MealPlanner::getDay(int dayNumber){
+    if(dayNumber > 6 || dayNumber < 0){
+        std::cout << "Index out of range! Returning monday." << std::endl;
+        return days[0];
+    }else{
+        return days[dayNumber];
+    }
+}
+
+
+std::string MealPlanner::getPlannerJson() const{
+    return plannerJson;
+}
+
+Day* MealPlanner::getDays(){
+    return days;
 }

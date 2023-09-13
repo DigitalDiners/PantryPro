@@ -163,6 +163,18 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
+    std::cout << "GetPlanner called" << std::endl;
+
+    MealPlanner mealPlanner;
+
+    std::string plannerJson = mealPlanner.getPlannerJson();
+
+    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
+
+    return JSValue(plannerJson.c_str());
+}
+
 
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
@@ -178,6 +190,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+  global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,

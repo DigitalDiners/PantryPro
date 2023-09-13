@@ -7,8 +7,7 @@
 #include <JavaScriptCore/JSValueRef.h>
 
 #include "recipeDatabase.h"
-
-#include "recipeDatabase.h"
+#include "mealPlanner.h"
 
 using namespace ultralight;
 
@@ -43,6 +42,15 @@ public:
   std::string removeQuotes(const std::string& input);
 
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
+
+  /**
+   * @brief Retrieve the planner json file from the MealPlanner object
+   * 
+   * @param thisObject self.
+   * @param args args to be passed, takes none.
+   * @return JSValue the planner json as a stdstring.
+   */
+  JSValue GetPlanner(const JSObject& thisObject, const JSArgs& args);
 
   std::string convertRecipesToJson(const std::vector<Recipe>& recipes);
 

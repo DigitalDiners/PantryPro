@@ -1,5 +1,5 @@
-#ifndef RECIPEOBJECT_H
-#define RECIPEOBJECT_H
+#ifndef RECIPE_OBJECT_H
+#define RECIPE_OBJECT_H
 
 #include <string>
 
@@ -118,4 +118,5 @@ public:
     float getCalories() const;
 
 };
+
 #endif

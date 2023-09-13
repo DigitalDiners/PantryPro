@@ -1,6 +1,4 @@
-#include "recipeObject.cpp"
 #include "day.h"
-#include <string>
 
 Day::Day(int dayNumber)
 {
