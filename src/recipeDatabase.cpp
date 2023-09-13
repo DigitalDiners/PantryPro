@@ -62,7 +62,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
     for (size_t i = 0; i < ingredients.size(); i++) {
         query += "ingredients.name LIKE ?";
         if (i != ingredients.size() - 1) {
-            query += " OR ";
+            query += " AND ";
         }
     }
     
