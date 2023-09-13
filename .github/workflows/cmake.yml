@@ -86,9 +86,11 @@ jobs:
           g++ --coverage test.cpp -o coverage1
           g++ --coverage plannerTests.cpp -o coverage2
           g++ --coverage recipeTests.cpp -o coverage3
+          g++ --coverage reviewTests.cpp -o coverage4
           ./coverage1
           ./coverage2
           ./coverage3
+          ./coverage4
           ls -R
           gcovr -r ../ --xml -o coverage.xml
 
