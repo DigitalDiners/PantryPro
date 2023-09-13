@@ -92,7 +92,7 @@ jobs:
           ./coverage3
           ./coverage4
           ls -R
-          gcovr -r ../ --xml -o coverage.xml
+          gcovr -r ../ --xml --exclude catch_amalgamated.cpp --exclude catch_amalgamated.hpp -o coverage.xml
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
