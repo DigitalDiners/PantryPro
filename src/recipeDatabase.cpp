@@ -1,6 +1,7 @@
 #include "recipeDatabase.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT r.*,  i.imageURL , i.`imageNumber` FROM recipes AS r JOIN images AS i WHERE r.`recipeId`=" + std::to_string(id) + " AND i.`recipeId`= " + std::to_string(id) + "AND i.imageNumber=1;";
@@ -45,6 +46,33 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
     }
 
     return RecipeImage(0, 0, "");
+}
+
+std::vector<std::string> RecipeDatabase::getIngredients(int &recipeId){
+    std::vector<std::string> result;
+    // if(recipeId){
+    //     return result;
+    // }
+    std::string query = "SELECT i.name FROM recipes AS r, ingredients AS i, recipe_ingredients  WHERE r.recipeId=recipe_ingredients.recipeId AND i.ingredientId = recipe_ingredients.ingredientId AND r.`recipeId`=?;";
+
+        try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+
+        while (res->next()) {
+            result.push_back(     
+                res->getString("name")
+            );
+        }
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    return result;
 }
 
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
