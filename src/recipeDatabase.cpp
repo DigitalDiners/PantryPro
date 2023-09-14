@@ -48,21 +48,21 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
     return RecipeImage(0, 0, "");
 }
 
-std::vector<std::string> RecipeDatabase::getIngredients(int &recipeId){
-    std::vector<std::string> result;
-    // if(recipeId){
-    //     return result;
-    // }
-    
-    std::string query = "SELECT i.name FROM recipes AS r, ingredients AS i, recipe_ingredients  WHERE r.recipeId=recipe_ingredients.recipeId AND i.ingredientId = recipe_ingredients.ingredientId AND r.`recipeId`="+recipeId+";";
+std::vector<std::string> RecipeDatabase::getIngredients(int &recipeId, std::vector<std::string> have){
+    std::vector<std::string> need;
+    std::cout<<recipeId<<std::endl;
+    std::string query = "SELECT i.name FROM recipes AS r, ingredients AS i, recipe_ingredients  WHERE r.recipeId=recipe_ingredients.recipeId AND i.ingredientId = recipe_ingredients.ingredientId AND r.`recipeId`=" + std::to_string(recipeId) + ";";
 
+    for (const std::string& thing : have) {
+        std::cout << thing << std::endl;
+    }
         try {
         auto con = dbConn.getConnection();
         std::unique_ptr<sql::Statement> stmt(con->createStatement());
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         while (res->next()) {
-            result.push_back(     
+            need.push_back(     
                 res->getString("name")
             );
         }
@@ -72,8 +72,29 @@ std::vector<std::string> RecipeDatabase::getIngredients(int &recipeId){
         std::cout << " (MySQL error code: " << e.getErrorCode();
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
+    for (const std::string& thing : need) {
+        std::cout << thing << "+"<<std::endl;
+    }
 
-    return result;
+     // Sort the vectors for efficient comparison
+    std::sort(have.begin(), have.end());
+    std::sort(need.begin(), need.end());
+
+    // Find the missing ingredients using set_difference
+    std::vector<std::string> missing;
+    std::set_difference(need.begin(), need.end(), have.begin(), have.end(), std::back_inserter(missing));
+
+    // Print the missing ingredients
+    if (missing.empty()) {
+        std::cout << "You have all the ingredients you need." << std::endl;
+    } else {
+        std::cout << "You need the following ingredients: ";
+        for (const std::string& ingredient : missing) {
+            std::cout << ingredient << " ";
+        }
+        std::cout << std::endl;
+    }
+    return missing;
 }
 
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {

@@ -56,8 +56,10 @@ function searchRecipes() {
         let jsonIngredients = [];
 
         for (let recipe of recipes) {
+            // console.log(recipe.recipeId);
             displayCard(recipe);
-            jsonIngredients.push(RecipeIngredients(recipe));
+            console.log(RecipeIngredients(recipe.recipeId, ingredients));
+            // jsonIngredients.push(RecipeIngredients(recipe, ingredients));
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);

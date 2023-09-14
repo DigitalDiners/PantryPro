@@ -62,7 +62,7 @@ public:
      * @param recipeId The unique identifier of the recipe to fetch the reviews from.
      * @return A vector of ingredients corresponding to the given recipe ID or an empty vector if not found.
      */
-    std::vector<std::string> getIngredients(int &recipeId);
+    std::vector<std::string> getIngredients(int &recipeId, std::vector<std::string> availableIngredients);
 
 
     /**

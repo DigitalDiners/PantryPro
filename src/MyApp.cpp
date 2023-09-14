@@ -167,12 +167,22 @@ JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args)
   std::cout<<"Recipe ingredients called"<< std::endl;
 
   int recipeId;
+  // std::cout<<recipeId<<std::endl;
+      std::vector<std::string> ingredients;
+    if (args[0].IsArray()) {
+        JSArray ingredientArray = args[0].ToArray();
+        for (size_t i = 0; i < ingredientArray.length(); i++) {
+            ultralight::String jsStr = ingredientArray[i].ToString();
+            ingredients.push_back(std::string(jsStr.utf8().data()));
+        }
+    }
+
   
     RecipeDatabase recipeDB;
-    std::vector<std::string> ingredients = recipeDB.getIngredients(recipeId);
+    std::vector<std::string> missingIngredients = recipeDB.getIngredients(recipeId,ingredients);
 
     std::string json = "[{";
-    for(const std::string& ingredient: ingredients){
+    for(const std::string& ingredient: missingIngredients){
       json += ingredient;
       json += ",";
       std::cout<<ingredient<<std::endl;
