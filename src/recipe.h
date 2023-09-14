@@ -17,7 +17,7 @@ private:
     std::string recipeName;
     int authorId;
     int cookTime, prepTime, totalTime;
-    std::string datePublished, description, category, instructions, image;
+    std::string datePublished, description, category, instructions;
     int calories, servings, yieldQuantity;
 
     /**
@@ -36,13 +36,12 @@ private:
      * @param serv Number of servings the recipe produces.
      * @param yieldQ Quantity yielded by the recipe.
      * @param instructions Instructions for preparing the recipe.
-     * @param image Recipe image link.
      */
 public:
     Recipe(int id, const std::string &name, int aId,
            int cTime, int pTime, int tTime, const std::string &dPublished,
            const std::string &desc, const std::string &cat,
-           int cal, int serv, int yieldQ, const std::string &instructions, const std::string &image);
+           int cal, int serv, int yieldQ, const std::string &instructions);
 
     /**
      * @brief Get the unique identifier of the recipe.
@@ -126,7 +125,6 @@ public:
      * @brief Get the instructions for preparing the recipe.
      * @return The recipe's instructions.
      */
-    std::string getImage() const;
 };
 
 #endif // recipe_H

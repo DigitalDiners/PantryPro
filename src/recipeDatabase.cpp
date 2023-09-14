@@ -4,7 +4,7 @@
 #include <string>
 
 Recipe RecipeDatabase::getRecipeById(int id) {
-    std::string query = "SELECT r.*,  i.imageURL , i.`imageNumber` FROM recipes AS r JOIN images AS i WHERE r.`recipeId`=" + std::to_string(id) + " AND i.`recipeId`= " + std::to_string(id) + "AND i.imageNumber=1;";
+    std::string query = "SELECT r.*,  i.imageURL , i.`imageNumber` FROM recipes AS r JOIN images AS i WHERE r.`recipeId`=" + std::to_string(id) + " AND i.`recipeId`= " + std::to_string(id) + ";" ;
     try {
         auto con = dbConn.getConnection();
         std::unique_ptr<sql::Statement> stmt(con->createStatement());
@@ -15,7 +15,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
                             res->getInt("authorId"),
                             res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                             res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"), res->getString("imageURL"));
+                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -24,7 +24,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "", "");
+    return Recipe(0, "", 0, 0, 0, 0, "", "", "", 0, 0, 0, "");
 }
 
 RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
@@ -53,7 +53,8 @@ std::vector<std::string> RecipeDatabase::getIngredients(int &recipeId){
     // if(recipeId){
     //     return result;
     // }
-    std::string query = "SELECT i.name FROM recipes AS r, ingredients AS i, recipe_ingredients  WHERE r.recipeId=recipe_ingredients.recipeId AND i.ingredientId = recipe_ingredients.ingredientId AND r.`recipeId`=?;";
+    
+    std::string query = "SELECT i.name FROM recipes AS r, ingredients AS i, recipe_ingredients  WHERE r.recipeId=recipe_ingredients.recipeId AND i.ingredientId = recipe_ingredients.ingredientId AND r.`recipeId`="+recipeId+";";
 
         try {
         auto con = dbConn.getConnection();
@@ -113,7 +114,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
                                     res->getInt("authorId"),
                                     res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
                                     res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                                    res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"), res->getString("image")));
+                                    res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions")));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;

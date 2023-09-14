@@ -4,10 +4,10 @@
 Recipe::Recipe(int id, const std::string& name, int aId,
                int cTime, int pTime, int tTime, const std::string& dPublished,
                const std::string& desc, const std::string& cat,
-               int cal, int serv, int yieldQ, const std::string& instructions, const std::string& image) 
+               int cal, int serv, int yieldQ, const std::string& instructions) 
     : recipeId(id), recipeName(name), authorId(aId),
       cookTime(cTime), prepTime(pTime), totalTime(tTime), datePublished(dPublished),
-      description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ), instructions(instructions), image(image) {}
+      description(desc), category(cat), calories(cal), servings(serv), yieldQuantity(yieldQ), instructions(instructions) {}
 
 
 int Recipe::getId() const {
@@ -60,9 +60,5 @@ int Recipe::getYieldQuantity() const {
 
 std::string Recipe::getInstructions() const {
     return instructions;
-}
-
-std::string Recipe::getImage() const{
-    return image;
 }
 
