@@ -50,36 +50,29 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
 
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
     std::vector<Recipe> result;
-
+    
     if (ingredients.empty()) {
-        return result;
+        return result; 
     }
 
-    std::string query = "SELECT recipes.* FROM recipes ";
-    query += "JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId ";
-    query += "JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId WHERE ";
+    std::string baseQuery = "SELECT recipes.recipeId, recipes.recipeName, recipes.authorId, recipes.cookTime, recipes.prepTime, recipes.totalTime, recipes.datePublished, recipes.description, recipes.category, recipes.calories, recipes.servings, recipes.yieldQuantity, recipes.instructions FROM recipes JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId WHERE ";
+    std::string havingClause = " GROUP BY recipes.recipeId HAVING ";
 
-    for (size_t i = 0; i < ingredients.size(); i++) {
-        query += "ingredients.name LIKE ?";
-        if (i != ingredients.size() - 1) {
-            query += " AND ";
+    for (size_t i = 0; i < ingredients.size(); ++i) {
+        baseQuery += "ingredients.name LIKE '%" + ingredients[i] + "%' ";
+        havingClause += "SUM(ingredients.name LIKE '%" + ingredients[i] + "%') > 0 ";
+        if (i < ingredients.size() - 1) {
+            baseQuery += "OR ";
+            havingClause += "AND ";
         }
     }
+    baseQuery += havingClause;
+    baseQuery += " ORDER BY recipes.datePublished DESC LIMIT 20;";
     
-    query += " GROUP BY recipes.recipeId ";
-    query += "HAVING COUNT(DISTINCT ingredients.name) = ? ";
-    query += "LIMIT 20;";
-
     try {
         auto con = dbConn.getConnection();
-        std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement(query));
-
-        for (size_t i = 0; i < ingredients.size(); i++) {
-            pstmt->setString(i + 1, "%" + ingredients[i] + "%");
-        }
-        pstmt->setInt(ingredients.size() + 1, ingredients.size());
-
-        std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(baseQuery));
 
         while (res->next()) {
             result.push_back(Recipe(res->getInt("recipeId"), res->getString("recipeName"),
