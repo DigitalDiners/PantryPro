@@ -51,7 +51,10 @@ function searchRecipes() {
         console.log("Recipes:", recipes);
 
         for (let recipe of recipes) {
-            displayCard(recipe);
+            const jsonIngredients = GetIngredientsByRecipe(recipe.recipeId);
+            const recipeIngredients = JSON.parse(jsonIngredients);
+            console.log("Recipe Ingredients:", recipeIngredients);
+            displayCard(recipe, recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -72,6 +75,20 @@ function displayCard(recipe) {
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
     card.appendChild(name);
+
+    const ingredientsList = document.createElement('div');
+    ingredientsList.className = 'recipe-ingredients';
+
+    for (let ingredient of ingredients) {
+        console.log("Ingredient:", ingredient);
+        const ingredientItem = document.createElement('div');
+        ingredientItem.className = 'ingredient-item';
+        ingredientItem.textContent = ingredient.name;
+        ingredientsList.appendChild(ingredientItem);  
+    }
+    
+    card.appendChild(ingredientsList);
+    searchResults.appendChild(card);
 
     // const saveButton = document.createElement('button');
     // saveButton.textContent = 'Save';
