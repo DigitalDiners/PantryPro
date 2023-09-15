@@ -55,8 +55,14 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         return result; 
     }
 
-    std::string baseQuery = "SELECT recipes.recipeId, recipes.recipeName, recipes.authorId, recipes.cookTime, recipes.prepTime, recipes.totalTime, recipes.datePublished, recipes.description, recipes.category, recipes.calories, recipes.servings, recipes.yieldQuantity, recipes.instructions FROM recipes JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId WHERE ";
-    std::string havingClause = " GROUP BY recipes.recipeId HAVING ";
+    std::string baseQuery = 
+        "SELECT recipes.* "
+        "FROM recipes "
+        "JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId "
+        "JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND (";
+
+    std::string havingClause = ") GROUP BY recipes.recipeId HAVING ";
 
     for (size_t i = 0; i < ingredients.size(); ++i) {
         baseQuery += "ingredients.name LIKE '%" + ingredients[i] + "%' ";
