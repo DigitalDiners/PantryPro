@@ -312,54 +312,6 @@ function displayCard(recipe, location) {
 }
 
 
-
-
-// Your JSON structure
-const weeklyMealPlan = {
-    "Monday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Tuesday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Wednesday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Thursday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Friday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Saturday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Sunday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    }
-};
-
 function addToJSON(day, meal, recipeName) {
     //assets/css/data/planner.json
     if (weeklyMealPlan[day] && weeklyMealPlan[day][meal] !== undefined) {
