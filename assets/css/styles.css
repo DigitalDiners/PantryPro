@@ -232,26 +232,41 @@ button:active, #add-button:active, #search-button:active {
     color: gold;
 }
 
-.favourite-icon img{
-    width: 2.5rem;
-    height: 2.5rem;
-    position: inherit;
-    translate: 17.5rem -2rem;
-    filter: invert();
+.stretched-text {
+  letter-spacing: 2px;
+  display: inline-block;
+  font-size: 32px;
+  transform: scaleY(0.5);
+  transform-origin: 0 0;
+  margin-bottom: -50%;
 }
+span {
+  font-size: 16px;
+  vertical-align: top;
+}
+.favourite-icon{
+    height: 0;
+    font-size: 40px;
+    translate: 290px -35px;
+    transform: scaleY(0.7);
+    transform-origin: 0 0;
+  }
 
 .favourite-icon{
     height: 0;
 }
 .add-symbol{
     height: 0;
+    font-size: xxx-large;
+    font-weight: 500;
+    translate: 250px -44px;
 }
-.add-symbol img{
+/* .add-symbol img{
     width: 2.4rem;
     height: 2.4rem;
     position: inherit;
     translate: 15rem -2.25rem;
-}
+} */
 .add-symbol:hover, .favourite-icon:hover{
     cursor: pointer;
     padding: 1px;
