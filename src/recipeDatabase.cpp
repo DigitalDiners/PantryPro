@@ -11,11 +11,19 @@ Recipe RecipeDatabase::getRecipeById(int id) {
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         if (res->next()) {
-            return Recipe(res->getInt("recipeId"), res->getString("recipeName"),
+            return Recipe(res->getInt("recipeId"), 
+                            res->getString("recipeName"),
                             res->getInt("authorId"),
-                            res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
-                            res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                            res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions"));
+                            res->getInt("cookTime"), 
+                            res->getInt("prepTime"), 
+                            res->getInt("totalTime"),
+                            res->getString("datePublished"), 
+                            res->getString("description"), 
+                            res->getString("category"),
+                            res->getInt("calories"), 
+                            res->getInt("servings"), 
+                            res->getInt("yieldQuantity"), 
+                            res->getString("instructions"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -36,7 +44,9 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         if (res->next()) {
-            return RecipeImage(res->getInt("recipeId"), res->getInt("imageNumber"), res->getString("imageURL"));
+            return RecipeImage(res->getInt("recipeId"), 
+            res->getInt("imageNumber"), 
+            res->getString("imageURL"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -81,11 +91,19 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(baseQuery));
 
         while (res->next()) {
-            result.push_back(Recipe(res->getInt("recipeId"), res->getString("recipeName"),
+            result.push_back(Recipe(res->getInt("recipeId"), 
+                                    res->getString("recipeName"),
                                     res->getInt("authorId"),
-                                    res->getInt("cookTime"), res->getInt("prepTime"), res->getInt("totalTime"),
-                                    res->getString("datePublished"), res->getString("description"), res->getString("category"),
-                                    res->getInt("calories"), res->getInt("servings"), res->getInt("yieldQuantity"), res->getString("instructions")));
+                                    res->getInt("cookTime"), 
+                                    res->getInt("prepTime"), 
+                                    res->getInt("totalTime"),
+                                    res->getString("datePublished"), 
+                                    res->getString("description"), 
+                                    res->getString("category"),
+                                    res->getInt("calories"), 
+                                    res->getInt("servings"), 
+                                    res->getInt("yieldQuantity"), 
+                                    res->getString("instructions")));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
