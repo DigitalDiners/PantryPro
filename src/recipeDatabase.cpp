@@ -152,7 +152,11 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
 std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
     std::vector<Ingredient> ingredients;
 
-    std::string query = "SELECT * FROM ingredients WHERE recipeId = " + std::to_string(recipeId) + ";";
+    std::string query = 
+        "SELECT ingredients.name, ingredients.ingredientId "
+        "FROM recipe_ingredients JOIN ingredients "
+        "ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "WHERE recipeId = " + std::to_string(recipeId) + ";";
 
     try {
         auto con = dbConn.getConnection();
