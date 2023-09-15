@@ -1,6 +1,6 @@
-#include "../src/recipeObject.h"
 #include "../src/recipeObject.cpp"
 #include "../src/recipeImage.cpp"
+#include "../src/recipe.cpp"
 #include "catch_amalgamated.cpp"
 
 /**
@@ -71,6 +71,86 @@ TEST_CASE( "Check that recipeImage returns expected values", "[classic]")
                 REQUIRE(testRecipeImage.getImageURL() == "anotherURL");
 
             }
+        }
+    }
+}
+
+TEST_CASE("Testing the other recipe class in our implementation, positive cases","[classic]"){
+    GIVEN("This instance of Recipe"){
+        //     Recipe(int id, const std::string &name, int aId,
+        //    int cTime, int pTime, int tTime, const std::string &dPublished,
+        //    const std::string &desc, const std::string &cat,
+        //    int cal, int serv, int yieldQ, const std::string &instructions);
+        int id = 54;
+        std::string name = "Carrot Cake";
+        int aId = 1255;
+        int cTime = 1;
+        int pTime = 2;
+        int tTime = 3;
+        std::string dPublished = "At the dawn of time";
+        std::string desc = "Delicious cake!";
+        std::string cat = "Great";
+        int cal = 100;
+        int serv = 1;
+        int yieldQ = 1;
+        std::string instructions = "abc123";
+
+        Recipe testRecipe(id, name, aId, cTime, pTime, tTime, dPublished, desc, cat, cal, serv, yieldQ, instructions);
+
+        THEN("These assertions should all pass"){
+            REQUIRE(testRecipe.getId() == 54);
+            REQUIRE(testRecipe.getName() == "Carrot Cake");
+            REQUIRE(testRecipe.getAuthorId() == 1255);
+            REQUIRE(testRecipe.getCookTime() == 1);
+            REQUIRE(testRecipe.getPrepTime() == 2);
+            REQUIRE(testRecipe.getTotalTime() == 3);
+            REQUIRE(testRecipe.getDatePublished() == "At the dawn of time");
+            REQUIRE(testRecipe.getDescription() == "Delicious cake!");
+            REQUIRE(testRecipe.getCategory() == "Great");
+            REQUIRE(testRecipe.getCalories() == 100);
+            REQUIRE(testRecipe.getServings() == 1);
+            REQUIRE(testRecipe.getYieldQuantity() == 1);
+            REQUIRE(testRecipe.getInstructions() == "abc123");
+        }
+    }
+}
+
+TEST_CASE("Testing the other recipe class in our implementation, Negative cases","[classic]"){
+    GIVEN("This instance of Recipe"){
+        //     Recipe(int id, const std::string &name, int aId,
+        //    int cTime, int pTime, int tTime, const std::string &dPublished,
+        //    const std::string &desc, const std::string &cat,
+        //    int cal, int serv, int yieldQ, const std::string &instructions);
+        int id = 54;
+        std::string name = "Carrot Cake";
+        int aId = 1255;
+        int cTime = 1;
+        int pTime = 2;
+        int tTime = 3;
+        std::string dPublished = "At the dawn of time";
+        std::string desc = "Delicious cake!";
+        std::string cat = "Great";
+        int cal = 100;
+        int serv = 1;
+        int yieldQ = 1;
+        std::string instructions = "abc123";
+
+        Recipe testRecipe(id, name, aId, cTime, pTime, tTime, dPublished, desc, cat, cal, serv, yieldQ, instructions);
+
+        THEN("These assertions should all pass"){
+            REQUIRE(testRecipe.getId() != 512);
+            REQUIRE(testRecipe.getName() != "Carrots");
+            REQUIRE(testRecipe.getAuthorId() != 121);
+            REQUIRE(testRecipe.getCookTime() != 1124);
+            REQUIRE(testRecipe.getPrepTime() != 212);
+            REQUIRE(testRecipe.getTotalTime() != 2);
+            REQUIRE(testRecipe.getDatePublished() != "AtNEVER");
+            REQUIRE(testRecipe.getDescription() != "Delicioasf");
+            REQUIRE(testRecipe.getCategory() != "Gafssffght");
+            REQUIRE(testRecipe.getCalories() != 10);
+            REQUIRE(testRecipe.getServings() != 1123);
+            REQUIRE(testRecipe.getYieldQuantity() != 112);
+            REQUIRE(testRecipe.getInstructions() != "abcasfa123");
         }
     }
 }
