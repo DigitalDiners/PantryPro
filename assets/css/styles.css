@@ -227,7 +227,7 @@ button:active, #add-button:active, #search-button:active {
     transform-origin: 0 0;
   }
 
-.add-meal{
+.add-symbol{
     height: 0;
     font-size: xxx-large;
     font-weight: 500;
