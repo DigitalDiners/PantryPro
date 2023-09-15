@@ -177,7 +177,7 @@ function displayCard(recipe, location) {
     favourite.className = ("favourite-icon");
     favourite.textContent = "♡";
     favourite.onclick = function () {
-        (addToSaved(recipe.recipeName));
+        (addToSaved(recipe.recipeId));
     };
 
 
