@@ -189,6 +189,7 @@ JSValue MyApp::GetSaved(const JSObject& thisObject, const JSArgs& args){
   std::vector<Recipe> returnSaved;
   RecipeDatabase recipeDB;
   for(int recipe: savedRecipes){
+    std::cout << recipe<< std::endl;
     returnSaved.push_back(recipeDB.getRecipeById(recipe));
   }
     std::string jsonRecipes = convertRecipesToJson(returnSaved);
