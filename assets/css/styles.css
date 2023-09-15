@@ -222,19 +222,16 @@ button:active, #add-button:active, #search-button:active {
   .favourite-icon{
     height: 0;
     font-size: 40px;
-    translate: 290px -35px;
+    translate: 165px -55px;
     transform: scaleY(0.7);
     transform-origin: 0 0;
   }
 
-.favourite-icon{
-    height: 0;
-}
 .add-symbol{
     height: 0;
     font-size: xxx-large;
     font-weight: 500;
-    translate: 250px -44px;
+    translate: 171px -25px;
 }
 .add-symbol:hover, .favourite-icon:hover{
     cursor: pointer;
