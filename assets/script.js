@@ -96,33 +96,33 @@ function displayCard(recipe) {
 
     const name = document.createElement('div');
     name.className = 'recipe-name';
-    name.textContent = recipe.recipeName;
+    name.textContent = 'recipe name';
     recipeInfo.appendChild(name);
 
-    if (recipe.recipeImageURL) { // Check if image URL exists
-        const imageWrapper = document.createElement('div'); // Create a wrapper for image
-        imageWrapper.className = 'recipe-image';
+    // if (recipe.recipeImageURL) { // Check if image URL exists
+    //     const imageWrapper = document.createElement('div'); // Create a wrapper for image
+    //     imageWrapper.className = 'recipe-image';
 
-        const image = document.createElement('img');
-        image.src = recipe.recipeImageURL;
+    //     const image = document.createElement('img');
+    //     image.src = recipe.recipeImageURL;
 
-        imageWrapper.appendChild(image); // append img to its wrapper
-        card.appendChild(imageWrapper); // append the wrapper to the card
-    }
+    //     imageWrapper.appendChild(image); // append img to its wrapper
+    //     card.appendChild(imageWrapper); // append the wrapper to the card
+    // }
 
     const category = document.createElement('div');
     category.className = 'recipe-category';
-    category.textContent = recipe.category;
+    category.textContent = 'recipe.category';
     recipeInfo.appendChild(category);
 
     const calories = document.createElement('div');
     calories.className = 'recipe-calories';
-    calories.textContent = recipe.calories + ' Calories';
+    calories.textContent = 'recipe.calories' + ' Calories';
     recipeInfo.appendChild(calories);
 
     const rating = document.createElement('div');
     rating.className = 'recipe-rating';
-    const starsWrapper = createStars(recipe.firstRating);
+    const starsWrapper = createStars(3);
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
 
@@ -146,6 +146,7 @@ function displayCard(recipe) {
     // Create and set the recipeInfo display
     searchResults.appendChild(card);
 }
+displayCard()
 
 // add_button = document.getElementById("add-button");
 // document.getElementById("ingredient-input").addEventListener('keydown', function(event) {
