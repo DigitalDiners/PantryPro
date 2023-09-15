@@ -191,7 +191,7 @@ function displayCard(recipe) {
 
     const rating = document.createElement('div');
     rating.className = 'recipe-rating';
-    const starsWrapper = createStars(recipe.rating);
+    const starsWrapper = createStars(recipe.firstRating);
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
 
