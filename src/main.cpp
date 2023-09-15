@@ -3,15 +3,35 @@
 #include "recipeDatabase.h"
 #include "recipe.h"
 #include "review.h"
+#include "ingredient.h"
 
 #include <vector>
 
 int main()
 {
+    RecipeDatabase db;
+
+    std::cout << "Ingredients check: " << std::endl;
+    // loop through ingredients
+
+    // make vector of ingredients variable
+    std::vector<Ingredient> ingredients;
+
+    ingredients = db.getIngredientsByRecipe(524);
+
+    for (const Ingredient &i : ingredients) {
+        std::cout << "Ingredient ID: " << i.getIngredientId() << std::endl;
+        std::cout << "Ingredient Name: " << i.getIngredientName() << std::endl;
+        std::cout << "-------------" << std::endl;
+    }
+
+
+
+
     // Example of using the RecipeDatabase class to create an instance of a Recipe object
     // and return its name and instructions
     std::cout << "-------------" << std::endl;
-    RecipeDatabase db;
+
     Recipe recipe = db.getRecipeById(524);
     std::cout << "Recipe Name: " << recipe.getName() << std::endl;
 
