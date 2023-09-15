@@ -110,13 +110,15 @@ function displayCard(recipe) {
     const favourite = document.createElement("div");
     favourite.className = ("favourite-icon");
     favourite.textContent = "♡";
-    favourite.onclick = addToSaved(recipe.recipeName);
+    favourite.onclick = function(){
+    addToSaved(recipe.recipeName);};
 
   
     const addSymbol = document.createElement("div");
     addSymbol.className = ("add-symbol");
     addSymbol.textContent = "+";
-    addSymbol.onclick = openPopup(recipe.recipeName);
+    addSymbol.onclick = function(){
+    openPopup(recipe.recipeName);};
   
     const popupContainer = document.createElement("div");
     popupContainer.id = "popup";
@@ -129,7 +131,8 @@ function displayCard(recipe) {
     const spanClosePopup = document.createElement("span");
     spanClosePopup.className = ("close-popup");
     spanClosePopup.textContent = "×";
-    spanClosePopup.onclick = (closePopup());
+    spanClosePopup.onclick = function(){
+    (closePopup());};
   
     // Create an <h2> element with text "Select Meals"
     const h2 = document.createElement("h2");
@@ -161,7 +164,8 @@ function displayCard(recipe) {
     const buttonAddMeal = document.createElement("button");
     buttonAddMeal.id = "add-meal";
     buttonAddMeal.textContent = "Add Meal";
-    buttonAddMeal.onclick = (addToPlanner(recipe.recipeName));
+    buttonAddMeal.onclick = function(){
+    (addToPlanner(recipe.recipeName));};
     // buttonAddMeal.addEventListener("click", function () {
     //   addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
     // });
