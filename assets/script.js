@@ -189,17 +189,17 @@ function displayCard(recipe) {
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
-    //console.log("Recipe Name:", recipe.recipeName);
+    // console.log("Recipe Name:", recipe.recipeName);
 
-    //const name = document.createElement('div');
-    //name.className = 'recipe-name';
-    //name.textContent = recipe.recipeName;
-    //card.appendChild(name);
+    // const name = document.createElement('div');
+    // name.className = 'recipe-name';
+    // name.textContent = recipe.recipeName;
+    // card.appendChild(name);
 
-    //const image = document.createElement('img');
-    //image.className = 'recipe-image';
-    //image.src = recipe.recipeImageURL;
-    //card.appendChild(image);
+    // const image = document.createElement('img');
+    // image.className = 'recipe-image';
+    // image.src = recipe.recipeImageURL;
+    // card.appendChild(image);
 
     const recipeInfo = document.createElement('div');
     recipeInfo.className = 'recipe-info';
@@ -225,6 +225,82 @@ function displayCard(recipe) {
     category.textContent = 'recipe.category';
     recipeInfo.appendChild(category);
 
+    const favourite = document.createElement("div");
+    favourite.classList.add("favourite-icon");
+    favourite.textContent = "♡";
+    favourite.onclick = addToSaved('recipe.recipeName');
+
+  
+    const addSymbol = document.createElement("div");
+    addSymbol.classList.add("add-symbol");
+    addSymbol.textContent = "+";
+    addSymbol.onclick = openPopup('recipe.recipeName');
+  
+    const popupContainer = document.createElement("div");
+    popupContainer.id = "popup";
+    popupContainer.classList.add("popup-container");
+  
+    const popupDiv = document.createElement("div");
+    popupDiv.classList.add("popup");
+  
+    // Create a <span> element with class "close-popup" and text "×"
+    const spanClosePopup = document.createElement("span");
+    spanClosePopup.classList.add("close-popup");
+    spanClosePopup.textContent = "×";
+    spanClosePopup.onclick = (closePopup());
+    // spanClosePopup.addEventListener("click", function () {
+    //   closePopup();
+    // });
+  
+    // Create an <h2> element with text "Select Meals"
+    const h2 = document.createElement("h2");
+    h2.textContent = "Select Meal";
+  
+    // Create a <select> element with id "day-options" and options
+    const selectDayOptions = document.createElement("select");
+    selectDayOptions.id = "day-options";
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    for (const day of days) {
+      const option = document.createElement("option");
+      option.value = day;
+      option.textContent = day;
+      selectDayOptions.appendChild(option);
+    }
+  
+    // Create a <select> element with id "meal-options" and options
+    const selectMealOptions = document.createElement("select");
+    selectMealOptions.id = "meal-options";
+    const meals = ["Breakfast", "Lunch", "Dinner"];
+    for (const meal of meals) {
+      const option = document.createElement("option");
+      option.value = meal;
+      option.textContent = meal;
+      selectMealOptions.appendChild(option);
+    }
+  
+    // Create a <button> element with id "add-meal" and text "Add Meal"
+    const buttonAddMeal = document.createElement("button");
+    buttonAddMeal.id = "add-meal";
+    buttonAddMeal.textContent = "Add Meal";
+    buttonAddMeal.onclick = (addToPlanner('recipe.recipeName'));
+    // buttonAddMeal.addEventListener("click", function () {
+    //   addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
+    // });
+  
+    // Append elements to create the desired structure
+    popupDiv.appendChild(spanClosePopup);
+    popupDiv.appendChild(h2);
+    popupDiv.appendChild(selectDayOptions);
+    popupDiv.appendChild(selectMealOptions);
+    popupDiv.appendChild(buttonAddMeal);
+  
+    popupContainer.appendChild(popupDiv);
+  
+    recipeInfo.appendChild(favourite);
+    recipeInfo.appendChild(addSymbol);
+    recipeInfo.appendChild(popupContainer);
+  
+
     const calories = document.createElement('div');
     calories.className = 'recipe-calories';
     calories.textContent = 'recipe.calories' + ' Calories';
@@ -232,91 +308,18 @@ function displayCard(recipe) {
 
     const rating = document.createElement('div');
     rating.className = 'recipe-rating';
-    const starsWrapper = createStars(3);
+    const starsWrapper = createStars('recipe.rating');
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
 
     card.appendChild(recipeInfo);
 
-
-    // const saveButton = document.createElement('button');
-    // saveButton.textContent = 'Save';
-    // saveButton.onclick = function() {
-    //     addToSaved(recipe.recipeId);
-    // };
-    // card.appendChild(saveButton);
-
-    // const addToPlannerButton = document.createElement('button');
-    // addToPlannerButton.textContent = 'Add to Planner';
-    // addToPlannerButton.onclick = function() {
-    //     addToPlanner(recipe.recipeId, 'Monday');
-    // };
-    // card.appendChild(addToPlannerButton);
-    
-    // Create and set the recipeInfo display
     searchResults.appendChild(card);
 }
-displayCard()
+displayCard();
+displayCard();
+displayCard();
 
-// add_button = document.getElementById("add-button");
-// document.getElementById("ingredient-input").addEventListener('keydown', function(event) {
-//     if (event.keyCode === 13) {
-//         event.preventDefault();
-//         add_button.click();
-//     }
-// });
-
-
-// function displayIngredients() {
-//     const listElem = document.getElementById("ingredient-list");
-//     listElem.innerHTML = "";
-    
-//     for (let ingredient of ingredients) {
-//         let li = document.createElement('li');
-//         li.textContent = ingredient;
-
-//         let deleteButton = document.createElement('button');
-//         deleteButton.textContent =  "\u2715";
-//         deleteButton.onclick = function() {
-//             removeIngredient(ingredient);
-//         };
-//         li.appendChild(deleteButton);
-
-//         listElem.appendChild(li);
-//     }
-// }
-
-// function removeIngredient(ingredient) {
-//     const index = ingredients.indexOf(ingredient);
-//     if (index > -1) {
-//         ingredients.splice(index, 1);
-//         displayIngredients();
-//     }
-// }
-
-
-// function getRecipeInfo(recipeID) {
-//     // This would communicate with your C++ method to get recipe information
-//     // Example return, adjust as needed:
-//     return {
-//         recipeName: "Sample Recipe Name",
-//         RecipeInfo: "RecipeName",
-//     };
-// }
-
-// function addToSaved(recipeID) {
-//     // Communicate with your C++ method to save the recipe
-//     console.log("Recipe with ID " + recipeID + " saved!");
-// }
-
-// function addToPlanner(recipeID, day) {
-//     // Communicate with your C++ method to add the recipe to the planner on the given day
-//     console.log("Recipe with ID " + recipeID + " added to planner for " + day + "!");
-// }
-
-// // Sample call to display a card (replace with actual method to get results from backend)
-// const sampleRecipe = getRecipeInfo(1);
-// displayCard(sampleRecipe);
 
 // /* GPTD */
 // function exportTableToCSV(filename) {
