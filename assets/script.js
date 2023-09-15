@@ -88,7 +88,7 @@ function displayCard(recipe) {
 
     const name = document.createElement('div');
     name.className = 'recipe-name';
-    name.textContent = 'recipe name';
+    name.textContent = recipe.recipeName;
     recipeInfo.appendChild(name);
 
     if (recipe.recipeImageURL) { // Check if image URL exists
@@ -104,19 +104,19 @@ function displayCard(recipe) {
 
     const category = document.createElement('div');
     category.className = 'recipe-category';
-    category.textContent = 'recipe.category';
+    category.textContent = recipe.category;
     recipeInfo.appendChild(category);
 
     const favourite = document.createElement("div");
     favourite.className = ("favourite-icon");
     favourite.textContent = "♡";
-    favourite.onclick = addToSaved('recipe.recipeName');
+    favourite.onclick = addToSaved(recipe.recipeName);
 
   
     const addSymbol = document.createElement("div");
     addSymbol.className = ("add-symbol");
     addSymbol.textContent = "+";
-    addSymbol.onclick = openPopup('recipe.recipeName');
+    addSymbol.onclick = openPopup(recipe.recipeName);
   
     const popupContainer = document.createElement("div");
     popupContainer.id = "popup";
@@ -161,7 +161,7 @@ function displayCard(recipe) {
     const buttonAddMeal = document.createElement("button");
     buttonAddMeal.id = "add-meal";
     buttonAddMeal.textContent = "Add Meal";
-    buttonAddMeal.onclick = (addToPlanner('recipe.recipeName'));
+    buttonAddMeal.onclick = (addToPlanner(recipe.recipeName));
     // buttonAddMeal.addEventListener("click", function () {
     //   addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
     // });
@@ -182,12 +182,12 @@ function displayCard(recipe) {
 
     const calories = document.createElement('div');
     calories.className = 'recipe-calories';
-    calories.textContent = 'recipe.calories' + ' Calories';
+    calories.textContent = recipe.calories + ' Calories';
     recipeInfo.appendChild(calories);
 
     const rating = document.createElement('div');
     rating.className = 'recipe-rating';
-    const starsWrapper = createStars('recipe.rating');
+    const starsWrapper = createStars(recipe.rating);
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
 
