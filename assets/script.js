@@ -80,67 +80,67 @@ function displayCard(recipe) {
     const name = document.createElement('div');
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
-    //card.appendChild(name);
+    card.appendChild(name);
 
-    // const cardContent = `
-    // <div class="recipes">
-    //     <div class="card">
-    //         <!-- <img src="http://127.0.0.1:5502/assets/dairyicon.png" alt="dairy icon"> -->
-    //         <!-- link to individual recipe function -->
-    //         <div class="card-content">
-    //             <div class="card-title">
-    //                 <!-- <%= recipe.title %> -->
-    //                 <h3>Butter Chicken</h3>
-    //                 <div class="favourite-icon">
-    //                     <!-- <img src="	http://127.0.0.1:5502/assets/outline-heart.png" alt="Favourite" onclick="addToSaved(34)"> -->
-    //                     <!-- <img src="/assets/outline-heart.png" alt="Favourite" onclick="addToSaved(recipe.id)"> -->
-    //                 </div>
-    //                 <div class="add-symbol" >
-    //                 <!-- <img src="http://127.0.0.1:5502/assets/add-symbol.png" id="open-popup" alt="Add to meal planner" onclick="openPopup(34)"> -->
-    //                 <!-- <button class="add-symbol" onclick="openPopup()">+</button> -->
-    //                     <div id="popup" class="popup-container">
-    //                         <div class="popup">
-    //                             <span class="close-popup" id="close-popup" onclick="closePopup()">&times;</span>
-    //                             <h2>Select Meals</h2>
-    //                             <select id="day-options">
-    //                                 <option value="Monday">Monday</option>
-    //                                 <option value="Tuesday">Tuesday</option>
-    //                                 <option value="Wednesday">Wednesday</option>
-    //                                 <option value="Thursday">Thursday</option>
-    //                                 <option value="Friday">Friday</option>
-    //                                 <option value="Saturday">Saturday</option>
-    //                                 <option value="Sunday">Sunday</option>
-    //                             </select>
-    //                             <select id="meal-options">
-    //                                 <option value="Breakfast">Breakfast</option>
-    //                                 <option value="Lunch">Lunch</option>
-    //                                 <option value="Dinner">Dinner</option>
-    //                             </select>
-    //                             <!-- <button id="add-meal" onclick="addToPlanner(recipe.id, dayOptions.value)">Add Meal</button> -->
-    //                             <button id="add-meal" onclick="addToPlanner(34)">Add Meal</button>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //                 <strong>Recipe type:</strong> Curry <br>
-    //                 <strong>Cook Time:</strong> 1 Hour 20 Mins <br>
-    //                 <strong>Missing ingredients:</strong> Chicken, Rice, Butter, Cream <br>
+    const cardContent = `
+    <div class="recipes">
+        <div class="card">
+            <!-- <img src="http://127.0.0.1:5502/assets/dairyicon.png" alt="dairy icon"> -->
+            <!-- link to individual recipe function -->
+            <div class="card-content">
+                <div class="card-title">
+                    <!-- <%= recipe.title %> -->
+                    <h3>Butter Chicken</h3>
+                    <div class="favourite-icon">
+                        <!-- <img src="	http://127.0.0.1:5502/assets/outline-heart.png" alt="Favourite" onclick="addToSaved(34)"> -->
+                        <!-- <img src="/assets/outline-heart.png" alt="Favourite" onclick="addToSaved(recipe.id)"> -->
+                    </div>
+                    <div class="add-symbol" >
+                    <!-- <img src="http://127.0.0.1:5502/assets/add-symbol.png" id="open-popup" alt="Add to meal planner" onclick="openPopup(34)"> -->
+                    <button class="add-symbol" onclick="openPopup(34)">+</button>
+                        <div id="popup" class="popup-container">
+                            <div class="popup">
+                                <span class="close-popup" id="close-popup" onclick="closePopup()">&times;</span>
+                                <h2>Select Meals</h2>
+                                <select id="day-options">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                                <select id="meal-options">
+                                    <option value="Breakfast">Breakfast</option>
+                                    <option value="Lunch">Lunch</option>
+                                    <option value="Dinner">Dinner</option>
+                                </select>
+                                <!-- <button id="add-meal" onclick="addToPlanner(recipe.id, dayOptions.value)">Add Meal</button> -->
+                                <button id="add-meal" onclick="addToPlanner(34)">Add Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                    <strong>Recipe type:</strong> Curry <br>
+                    <strong>Cook Time:</strong> 1 Hour 20 Mins <br>
+                    <strong>Missing ingredients:</strong> Chicken, Rice, Butter, Cream <br>
 
-    //                 <div class="rating">
-    //                     <span class="filled">☆</span>
-    //                     <span class="filled">☆</span>
-    //                     <span class="filled">☆</span>
-    //                     <span>☆</span>
-    //                     <span>☆</span>
-    //                 </div>
-    //             </div>
-    //         </div>
+                    <div class="rating">
+                        <span class="filled">☆</span>
+                        <span class="filled">☆</span>
+                        <span class="filled">☆</span>
+                        <span>☆</span>
+                        <span>☆</span>
+                    </div>
+                </div>
+            </div>
 
-    //     </div>
-    //     `;
+        </div>
+        `;
 
-    //         card.innerHTML = cardContent;
+            card.innerHTML = cardContent;
 
-    card.innerHTML = `recipe.recipeId`;
+    // card.innerHTML = `recipe.recipeId`;
     
     // Create and set the recipeInfo display
     searchResults.appendChild(card);
