@@ -167,7 +167,7 @@ JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args)
   std::cout<<"Recipe ingredients called"<< std::endl;
 
   int recipeId;
-  // std::cout<<recipeId<<std::endl;
+  std::cout<<recipeId<<std::endl;
       std::vector<std::string> ingredients;
     if (args[0].IsArray()) {
         JSArray ingredientArray = args[0].ToArray();
