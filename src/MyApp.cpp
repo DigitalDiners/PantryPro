@@ -8,6 +8,8 @@
 #define WINDOW_WIDTH  1000
 #define WINDOW_HEIGHT 800
 
+std::vector<int> savedRecipes;
+
 
 MyApp::MyApp()
 {
@@ -176,6 +178,25 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+void MyApp::SaveRecipe(const JSObject& thisObject, const JSArgs& args){
+    std::cout << "Save Recipe called" << std::endl;
+  int recipeId = args[0];
+  savedRecipes.push_back(recipeId);
+}
+
+JSValue MyApp::GetSaved(const JSObject& thisObject, const JSArgs& args){
+    std::cout << "Get saved called" << std::endl;
+  std::vector<Recipe> returnSaved;
+  RecipeDatabase recipeDB;
+  for(int recipe: savedRecipes){
+    returnSaved.push_back(recipeDB.getRecipeById(recipe));
+  }
+    std::string jsonRecipes = convertRecipesToJson(returnSaved);
+
+
+    return JSValue(jsonRecipes.c_str());
+}
+
 JSValue MyApp::AddToMealPlanner(const JSObject& thisObject, const JSArgs& args){
     std::cout<<"Add to meal Planner called"<< std::endl;
 
@@ -193,13 +214,14 @@ JSValue MyApp::AddToMealPlanner(const JSObject& thisObject, const JSArgs& args){
     //return false;
 }
 
+//needs work
 JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args){
   std::cout<<"Recipe ingredients called"<< std::endl;
 
-  int recipeId;
+  int recipeId = args[0];
   std::cout<<recipeId<<std::endl;
       std::vector<std::string> ingredients;
-    if (args[0].IsArray()) {
+    if (args[1].IsArray()) {
         JSArray ingredientArray = args[0].ToArray();
         for (size_t i = 0; i < ingredientArray.length(); i++) {
             ultralight::String jsStr = ingredientArray[i].ToString();
@@ -239,6 +261,8 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
+  global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
+  global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,

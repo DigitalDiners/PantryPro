@@ -1,4 +1,4 @@
-let ingredients = [];
+// let ingredients = [];
 let currRecipeName;
 let savedRecipes = [];
 let mealPlanner = [];
@@ -49,36 +49,6 @@ const weeklyMealPlan = {
   }
 };
 
-function addToJSON(day, meal, recipeName){
-    //assets/css/data/planner.json
-    if (weeklyMealPlan[day] && weeklyMealPlan[day][meal] !== undefined) {
-        if(weeklyMealPlan[day][meal]==null){        
-            weeklyMealPlan[day][meal] = recipeName;
-            console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal +  "!");
-            const jsonstring = JSON.stringify(weeklyMealPlan);
-            if(AddToMealPlanner(jsonstring)){
-                console.log("success");
-            }else{
-                console.log("fail");
-            }
-        }else{
-            console.log("This slot is already filled");
-        }
-    } else {
-        console.log("Invalid day or meal type");
-      }
-}
-    
-
-function addToSaved(recipeID) {
-    // Communicate with C++ method to save the recipe
-    console.log("Recipe with ID " + recipeID + " saved!");
-    savedRecipes.push(recipeID);
-    console.log("saved recipe(s):\n")
-    for(let i=0; i<savedRecipes.length; i++){
-        console.log(savedRecipes[i]+"\n");
-    }
-}
 
 /**
  * add to planner function
@@ -96,17 +66,6 @@ function addToPlanner(recipeName) {
     mealOption.push(selectedDay, selectedMeal, recipeName);
     mealPlanner.push(mealOption);
     closePopup();
-}
-
-// Function to open the popup
-function openPopup(recipeName) {
-    currRecipeName = recipeName;
-    popup.style.display = 'block';
-}
-
-// Function to close the popup
-function closePopup() {
-    popup.style.display = 'none';
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -218,7 +177,7 @@ function displayCard(recipe, location) {
     favourite.className = ("favourite-icon");
     favourite.textContent = "♡";
     favourite.onclick = function () {
-        addToSaved(recipe.recipeName);
+        (addToSaved(recipe.recipeName));
     };
 
 
@@ -332,15 +291,45 @@ function addToJSON(day, meal, recipeName) {
     }
 }
 
-
-function addToSaved(recipeID) {
+//send to c the recipeId
+function addToSaved(recipeId) {
     // Communicate with C++ method to save the recipe
-    console.log("Recipe with ID " + recipeID + " saved!");
-    savedRecipes.push(recipeID);
+    console.log("Recipe " + recipeId + " saved!");
+    savedRecipes.push(recipeId);
     console.log("saved recipe(s):\n")
     for (let i = 0; i < savedRecipes.length; i++) {
         console.log(savedRecipes[i] + "\n");
     }
+    SaveRecipe(recipeId);
+}
+
+//function which retrieves saved recipes from c
+function getSaved(){
+    try {
+
+        // debugging instructions if search recipes does not return results
+
+        // 1. uncomment the lines below, re-build and re-run application
+        //var message = SearchRecipes(ingredientStr);
+        //document.getElementById('message').innerHTML = message;
+
+        // 2. copy and paste json into following link:
+        // https://jsonlint.com
+
+        // 3. if json is invalid, find recipe causing issue
+
+        const jsonRecipes = GetSaved();
+        const recipes = JSON.parse(jsonRecipes);
+        console.log("Recipes:", recipes);
+
+        for (let recipe of recipes) {
+            displayCard(recipe, 'saved-recipe-container');
+        }
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+        alert("Failed to fetch recipes. Please try again later.");
+    }
+
 }
 
 /**
@@ -381,5 +370,4 @@ function loadSavedPage() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadSavedPage);
 
