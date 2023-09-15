@@ -149,3 +149,31 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
     return reviews;
 }
 
+std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
+    std::vector<Ingredient> ingredients;
+
+    std::string query = "SELECT * FROM ingredients WHERE recipeId = " + std::to_string(recipeId) + ";";
+
+    try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+
+        while (res->next()) {
+            ingredients.push_back(
+                Ingredient(
+                    res->getInt("ingredientId"),
+                    res->getString("name")
+                )
+            );
+        }
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    return ingredients;
+}
+
