@@ -50,7 +50,6 @@ function searchRecipes() {
         console.log("Recipes:", recipes);
 
         for (let recipe of recipes) {
-            const jsonIngredients = GetIngredientsByRecipe(recipe.recipeId);
             displayCard(recipe);
         }
     } catch (error) {
