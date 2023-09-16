@@ -52,6 +52,7 @@ function searchRecipes() {
         const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
+        document.getElementById('search-results').innerHTML = "";
 
         for (let recipe of recipes) {
             displayCard(recipe, "search-results");
@@ -79,7 +80,6 @@ function createStars(rating) {
 
 function displayCard(recipe, location) {
     const searchResults = document.getElementById(location);
-    searchResults.innerHTML = "";
 
     // Create a div for the card
     const card = document.createElement('div');
@@ -307,6 +307,8 @@ function addToSaved(recipeId) {
     // Communicate with C++ method to save the recipe
     console.log("Recipe " + recipeId + " saved!");
     let isSaved = false;
+            document.getElementById('search-results').innerHTML = "";
+
     for (let i = 0; i < savedRecipes.length; i++) {
         if(savedRecipes[i] == recipeId){
             isSaved=true;
@@ -327,6 +329,7 @@ function getSaved(){
         const jsonRecipes = GetSaved();
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
+        document.getElementById('saved-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
             displayCard(recipe, 'saved-recipe-container');
