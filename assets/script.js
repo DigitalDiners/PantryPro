@@ -35,7 +35,6 @@ function searchRecipes() {
         ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
 
-    console.log("Ingredients:", ingredients);
 
     try {
 

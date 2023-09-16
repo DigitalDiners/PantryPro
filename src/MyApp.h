@@ -44,6 +44,8 @@ public:
 
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
 
+  JSValue GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args);
+
   // JSValue RecipeIngredients(const JSObject& thisObject, const JSArgs& args);
 
 JSValue AddToMealPlanner(const JSObject& thisObject, const JSArgs& args);

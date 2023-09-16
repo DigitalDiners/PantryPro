@@ -186,6 +186,30 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
+JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args) {
+    //std::cout << "GetIngredientsByRecipe called" << std::endl;
+
+    int recipeId = args[0].ToInteger();
+
+    RecipeDatabase recipeDB;
+    std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
+
+    std::string jsonIngredients = "[";
+
+    for (const Ingredient& ingredient : ingredients) {
+        jsonIngredients += "{ ";
+        jsonIngredients += "\"ingredientId\": " + removeQuotes(std::to_string(ingredient.getIngredientId())) + ",";
+        jsonIngredients += "\"ingredientName\": \"" + removeQuotes(ingredient.getIngredientName()) + "\"";
+        jsonIngredients += " },";
+    }
+    if (jsonIngredients.back() == ',') jsonIngredients.pop_back();
+    jsonIngredients += "]";
+
+    //std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+
+    return JSValue(jsonIngredients.c_str());
+}
+
 void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
 {
   std::cout << "Save Recipe called" << std::endl;
@@ -302,6 +326,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
+  global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,

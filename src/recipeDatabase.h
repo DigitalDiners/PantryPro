@@ -7,6 +7,7 @@
 #include "databaseConnection.h"
 #include <string>
 #include <sstream>
+#include "ingredient.h"
 
 
 /**
@@ -62,6 +63,15 @@ public:
      * @return A vector of Review objects corresponding to the given recipe ID or an empty vector if not found.
      */
     std::vector<Review> getReviewsByRecipeId(int recipeId);
+
+    /**
+
+     * @brief Get a list of Ingredients By Recipe Id
+     * 
+     * @param recipeId The unique identifier of the recipe to fetch the ingredients from.
+     * @return A vector of Ingredient objects corresponding to the given recipe ID or an empty vector if not found.
+     */
+    std::vector<Ingredient> getIngredientsByRecipe(int recipeId);
 
 };
 
