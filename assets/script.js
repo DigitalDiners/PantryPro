@@ -54,7 +54,7 @@ function searchRecipes() {
         console.log("Recipes:", recipes);
 
         for (let recipe of recipes) {
-            displayCard(recipe, "ß");
+            displayCard(recipe, "search-results");
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -67,8 +67,8 @@ function createStars(rating) {
     const starsWrapper = document.createElement("div");
     for (let i = 1; i <= 5; i++) {
         const star = document.createElement("span");
-        star.className = 'star';
-        star.textContent = '★';
+        star.className = "star";
+        star.textContent = "★";
         if (i <= rating) {
             star.classList.add('checked');
         }
