@@ -47,7 +47,7 @@ public:
    * @brief Retrieve the planner json file from the MealPlanner object
    * 
    * @param thisObject self.
-   * @param args args to be passed, takes none.
+   * @param args args to be passed, function uses none.
    * @return JSValue the planner json as a stdstring.
    */
   JSValue GetPlanner(const JSObject& thisObject, const JSArgs& args);

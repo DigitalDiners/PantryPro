@@ -190,6 +190,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+  
   global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
 }
 

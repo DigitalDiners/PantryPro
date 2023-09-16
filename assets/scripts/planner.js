@@ -3,13 +3,14 @@ window.onload = createPlanner();
 function createPlanner(){
     console.log("Creating planner...");
     try{
+        
         const jsonMealPlanner = GetPlanner();
+        console.log(jsonMealPlanner);
+        //const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
         const days = JSON.parse(jsonMealPlanner);
         
-        let count = 0;
-        for(let day of days){
-            displayMealCards(day, count);
-            count += 1;
+        for(let day of days){            
+            displayMealCards(day);
         }
 
     }catch(error){
@@ -18,39 +19,36 @@ function createPlanner(){
     }
 }
 
-function displayMealCards(day, num){
+function displayMealCards(day){
     console.log("Displaying meal container");
-    const plannerBox = document.getElementById("meal-planner-container");
+    const plannerBox = document.getElementById('meal-planner-container');
 
     const dayCard = document.createElement('div');
     dayCard.className = 'day-card';
     
-    const name = document.createElement('div');
+    const name = document.createElement('h4');
     name.className = 'day-name';
-    name.textContent = day.num.name;
+    name.textContent = day.name;
     dayCard.appendChild(name);
 
-    const rule = document.createElement('hr');
-    dayCard.appendChild(rule)
-
-    const breakfast = document.createElement('div');
+    const breakfast = document.createElement('p');
     breakfast.className = 'meal';
-    name.textContent = day.num.breakfast;
+    breakfast.textContent = day.breakfast;
     dayCard.appendChild(breakfast);
 
-    const lunch = document.createElement('div');
+    const lunch = document.createElement('p');
     lunch.className = 'meal';
-    name.textContent = day.num.lunch;
+    lunch.textContent = day.lunch;
     dayCard.appendChild(lunch);
 
-    const dinner = document.createElement('div');
+    const dinner = document.createElement('p');
     dinner.className = 'meal';
-    name.textContent = day.num.dinner;
+    dinner.textContent = day.dinner;
     dayCard.appendChild(dinner);
 
-    const snack = document.createElement('div');
+    const snack = document.createElement('p');
     snack.className = 'meal';
-    name.textContent = day.num.snack;
+    snack.textContent = day.snack;
     dayCard.appendChild(snack);
 
     plannerBox.appendChild(dayCard)

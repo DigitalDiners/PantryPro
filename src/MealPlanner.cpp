@@ -1,18 +1,20 @@
 #include "json.hpp"
+#include "mealPlanner.h"
 #include <fstream>
 #include <iostream>
-#include "mealPlanner.h"
+#include <sstream>
 
 using json = nlohmann::json;
 
 MealPlanner::MealPlanner() 
 {       
     std::cout << "Constructing meal planner..." << std::endl;
-    std::ifstream in("../assets/data/planner.json");
-    std::string jsonString((std::istreambuf_iterator<char>(in)), 
-        std::istreambuf_iterator<char>());
-    this->plannerJson = jsonString;
-    
+
+    std::ifstream jsonFile("../assets/data/planner.json");
+    std::ostringstream tmp;
+    tmp<<jsonFile.rdbuf();
+    plannerJson = tmp.str();
+
     // std::ifstream planner_file("../assets/data/planner.json");
     // json planner = json::parse(planner_file);
 
