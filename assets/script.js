@@ -78,6 +78,7 @@ function createStars(rating) {
 
 function displayCard(recipe, location) {
     const searchResults = document.getElementById(location);
+    searchResults.innerHTML = "";
 
     // Create a div for the card
     const card = document.createElement('div');
