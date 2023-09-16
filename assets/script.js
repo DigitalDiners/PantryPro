@@ -216,7 +216,23 @@ function displayCard(recipe, location) {
 }
 
 
-
+/**
+ * add to planner function
+ * opening a popup sets the currRecipeId to the clicked recipe. 
+ * Need to add function to add the recipe, day, and meal to an array or script
+ */
+function addToPlanner(recipeName) {
+    recipeName = currRecipeName;
+    const dayOptions = document.getElementById('day-options');
+    const mealOptions = document.getElementById('meal-options');
+    const selectedDay = dayOptions.value;
+    const selectedMeal = mealOptions.value;
+    let mealOption = [];
+    addToJSON(selectedDay, selectedMeal, recipeName);
+    mealOption.push(selectedDay, selectedMeal, recipeName);
+    mealPlanner.push(mealOption);
+    closePopup();
+}
 
 // Your JSON structure
 const weeklyMealPlan = {
@@ -285,14 +301,45 @@ function addToJSON(day, meal, recipeName) {
 }
 
 
-function addToSaved(recipeID) {
+//send to c the recipeId
+function addToSaved(recipeId) {
     // Communicate with C++ method to save the recipe
-    console.log("Recipe with ID " + recipeID + " saved!");
-    savedRecipes.push(recipeID);
+    console.log("Recipe " + recipeId + " saved!");
+    savedRecipes.push(recipeId);
     console.log("saved recipe(s):\n")
     for (let i = 0; i < savedRecipes.length; i++) {
         console.log(savedRecipes[i] + "\n");
     }
+    SaveRecipe(recipeId);
+}
+
+//function which retrieves saved recipes from c
+function getSaved(){
+    try {
+
+        // debugging instructions if search recipes does not return results
+
+        // 1. uncomment the lines below, re-build and re-run application
+        //var message = SearchRecipes(ingredientStr);
+        //document.getElementById('message').innerHTML = message;
+
+        // 2. copy and paste json into following link:
+        // https://jsonlint.com
+
+        // 3. if json is invalid, find recipe causing issue
+
+        const jsonRecipes = GetSaved();
+        const recipes = JSON.parse(jsonRecipes);
+        console.log("Recipes:", recipes);
+
+        for (let recipe of recipes) {
+            displayCard(recipe, 'saved-recipe-container');
+        }
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+        alert("Failed to fetch recipes. Please try again later.");
+    }
+
 }
 
 /**
@@ -333,5 +380,4 @@ function loadSavedPage() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadSavedPage);
 
