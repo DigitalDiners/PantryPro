@@ -163,7 +163,6 @@ button:active, #add-button:active, #search-button:active {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 10px;
-    
 }
 
 .recipe-card {
@@ -219,6 +218,7 @@ button:active, #add-button:active, #search-button:active {
   .star.checked {
     color: gold;
   }
+
   /*
   .favourite-icon{
     height: 0;
@@ -240,7 +240,8 @@ button:active, #add-button:active, #search-button:active {
     cursor: pointer;
     padding: 1px;
     transition: padding 0.2s;
-  }*/
+  }
+  */
 
   .favourite-icon {
     background: none;
@@ -272,7 +273,7 @@ button:active, #add-button:active, #search-button:active {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 70%);
     justify-content: center;
     align-items: center;
     z-index: 999;

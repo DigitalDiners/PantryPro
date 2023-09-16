@@ -54,7 +54,7 @@ function searchRecipes() {
         console.log("Recipes:", recipes);
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'search-results');
+            displayCard(recipe, "ß");
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -62,10 +62,11 @@ function searchRecipes() {
     }
 }
 
+/** Create the star rating for the recipecard */
 function createStars(rating) {
-    const starsWrapper = document.createElement('div');
+    const starsWrapper = document.createElement("div");
     for (let i = 1; i <= 5; i++) {
-        const star = document.createElement('span');
+        const star = document.createElement("span");
         star.className = 'star';
         star.textContent = '★';
         if (i <= rating) {
