@@ -8,6 +8,8 @@
 #define WINDOW_WIDTH  1000
 #define WINDOW_HEIGHT 800
 
+std::vector<int> savedRecipes;
+
 
 MyApp::MyApp()
 {
@@ -176,6 +178,73 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(jsonRecipes.c_str());
 }
 
+void MyApp::SaveRecipe(const JSObject& thisObject, const JSArgs& args){
+    std::cout << "Save Recipe called" << std::endl;
+  int recipeId = args[0];
+  savedRecipes.push_back(recipeId);
+}
+
+JSValue MyApp::GetSaved(const JSObject& thisObject, const JSArgs& args){
+    std::cout << "Get saved called" << std::endl;
+  std::vector<Recipe> returnSaved;
+  RecipeDatabase recipeDB;
+  for(int recipe: savedRecipes){
+    std::cout << recipe<< std::endl;
+    returnSaved.push_back(recipeDB.getRecipeById(recipe));
+  }
+    std::string jsonRecipes = convertRecipesToJson(returnSaved);
+
+
+    return JSValue(jsonRecipes.c_str());
+}
+
+JSValue MyApp::AddToMealPlanner(const JSObject& thisObject, const JSArgs& args){
+    std::cout<<"Add to meal Planner called"<< std::endl;
+
+    std::vector<std::string> planned;
+    if (args[0].IsArray()) {
+        JSArray plannerArray = args[0].ToArray();
+        for (size_t i = 0; i < plannerArray.length(); i++) {
+            ultralight::String jsStr = plannerArray[i].ToString();
+            planned.push_back(std::string(jsStr.utf8().data()));
+        }
+    }
+    //If success with this function
+    return true;
+    //else 
+    //return false;
+}
+
+// //needs work
+// JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args){
+//   std::cout<<"Recipe ingredients called"<< std::endl;
+
+//   int recipeId = args[0];
+//   std::cout<<recipeId<<std::endl;
+//       std::vector<std::string> ingredients;
+//     if (args[1].IsArray()) {
+//         JSArray ingredientArray = args[0].ToArray();
+//         for (size_t i = 0; i < ingredientArray.length(); i++) {
+//             ultralight::String jsStr = ingredientArray[i].ToString();
+//             ingredients.push_back(std::string(jsStr.utf8().data()));
+//         }
+//     }
+
+  
+//     RecipeDatabase recipeDB;
+//     std::vector<std::string> missingIngredients = recipeDB.getIngredients(recipeId,ingredients);
+
+//     std::string json = "[{";
+//     for(const std::string& ingredient: missingIngredients){
+//       json += ingredient;
+//       json += ",";
+//       std::cout<<ingredient<<std::endl;
+//     }
+//     json += "}]";
+//     // std::string jsonRecipes = convertRecipesToJson(recipes);
+//     return JSValue(json.c_str());
+
+// }
 
 void MyApp::OnDOMReady(ultralight::View *caller,
                 uint64_t frame_id,
@@ -191,6 +260,10 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+  // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
+  global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
+  global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
+  global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
