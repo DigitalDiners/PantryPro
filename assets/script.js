@@ -80,17 +80,21 @@ function createStars(rating) {
 function displayCard(recipe, location) {
     const searchResults = document.getElementById(location);
 
+    // Create a div for the card
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
+    // Create a div for recipe info
     const recipeInfo = document.createElement('div');
     recipeInfo.className = 'recipe-info';
 
+    // Add name to the card
     const name = document.createElement('div');
     name.className = 'recipe-name';
     name.textContent = recipe.recipeName;
     recipeInfo.appendChild(name);
 
+    // Add image if it exists to the card
     if (recipe.recipeImageURL) { // Check if image URL exists
         const imageWrapper = document.createElement('div'); // Create a wrapper for image
         imageWrapper.className = 'recipe-image';
@@ -102,22 +106,39 @@ function displayCard(recipe, location) {
         card.appendChild(imageWrapper); // append the wrapper to the card
     }
 
+    // Add category to the card
     const category = document.createElement('div');
     category.className = 'recipe-category';
     category.textContent = recipe.category;
     recipeInfo.appendChild(category);
 
-    const favourite = document.createElement("div");
+    // Add calories to the card
+    const calories = document.createElement('div');
+    calories.className = 'recipe-calories';
+    calories.textContent = recipe.calories + ' Calories';
+    recipeInfo.appendChild(calories);
+
+    // Add rating to the card
+    const rating = document.createElement('div');
+    rating.className = 'recipe-rating';
+    const starsWrapper = createStars(recipe.firstRating);
+    rating.appendChild(starsWrapper);
+    recipeInfo.appendChild(rating);
+
+    // Add favorite button to the card
+    const favourite = document.createElement("button");
     favourite.className = ("favourite-icon");
-    favourite.textContent = "♡";
+    favourite.innerHTML = "&hearts;";  
+    favourite.setAttribute("aria-label", "Add to favourites");
     favourite.onclick = function () {
         addToSaved(recipe.recipeName);
     };
 
-
-    const addSymbol = document.createElement("div");
+    // Add 'add to planner' button to the card
+    const addSymbol = document.createElement("button");
     addSymbol.className = ("add-symbol");
-    addSymbol.textContent = "+";
+    addSymbol.innerHTML = "Add to planner";
+    addSymbol.setAttribute("aria-label", "Add to planner");
     addSymbol.onclick = function () {
         openPopup(recipe.recipeName);
     };
@@ -188,16 +209,6 @@ function displayCard(recipe, location) {
     recipeInfo.appendChild(popupContainer);
 
 
-    const calories = document.createElement('div');
-    calories.className = 'recipe-calories';
-    calories.textContent = recipe.calories + ' Calories';
-    recipeInfo.appendChild(calories);
-
-    const rating = document.createElement('div');
-    rating.className = 'recipe-rating';
-    const starsWrapper = createStars(recipe.firstRating);
-    rating.appendChild(starsWrapper);
-    recipeInfo.appendChild(rating);
 
     card.appendChild(recipeInfo);
 

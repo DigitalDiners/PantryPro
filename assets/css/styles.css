@@ -219,6 +219,7 @@ button:active, #add-button:active, #search-button:active {
   .star.checked {
     color: gold;
   }
+  /*
   .favourite-icon{
     height: 0;
     font-size: 40px;
@@ -233,11 +234,37 @@ button:active, #add-button:active, #search-button:active {
     font-weight: 500;
     translate: 171px -25px;
 }
+
+
 .add-symbol:hover, .favourite-icon:hover{
     cursor: pointer;
     padding: 1px;
     transition: padding 0.2s;
-  }
+  }*/
+
+  .favourite-icon {
+    background: none;
+    border: none;  
+    box-shadow: none;  
+    cursor: pointer;
+    font-size: 1.5em;
+    outline: none;
+    transition: color 0.3s ease;
+    padding: 0;
+    margin: 0;
+    color: grey;
+}
+  
+.favourite-icon:hover,
+.favourite-icon:focus {
+    background-color: transparent;
+    border: none ; 
+    box-shadow: none ;
+    color: #ff5454;
+    outline: none ; 
+}
+
+
   .popup-container {
     display: none;
     position: fixed;
