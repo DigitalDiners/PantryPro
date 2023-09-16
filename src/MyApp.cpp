@@ -181,6 +181,7 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
 void MyApp::SaveRecipe(const JSObject& thisObject, const JSArgs& args){
     std::cout << "Save Recipe called" << std::endl;
   int recipeId = args[0];
+    std::cout << recipeId << std::endl;  
   savedRecipes.push_back(recipeId);
 }
 

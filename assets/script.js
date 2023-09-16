@@ -131,7 +131,7 @@ function displayCard(recipe, location) {
     favourite.innerHTML = "&hearts;";  
     favourite.setAttribute("aria-label", "Add to favourites");
     favourite.onclick = function () {
-        addToSaved(recipe.recipeName);
+        addToSaved(recipe.recipeId);
     };
 
     // Add 'add to planner' button to the card
