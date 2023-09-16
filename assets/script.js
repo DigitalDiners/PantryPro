@@ -53,6 +53,7 @@ function searchRecipes() {
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
 
+        document.getElementById('search-results').innerHTML = "";
         for (let recipe of recipes) {
             displayCard(recipe, 'search-results');
         }
@@ -77,8 +78,7 @@ function createStars(rating) {
 }
 
 function displayCard(recipe, location) {
-    const searchResults = document.getElementById(location);
-    searchResults.innerHTML = "";
+    const searchResults = document.getElementById(location);ß
 
     // Create a div for the card
     const card = document.createElement('div');
