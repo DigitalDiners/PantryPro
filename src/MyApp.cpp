@@ -114,7 +114,7 @@ std::string MyApp::removeQuotes(const std::string& input) {
 }
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
-    std::cout << "convertRecipesToJson called" << std::endl;
+    //std::cout << "convertRecipesToJson called" << std::endl;
     std::string json = "[";
 
     std::cout << "recipes.size(): " << recipes.size() << std::endl;
@@ -143,7 +143,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
 }
 
 JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "SearchRecipes called" << std::endl;
+    //std::cout << "SearchRecipes called " << std::endl;
 
     std::vector<std::string> ingredients;
     if (args[0].IsArray()) {
@@ -158,13 +158,13 @@ JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
     std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(ingredients);
     std::string jsonRecipes = convertRecipesToJson(recipes);
 
-    std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
+    //std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
 
     return JSValue(jsonRecipes.c_str());
 }
 
 JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetIngredientsByRecipe called" << std::endl;
+    //std::cout << "GetIngredientsByRecipe called" << std::endl;
 
     int recipeId = args[0].ToInteger();
 
@@ -182,7 +182,7 @@ JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& 
     if (jsonIngredients.back() == ',') jsonIngredients.pop_back();
     jsonIngredients += "]";
 
-    std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+    //std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
 
     return JSValue(jsonIngredients.c_str());
 }
@@ -202,6 +202,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
+  global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
