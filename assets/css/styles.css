@@ -236,30 +236,6 @@ button:active,
     color: gold;
   }
 
-  /*
-  .favourite-icon{
-    height: 0;
-    font-size: 40px;
-    translate: 165px -55px;
-    transform: scaleY(0.7);
-    transform-origin: 0 0;
-  }
-
-.add-symbol{
-    height: 0;
-    font-size: xxx-large;
-    font-weight: 500;
-    translate: 171px -25px;
-}
-
-
-.add-symbol:hover, .favourite-icon:hover{
-    cursor: pointer;
-    padding: 1px;
-    transition: padding 0.2s;
-  }
-  */
-
   .favourite-icon {
     background: none;
     border: none;  
