@@ -1,7 +1,6 @@
 ﻿body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 10px;
-
 }
 
 
@@ -76,7 +75,9 @@ input {
     font-size: 1em;
 }
 
-button, #add-button, #search-button {
+button,
+#add-button,
+#search-button {
     padding: 10px 20px;
     border: none;
     background-color: lightgrey;
@@ -95,15 +96,19 @@ button:hover {
     background-color: grey;
 }
 
-#add-button:hover, #search-button:hover {
+#add-button:hover,
+#search-button:hover {
     background-color: rgb(0, 74, 160);
 }
 
-button:active, #add-button:active, #search-button:active {
+button:active,
+#add-button:active,
+#search-button:active {
     transform: scale(0.9);
 }
 
-#add-button, #search-button {
+#add-button,
+#search-button {
     font-size: 1em;
     color: white;
     background-color: rgb(0, 119, 255);
@@ -113,7 +118,6 @@ button:active, #add-button:active, #search-button:active {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-   
 }
 
 #ingredient-list li {
@@ -144,7 +148,8 @@ button:active, #add-button:active, #search-button:active {
     margin: 20px 0;
 }
 
-.meal-planner th, .meal-planner td {
+.meal-planner th,
+.meal-planner td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
@@ -188,6 +193,11 @@ button:active, #add-button:active, #search-button:active {
 .recipe-image img{
     width: 100px;  
     height: 100px; 
+
+.recipe-image {
+    width: 100px;
+    height: 100px;
+
     overflow: hidden;
     border-radius: 10px;
     object-fit: cover;
@@ -209,6 +219,7 @@ button:active, #add-button:active, #search-button:active {
 .recipe-card h3 {
     margin: 0;
 }
+
 
 .star {
     font-size: 24px;
@@ -299,3 +310,4 @@ button:active, #add-button:active, #search-button:active {
 #add-meal {
     margin-top: 10px;
 }
+
