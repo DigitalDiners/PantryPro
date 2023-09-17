@@ -165,8 +165,10 @@ button:active,
 
 /* recipe CARD STYLING */
 #search-results {
-    display: grid;
-    grid-template-columns: auto 1fr;    
+    display: flex;
+    flex-wrap: wrap;
+    /* display: grid;
+    grid-template-columns: auto 1fr;     */
     gap: 10px;
 }
 
@@ -178,6 +180,8 @@ button:active,
     margin: 10px;
     background-color: white;
     box-shadow: 0 0 10px lightgrey;
+    max-width: 400px;
+    /* max-width: 500px; */
 }
 
 .recipe-name {
@@ -191,13 +195,13 @@ button:active,
 }
 
 .recipe-image img{
-    width: 100px;  
-    height: 100px; 
+    width: 150px;  
+    height: 150px; 
 }
 
 .recipe-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 
     overflow: hidden;
     border-radius: 10px;
@@ -209,6 +213,7 @@ button:active,
 .recipe-info {
     flex-grow: 1;
     margin-left: 20px;
+    max-width: 300px;
 }
 
 .recipe-info .recipe-category {
