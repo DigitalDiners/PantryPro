@@ -166,7 +166,7 @@ button:active,
 /* recipe CARD STYLING */
 #search-results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: auto 1fr;    
     gap: 10px;
 }
 
@@ -193,6 +193,7 @@ button:active,
 .recipe-image img{
     width: 100px;  
     height: 100px; 
+}
 
 .recipe-image {
     width: 100px;
