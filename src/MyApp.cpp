@@ -262,18 +262,25 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::cout << "Add to meal Planner called" << std::endl;
 
   std::vector<std::string> planned;
-  if (args[0].IsArray())
-  {
-    JSArray plannerArray = args[0].ToArray();
-    for (size_t i = 0; i < plannerArray.length(); i++)
-    {
-      ultralight::String jsStr = plannerArray[i].ToString();
-      planned.push_back(std::string(jsStr.utf8().data()));
-    }
-  }
-  // If success with this function
-  return true;
-  // else
+
+  int recipeId = args[0];
+  ultralight::String jsRecipe = (args[1].ToString());
+  std::string day = std::string(jsRecipe.utf8().data());
+  ultralight::String jsMeal = (args[2].ToString());
+  std::string meal = std::string(jsMeal.utf8().data());
+
+  // if (args[0].IsArray())
+  // {
+  //   JSArray plannerArray = args[0].ToArray();
+  //   for (size_t i = 0; i < plannerArray.length(); i++)
+  //   {
+  //     ultralight::String jsStr = plannerArray[i].ToString();
+  //     planned.push_back(std::string(jsStr.utf8().data()));
+  //   }
+  // }
+  // // If success with this function
+  // return true;
+  // // else
   // return false;
 }
 
