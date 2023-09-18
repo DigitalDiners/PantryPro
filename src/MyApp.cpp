@@ -186,20 +186,8 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
-
-JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetPlanner called" << std::endl;
-
-    MealPlanner mealPlanner;
-
-    std::string plannerJson = mealPlanner.getPlannerJson();
-
-    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
-
-    return JSValue(plannerJson.c_str());
-}
-
 JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &args)
+
 {
   // std::cout << "GetIngredientsByRecipe called" << std::endl;
 
@@ -285,24 +273,27 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   ultralight::String jsName = (args[0].ToString());
   std::string recipeName = std::string(jsName.utf8().data());
   int recipeId = args[1];
-  ultralight::String jsRecipe = (args[2].ToString());
-  std::string day = std::string(jsRecipe.utf8().data());
+  ultralight::String jsDay = (args[2].ToString());
+  std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
 
-  // if (args[0].IsArray())
-  // {
-  //   JSArray plannerArray = args[0].ToArray();
-  //   for (size_t i = 0; i < plannerArray.length(); i++)
-  //   {
-  //     ultralight::String jsStr = plannerArray[i].ToString();
-  //     planned.push_back(std::string(jsStr.utf8().data()));
-  //   }
-  // }
   // // If success with this function
   // return true;
   // // else
   // return false;
+}
+
+JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
+    std::cout << "GetPlanner called" << std::endl;
+
+    MealPlanner mealPlanner;
+
+    std::string plannerJson = mealPlanner.getPlannerJson();
+
+    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
+
+    return JSValue(plannerJson.c_str());
 }
 
 // //needs work
