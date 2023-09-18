@@ -186,17 +186,6 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
-JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetPlanner called" << std::endl;
-
-    MealPlanner mealPlanner;
-
-    std::string plannerJson = mealPlanner.getPlannerJson();
-
-    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
-
-    return JSValue(plannerJson.c_str());
-}
 
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
