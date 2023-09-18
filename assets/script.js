@@ -53,7 +53,6 @@ function searchRecipes() {
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
         document.getElementById('search-results').innerHTML = "";
-
         for (let recipe of recipes) {
             displayCard(recipe, "search-results");
         }
@@ -294,7 +293,8 @@ function addToJSON(day, meal, recipeName) {
             weeklyMealPlan[day][meal] = recipeName;
             console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal + "!");
             const jsonstring = JSON.stringify(weeklyMealPlan);
-            if (AddToMealPlanner(jsonstring)) {
+            let done = AddToMealPlanner(jsonstring);
+            if (done) {
                 console.log("success");
             } else {
                 console.log("fail");
