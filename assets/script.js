@@ -143,78 +143,78 @@ function displayCard(recipe, location) {
     };
 
     // // Add 'add to planner' button to the card
-    // const addSymbol = document.createElement("button");
-    // addSymbol.className = ("add-symbol");
-    // addSymbol.innerHTML = "Add to planner";
-    // addSymbol.setAttribute("aria-label", "Add to planner");
-    // addSymbol.onclick = function () {
-    //     openPopup(recipe.recipeName);
-    // };
+    const addSymbol = document.createElement("button");
+    addSymbol.className = ("add-symbol");
+    addSymbol.innerHTML = "Add to planner";
+    addSymbol.setAttribute("aria-label", "Add to planner");
+    addSymbol.onclick = function () {
+        openPopup(recipe.recipeName);
+    };
 
-    // const popupContainer = document.createElement("div");
-    // popupContainer.id = "popup";
-    // popupContainer.className = ("popup-container");
+    const popupContainer = document.createElement("div");
+    popupContainer.id = "popup";
+    popupContainer.className = ("popup-container");
 
-    // const popupDiv = document.createElement("div");
-    // popupDiv.className = ("popup");
+    const popupDiv = document.createElement("div");
+    popupDiv.className = ("popup");
 
-    // // Create a <span> element with class "close-popup" and text "×"
-    // const spanClosePopup = document.createElement("span");
-    // spanClosePopup.className = ("close-popup");
-    // spanClosePopup.textContent = "×";
-    // spanClosePopup.onclick = function () {
-    //     (closePopup());
-    // };
+    // Create a <span> element with class "close-popup" and text "×"
+    const spanClosePopup = document.createElement("span");
+    spanClosePopup.className = ("close-popup");
+    spanClosePopup.textContent = "×";
+    spanClosePopup.onclick = function () {
+        (closePopup());
+    };
 
-    // // Create an <h2> element with text "Select Meals"
-    // const h2 = document.createElement("h2");
-    // h2.textContent = "Select Meal";
+    // Create an <h2> element with text "Select Meals"
+    const h2 = document.createElement("h2");
+    h2.textContent = "Select Meal";
 
-    // // Create a <select> element with id "day-options" and options
-    // const selectDayOptions = document.createElement("select");
-    // selectDayOptions.id = "day-options";
-    // const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    // for (const day of days) {
-    //     const option = document.createElement("option");
-    //     option.value = day;
-    //     option.textContent = day;
-    //     selectDayOptions.appendChild(option);
-    // }
+    // Create a <select> element with id "day-options" and options
+    const selectDayOptions = document.createElement("select");
+    selectDayOptions.id = "day-options";
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    for (const day of days) {
+        const option = document.createElement("option");
+        option.value = day;
+        option.textContent = day;
+        selectDayOptions.appendChild(option);
+    }
 
-    // // Create a <select> element with id "meal-options" and options
-    // const selectMealOptions = document.createElement("select");
-    // selectMealOptions.id = "meal-options";
-    // const meals = ["Breakfast", "Lunch", "Dinner"];
-    // for (const meal of meals) {
-    //     const option = document.createElement("option");
-    //     option.value = meal;
-    //     option.textContent = meal;
-    //     selectMealOptions.appendChild(option);
-    // }
+    // Create a <select> element with id "meal-options" and options
+    const selectMealOptions = document.createElement("select");
+    selectMealOptions.id = "meal-options";
+    const meals = ["Breakfast", "Lunch", "Dinner"];
+    for (const meal of meals) {
+        const option = document.createElement("option");
+        option.value = meal;
+        option.textContent = meal;
+        selectMealOptions.appendChild(option);
+    }
 
-    // // Create a <button> element with id "add-meal" and text "Add Meal"
-    // const buttonAddMeal = document.createElement("button");
-    // buttonAddMeal.id = "add-meal";
-    // buttonAddMeal.textContent = "Add Meal";
-    // buttonAddMeal.onclick = function () {
-    //     (addToPlanner(recipe.recipeName));
-    // };
-    // buttonAddMeal.addEventListener("click", function () {
-    //   addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
-    // });
+    // Create a <button> element with id "add-meal" and text "Add Meal"
+    const buttonAddMeal = document.createElement("button");
+    buttonAddMeal.id = "add-meal";
+    buttonAddMeal.textContent = "Add Meal";
+    buttonAddMeal.onclick = function () {
+        (addToPlanner(recipe.recipeName));
+    };
+    buttonAddMeal.addEventListener("click", function () {
+      addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
+    });
 
     // Append elements to create the desired structure
-    // popupDiv.appendChild(spanClosePopup);
-    // popupDiv.appendChild(h2);
-    // popupDiv.appendChild(selectDayOptions);
-    // popupDiv.appendChild(selectMealOptions);
-    // popupDiv.appendChild(buttonAddMeal);
+    popupDiv.appendChild(spanClosePopup);
+    popupDiv.appendChild(h2);
+    popupDiv.appendChild(selectDayOptions);
+    popupDiv.appendChild(selectMealOptions);
+    popupDiv.appendChild(buttonAddMeal);
 
-    // popupContainer.appendChild(popupDiv);
+    popupContainer.appendChild(popupDiv);
 
     recipeInfo.appendChild(favourite);
-    // recipeInfo.appendChild(addSymbol);
-    // recipeInfo.appendChild(popupContainer);
+    recipeInfo.appendChild(addSymbol);
+    recipeInfo.appendChild(popupContainer);
 
 
 
@@ -294,8 +294,9 @@ function addToJSON(day, meal, recipeName) {
         if (weeklyMealPlan[day][meal] == null) {
             weeklyMealPlan[day][meal] = recipeName;
             console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal + "!");
-            const jsonstring = JSON.stringify(weeklyMealPlan);
-            let done = AddToMealPlanner(jsonstring);
+            // const jsonstring = JSON.stringify(weeklyMealPlan);
+            let plannerArr = [recipeName, recipeId, day, meal];
+            let done = AddToMealPlanner(plannerArr);
             if (done) {
                 console.log("success");
             } else {

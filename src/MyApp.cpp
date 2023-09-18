@@ -186,28 +186,31 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
-JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args) {
-    //std::cout << "GetIngredientsByRecipe called" << std::endl;
+JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &args)
+{
+  // std::cout << "GetIngredientsByRecipe called" << std::endl;
 
-    int recipeId = args[0].ToInteger();
+  int recipeId = args[0].ToInteger();
 
-    RecipeDatabase recipeDB;
-    std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
+  RecipeDatabase recipeDB;
+  std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
 
-    std::string jsonIngredients = "[";
+  std::string jsonIngredients = "[";
 
-    for (const Ingredient& ingredient : ingredients) {
-        jsonIngredients += "{ ";
-        jsonIngredients += "\"ingredientId\": " + removeQuotes(std::to_string(ingredient.getIngredientId())) + ",";
-        jsonIngredients += "\"ingredientName\": \"" + removeQuotes(ingredient.getIngredientName()) + "\"";
-        jsonIngredients += " },";
-    }
-    if (jsonIngredients.back() == ',') jsonIngredients.pop_back();
-    jsonIngredients += "]";
+  for (const Ingredient &ingredient : ingredients)
+  {
+    jsonIngredients += "{ ";
+    jsonIngredients += "\"ingredientId\": " + removeQuotes(std::to_string(ingredient.getIngredientId())) + ",";
+    jsonIngredients += "\"ingredientName\": \"" + removeQuotes(ingredient.getIngredientName()) + "\"";
+    jsonIngredients += " },";
+  }
+  if (jsonIngredients.back() == ',')
+    jsonIngredients.pop_back();
+  jsonIngredients += "]";
 
-    //std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+  // std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
 
-    return JSValue(jsonIngredients.c_str());
+  return JSValue(jsonIngredients.c_str());
 }
 
 void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
@@ -229,8 +232,10 @@ void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
     if (saved)
     {
       std::cout << "duplicate not saved" << std::endl;
-    }else{
-        savedRecipes.push_back(recipeId);
+    }
+    else
+    {
+      savedRecipes.push_back(recipeId);
     }
     return;
   }
@@ -264,10 +269,12 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 
   std::vector<std::string> planned;
 
-  int recipeId = args[0];
-  ultralight::String jsRecipe = (args[1].ToString());
+  ultralight::String jsName = (args[0].ToString());
+  std::string recipeName = std::string(jsName.utf8().data());
+  int recipeId = args[1];
+  ultralight::String jsRecipe = (args[2].ToString());
   std::string day = std::string(jsRecipe.utf8().data());
-  ultralight::String jsMeal = (args[2].ToString());
+  ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
 
   // if (args[0].IsArray())
