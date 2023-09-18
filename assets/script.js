@@ -53,6 +53,7 @@ function searchRecipes() {
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
         document.getElementById('search-results').innerHTML = "";
+
         for (let recipe of recipes) {
             displayCard(recipe, "search-results");
         }
