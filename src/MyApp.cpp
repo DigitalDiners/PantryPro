@@ -220,16 +220,17 @@ void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
     for (int recipe : savedRecipes)
     {
       std::cout << recipe << std::endl;
-      if (recipe != recipeId)
+      if (recipe == recipeId)
       {
-        savedRecipes.push_back(recipeId);
-        std::cout << "saved" << std::endl;
+        // std::cout << "saved" << std::endl;
         saved = true;
       }
     }
-    if (!saved)
+    if (saved)
     {
       std::cout << "duplicate not saved" << std::endl;
+    }else{
+        savedRecipes.push_back(recipeId);
     }
     return;
   }
