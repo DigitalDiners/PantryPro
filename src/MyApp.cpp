@@ -9,6 +9,8 @@
 #define WINDOW_HEIGHT 800
 
 std::vector<int> savedRecipes;
+MealPlanner mealPlanner;
+
 
 MyApp::MyApp()
 {
@@ -277,7 +279,9 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
+  return mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
 
+  
   // // If success with this function
   // return true;
   // // else
@@ -287,7 +291,6 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
 
-    MealPlanner mealPlanner;
 
     std::string plannerJson = mealPlanner.getPlannerJson();
 

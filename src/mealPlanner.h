@@ -42,6 +42,9 @@ public:
      */
     std::string getPlannerJson() const;
 
+    bool addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal);
+
+
 
     /**
      * @brief Get the Days vector
