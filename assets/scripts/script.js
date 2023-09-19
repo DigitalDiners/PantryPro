@@ -35,6 +35,10 @@ function searchRecipes() {
         ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
 
+    // uncomment to view a json of reviews for a given recipe (also comment out try catch block below)
+    // var reviews = GetReviewsByRecipe(524);
+    // document.getElementById('search-results').innerHTML = reviews;
+
 
     try {
 
@@ -42,7 +46,7 @@ function searchRecipes() {
 
         // 1. uncomment the lines below, re-build and re-run application
         //var message = SearchRecipes(ingredientStr);
-        //document.getElementById('message').innerHTML = message;
+        //document.getElementById('search-results').innerHTML = message;
 
         // 2. copy and paste json into following link:
         // https://jsonlint.com
