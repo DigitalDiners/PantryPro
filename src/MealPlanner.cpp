@@ -59,9 +59,9 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
 
         // The block is not filled.
         std::cout << "The block is not filled." << std::endl;
-        data["day"] = day;
-        data["meal"] = meal;
-
+        // data["day"] = day;
+        // data["meal"] = meal;
+    
         // Specify the file name to write to
         std::string filename = "../assets/data/planner.json";
 
@@ -71,6 +71,7 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         if (file.is_open())
         {
             // Write the JSON data to the file
+            //specify where in file to place data
             file << data.dump(4); // The argument specifies the indentation level
             file.close();
             std::cout << "JSON data written to " << filename << std::endl;
