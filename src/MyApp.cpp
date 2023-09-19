@@ -344,7 +344,6 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   JSObject global = JSGlobalObject();
 
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
-  
   global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
   // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);

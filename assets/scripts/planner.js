@@ -3,10 +3,11 @@ function createPlanner(){
     console.log("Creating planner...");
     try{
         
-        const jsonMealPlanner = GetPlanner();
-        console.log(jsonMealPlanner);
-        // const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
+        // const jsonMealPlanner = GetPlanner();
+        // console.log(jsonMealPlanner);
+        const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
         const days = JSON.parse(jsonMealPlanner);
+        // const days = JSON.parse(weeklyMealPlan);
         
         for(let day of days){            
             displayMealCards(day);
