@@ -186,8 +186,34 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
+JSValue MyApp::GetRecipeByRecipeId(const JSObject& thisObject, const JSArgs& args) {
+
+  std::cout << "SearchRecipes called" << std::endl;
+
+  if (!args[0].IsNumber())
+  {
+    std::cerr << "Invalid argument. Expected a number representing recipeId." << std::endl;
+  }
+
+  int recipeId = args[0].ToInteger();
+
+  RecipeDatabase recipeDB;
+  Recipe recipe = recipeDB.getRecipeById(recipeId);
+  if (recipe.getId() == -1)
+  {
+    std::cerr << "Recipe not found." << std::endl;
+  }
+
+  std::vector<Recipe> recipes;
+  recipes.push_back(recipe);
+
+  std::string jsonRecipe = convertRecipesToJson(recipes);
+
+  return JSValue(jsonRecipe.c_str());
+}
+
 JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args) {
-    //std::cout << "GetIngredientsByRecipe called" << std::endl;
+    std::cout << "GetIngredientsByRecipe called" << std::endl;
 
     int recipeId = args[0].ToInteger();
 
@@ -205,7 +231,7 @@ JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& 
     if (jsonIngredients.back() == ',') jsonIngredients.pop_back();
     jsonIngredients += "]";
 
-    //std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+    std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
 
     return JSValue(jsonIngredients.c_str());
 }

@@ -46,7 +46,7 @@ public:
 
   JSValue GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args);
 
-  JSValue GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args);
+  JSValue GetRecipeByRecipeId(const JSObject& thisObject, const JSArgs& args);
 
   // JSValue RecipeIngredients(const JSObject& thisObject, const JSArgs& args);
 
