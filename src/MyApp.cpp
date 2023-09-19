@@ -1,7 +1,7 @@
 #include "MyApp.h"
 #include "recipe.h"
 #include "recipeDatabase.h"
-
+#include "review.h"
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
 
@@ -210,6 +210,35 @@ JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& 
     return JSValue(jsonIngredients.c_str());
 }
 
+JSValue MyApp::GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args) {
+    //std::cout << "GetReviewsByRecipe called" << std::endl;
+
+    int recipeId = args[0].ToInteger();
+
+    RecipeDatabase recipeDB;
+    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipeId);
+
+    std::string jsonReviews = "[";
+
+    for (const Review& review : reviews) {
+        jsonReviews += "{ ";
+        jsonReviews += "\"reviewId\": " + removeQuotes(std::to_string(review.getReviewId())) + ",";
+        jsonReviews += "\"recipeId\": " + removeQuotes(std::to_string(review.getRecipeId())) + ",";
+        jsonReviews += "\"authorId\": " + removeQuotes(std::to_string(review.getAuthorId())) + ",";
+        jsonReviews += "\"rating\": " + removeQuotes(std::to_string(review.getRating())) + ",";
+        jsonReviews += "\"review\": \"" + removeQuotes(review.getReviewText()) + "\",";
+        jsonReviews += "\"dateSubmitted\": \"" + removeQuotes(review.getDateSubmitted()) + "\",";
+        jsonReviews += "\"dateModified\": \"" + removeQuotes(review.getDateModified()) + "\"";
+        jsonReviews += " },";
+    }
+    if (jsonReviews.back() == ',') jsonReviews.pop_back();
+    jsonReviews += "]";
+
+    //std::cout << "jsonReviews: " << jsonReviews.c_str() << std::endl;
+
+    return JSValue(jsonReviews.c_str());
+}
+
 void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
 {
   std::cout << "Save Recipe called" << std::endl;
@@ -327,6 +356,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
   global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
+  global["GetReviewsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetReviewsByRecipe);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
