@@ -5,9 +5,10 @@
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
 
-#define WINDOW_WIDTH  1000
+#define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 800
 
+std::vector<int> savedRecipes;
 
 MyApp::MyApp()
 {
@@ -107,60 +108,180 @@ void MyApp::OnFinishLoading(ultralight::View *caller,
   ///
 }
 
-std::string MyApp::removeQuotes(const std::string& input) {
-    std::string result = input;
-    result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
-    return result;
+std::string MyApp::removeQuotes(const std::string &input)
+{
+  std::string result = input;
+  result.erase(std::remove(result.begin(), result.end(), '\"'), result.end());
+  return result;
 }
 
-std::string MyApp::convertRecipesToJson(const std::vector<Recipe>& recipes) {
-    std::cout << "convertRecipesToJson called" << std::endl;
-    std::string json = "[";
+std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
+{
+  std::cout << "convertRecipesToJson called" << std::endl;
+  std::string json = "[";
 
-    std::cout << "recipes.size(): " << recipes.size() << std::endl;
-    for (const Recipe& recipe : recipes) {
-        std::cout << "recipe: " << recipe.getName() << std::endl;
-        json += "{ ";
-        json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
-        json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
-        json += "\"authorId\": " + removeQuotes(std::to_string(recipe.getAuthorId())) + ",";
-        json += "\"cookTime\": " + removeQuotes(std::to_string(recipe.getCookTime())) + ",";
-        json += "\"prepTime\": " + removeQuotes(std::to_string(recipe.getPrepTime())) + ",";
-        json += "\"totalTime\": " + removeQuotes(std::to_string(recipe.getTotalTime())) + ",";
-        json += "\"datePublished\": \"" + removeQuotes(recipe.getDatePublished()) + "\",";
-        json += "\"category\": \"" + removeQuotes(recipe.getCategory()) + "\",";
-        json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
-        json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
-        json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity()));
+  std::cout << "recipes.size(): " << recipes.size() << std::endl;
+  RecipeDatabase recipeDB;
 
-        if (json.back() == ',') json.pop_back(); 
-        json += " },";
+  for (const Recipe &recipe : recipes)
+  {
+    std::cout << "recipe: " << recipe.getName() << std::endl;
+    RecipeImage image = recipeDB.getRecipeImage(recipe.getId(), 1);
+
+    // Fetch the first review rating for this recipe, if available
+    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipe.getId());
+    std::string firstRating = "null";
+    if (!reviews.empty())
+    {
+      firstRating = std::to_string(reviews[0].getRating());
     }
-    if (json.back() == ',') json.pop_back();
-    json += "]";
 
-    return json;
+    json += "{ ";
+    json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
+    json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
+    json += "\"recipeImageURL\": \"" + removeQuotes(image.getImageURL()) + "\",";
+    json += "\"authorId\": " + removeQuotes(std::to_string(recipe.getAuthorId())) + ",";
+    json += "\"cookTime\": " + removeQuotes(std::to_string(recipe.getCookTime())) + ",";
+    json += "\"prepTime\": " + removeQuotes(std::to_string(recipe.getPrepTime())) + ",";
+    json += "\"totalTime\": " + removeQuotes(std::to_string(recipe.getTotalTime())) + ",";
+    json += "\"datePublished\": \"" + removeQuotes(recipe.getDatePublished()) + "\",";
+    json += "\"category\": \"" + removeQuotes(recipe.getCategory()) + "\",";
+    json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
+    json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
+    json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity())) + ",";
+    json += "\"firstRating\": " + firstRating + ",";
+
+    if (json.back() == ',')
+      json.pop_back();
+    json += " },";
+  }
+  if (json.back() == ',')
+    json.pop_back();
+  json += "]";
+
+  return json;
 }
 
-JSValue MyApp::SearchRecipes(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "SearchRecipes called" << std::endl;
+JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "SearchRecipes called" << std::endl;
 
-    std::vector<std::string> ingredients;
-    if (args[0].IsArray()) {
-        JSArray ingredientArray = args[0].ToArray();
-        for (size_t i = 0; i < ingredientArray.length(); i++) {
-            ultralight::String jsStr = ingredientArray[i].ToString();
-            ingredients.push_back(std::string(jsStr.utf8().data()));
-        }
+  std::vector<std::string> ingredients;
+  if (args[0].IsArray())
+  {
+    JSArray ingredientArray = args[0].ToArray();
+    for (size_t i = 0; i < ingredientArray.length(); i++)
+    {
+      ultralight::String jsStr = ingredientArray[i].ToString();
+      ingredients.push_back(std::string(jsStr.utf8().data()));
     }
+  }
 
-    RecipeDatabase recipeDB;
-    std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(ingredients);
-    std::string jsonRecipes = convertRecipesToJson(recipes);
+  RecipeDatabase recipeDB;
+  std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(ingredients);
+  std::string jsonRecipes = convertRecipesToJson(recipes);
 
-    std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
+  std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
 
-    return JSValue(jsonRecipes.c_str());
+  return JSValue(jsonRecipes.c_str());
+}
+
+JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &args)
+
+{
+  // std::cout << "GetIngredientsByRecipe called" << std::endl;
+
+  int recipeId = args[0].ToInteger();
+
+  RecipeDatabase recipeDB;
+  std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
+
+  std::string jsonIngredients = "[";
+
+  for (const Ingredient &ingredient : ingredients)
+  {
+    jsonIngredients += "{ ";
+    jsonIngredients += "\"ingredientId\": " + removeQuotes(std::to_string(ingredient.getIngredientId())) + ",";
+    jsonIngredients += "\"ingredientName\": \"" + removeQuotes(ingredient.getIngredientName()) + "\"";
+    jsonIngredients += " },";
+  }
+  if (jsonIngredients.back() == ',')
+    jsonIngredients.pop_back();
+  jsonIngredients += "]";
+
+  // std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+
+  return JSValue(jsonIngredients.c_str());
+}
+
+void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "Save Recipe called" << std::endl;
+  bool saved = false;
+  int recipeId = args[0];
+  if (savedRecipes.size() != 0)
+  {
+    for (int recipe : savedRecipes)
+    {
+      std::cout << recipe << std::endl;
+      if (recipe == recipeId)
+      {
+        // std::cout << "saved" << std::endl;
+        saved = true;
+      }
+    }
+    if (saved)
+    {
+      std::cout << "duplicate not saved" << std::endl;
+    }
+    else
+    {
+      savedRecipes.push_back(recipeId);
+    }
+    return;
+  }
+  else
+  {
+    savedRecipes.push_back(recipeId);
+    std::cout << "saved" << std::endl;
+  }
+}
+
+JSValue MyApp::GetSaved(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "Get saved called" << std::endl;
+  std::vector<Recipe> returnSaved;
+  // std::sort (savedRecipes.begin(), savedRecipes.end());
+  // savedRecipes.erase(std::unique(savedRecipes.begin(), savedRecipes.end(), savedRecipes.end()));
+  RecipeDatabase recipeDB;
+  for (int recipe : savedRecipes)
+  {
+    std::cout << recipe << std::endl;
+    returnSaved.push_back(recipeDB.getRecipeById(recipe));
+  }
+  std::string jsonRecipes = convertRecipesToJson(returnSaved);
+
+  return JSValue(jsonRecipes.c_str());
+}
+
+JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "Add to meal Planner called" << std::endl;
+
+  std::vector<std::string> planned;
+
+  ultralight::String jsName = (args[0].ToString());
+  std::string recipeName = std::string(jsName.utf8().data());
+  int recipeId = args[1];
+  ultralight::String jsDay = (args[2].ToString());
+  std::string day = std::string(jsDay.utf8().data());
+  ultralight::String jsMeal = (args[3].ToString());
+  std::string meal = std::string(jsMeal.utf8().data());
+
+  // // If success with this function
+  // return true;
+  // // else
+  // return false;
 }
 
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
@@ -175,11 +296,41 @@ JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(plannerJson.c_str());
 }
 
+// //needs work
+// JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args){
+//   std::cout<<"Recipe ingredients called"<< std::endl;
+
+//   int recipeId = args[0];
+//   std::cout<<recipeId<<std::endl;
+//       std::vector<std::string> ingredients;
+//     if (args[1].IsArray()) {
+//         JSArray ingredientArray = args[0].ToArray();
+//         for (size_t i = 0; i < ingredientArray.length(); i++) {
+//             ultralight::String jsStr = ingredientArray[i].ToString();
+//             ingredients.push_back(std::string(jsStr.utf8().data()));
+//         }
+//     }
+
+//     RecipeDatabase recipeDB;
+//     std::vector<std::string> missingIngredients = recipeDB.getIngredients(recipeId,ingredients);
+
+//     std::string json = "[{";
+//     for(const std::string& ingredient: missingIngredients){
+//       json += ingredient;
+//       json += ",";
+//       std::cout<<ingredient<<std::endl;
+//     }
+//     json += "}]";
+//     // std::string jsonRecipes = convertRecipesToJson(recipes);
+//     return JSValue(json.c_str());
+
+// }
 
 void MyApp::OnDOMReady(ultralight::View *caller,
-                uint64_t frame_id,
-                bool is_main_frame,
-                const String &url) {
+                       uint64_t frame_id,
+                       bool is_main_frame,
+                       const String &url)
+{
   std::cout << "OnDOMReady called" << std::endl;
   ///
   /// Set our View's JSContext as the one to use in subsequent JSHelper calls
@@ -191,7 +342,13 @@ void MyApp::OnDOMReady(ultralight::View *caller,
 
   global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
-
+  
+  global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
+  // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
+  global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
+  global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
+  global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
+  global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
 }
 
 void MyApp::OnChangeCursor(ultralight::View *caller,
