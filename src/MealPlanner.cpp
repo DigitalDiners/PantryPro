@@ -15,6 +15,8 @@ MealPlanner::MealPlanner()
     tmp<<jsonFile.rdbuf();
     plannerJson = tmp.str();
 
+    std::cout << plannerJson << std::endl;
+
     // std::ifstream planner_file("../assets/data/planner.json");
     // json planner = json::parse(planner_file);
 

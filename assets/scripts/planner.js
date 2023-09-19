@@ -1,17 +1,19 @@
-window.onload = createPlanner();
+//const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
+const jsonMealPlanner = GetPlanner();
 
-function createPlanner(){
+
+function getPlanner(){
     console.log("Creating planner...");
     try{
-        
-        const jsonMealPlanner = GetPlanner();
-        console.log(jsonMealPlanner);
+        //const jsonMealPlanner1 = GetPlanner();
         //const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
+        console.log(jsonMealPlanner);
         const days = JSON.parse(jsonMealPlanner);
         
         for(let day of days){            
             displayMealCards(day);
         }
+
 
     }catch(error){
         console.error("Error fetching the planner:", error);
@@ -51,5 +53,7 @@ function displayMealCards(day){
     snack.textContent = day.snack;
     dayCard.appendChild(snack);
 
-    plannerBox.appendChild(dayCard)
+    plannerBox.appendChild(dayCard);
 }
+
+window.onload = getPlanner();
