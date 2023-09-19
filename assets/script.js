@@ -23,6 +23,15 @@ function addIngredient() {
     ingredientInput.value = '';
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    const backButton = document.getElementById('back-button');
+    if (backButton) {
+        backButton.onclick = function() {
+            window.location.href = 'app.html';
+        };
+    }
+});
+
 function searchRecipes() {
 
     const searchResults = document.getElementById('search-results');
@@ -95,6 +104,10 @@ function displayCard(recipe, location) {
     const card = document.createElement('div');
     card.className = 'recipe-card';
 
+    card.onclick = function() { 
+        redirectToRecipePage(recipe.recipeId); 
+    };
+
     // Create a div for recipe info
     const recipeInfo = document.createElement('div');
     recipeInfo.className = 'recipe-info';
@@ -141,8 +154,9 @@ function displayCard(recipe, location) {
     favourite.className = ("favourite-icon");
     favourite.innerHTML = "&hearts;";  
     favourite.setAttribute("aria-label", "Add to favourites");
-    favourite.onclick = function () {
+    favourite.onclick = function (event) {
         addToSaved(recipe.recipeId);
+        event.stopPropagation();
     };
 
     // // Add 'add to planner' button to the card
@@ -226,6 +240,9 @@ function displayCard(recipe, location) {
     searchResults.appendChild(card);
 }
 
+function redirectToRecipePage(recipeId) {
+    window.location.href = 'view-recipe.html?recipeId=' + recipeId;
+}
 
 /**
  * add to planner function

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+<title>View Recipe</title>
+<link rel="stylesheet" href="css/styles.css" />
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        let recipeId = new URLSearchParams(window.location.search).get('recipeId');
+        if (recipeId) {
+            getRecipeDetails(recipeId);
+            getIngredientsDetails(recipeId);
+            getReviewsDetails(recipeId);
+        }
+    });
+
+    async function getRecipeDetails(recipeId) {
+        try {
+            let recipe = JSON.parse(await GetRecipeByRecipeId(recipeId));
+            displayRecipeDetails(recipe);
+        } catch (error) {
+            console.error('Error fetching recipe details:', error);
+        }
+    }
+
+    async function getIngredientsDetails(recipeId) {
+        try {
+            let ingredients = JSON.parse(await GetIngredientsByRecipe(recipeId));
+            displayIngredientsDetails(ingredients);
+        } catch (error) {
+            console.error('Error fetching ingredients details:', error);
+        }
+    }
+
+    async function getReviewsDetails(recipeId) {
+        try {
+            let reviews = JSON.parse(await GetReviewsByRecipe(recipeId));
+            displayReviewsDetails(reviews);
+        } catch (error) {
+            console.error('Error fetching reviews details:', error);
+        }
+    }
+
+    function displayRecipeDetails(recipe) {
+        document.querySelector('.recipe-details h1').textContent = recipe.recipeName;
+        document.querySelector('.instructions-container ul').textContent = `Instructions: ${recipe.instructions}`;
+        document.querySelector('.cookTime').textContent = `Cook Time: ${recipe.cookTime} minutes`;
+        document.querySelector('.prepTime').textContent = `Prep Time: ${recipe.prepTime} minutes`;
+        document.querySelector('.totalTime').textContent = `Total Time: ${recipe.totalTime} minutes`;
+        document.querySelector('.datePublished').textContent = `Date Published: ${recipe.datePublished}`;
+        document.querySelector('.description').textContent = `Description: ${recipe.description}`;
+        document.querySelector('.category').textContent = `Category: ${recipe.category}`;
+        document.querySelector('.calories').textContent = `Calories: ${recipe.calories}`;
+        document.querySelector('.servings').textContent = `Servings: ${recipe.servings}`;
+        document.querySelector('.yieldQuantity').textContent = `Yield Quantity: ${recipe.yieldQuantity}`;
+    }
+
+    function displayIngredientsDetails(ingredients) {
+        let ingredientsContainer = document.querySelector('.ingredients-container ul');
+        ingredientsContainer.innerHTML = '';
+        ingredients.forEach(ingredient => {
+            ingredientsContainer.innerHTML += `<li>${ingredient.name} </li>`;
+        });
+    }
+
+    function displayReviewsDetails(reviews) {
+        let reviewsContainer = document.querySelector('.reviews-container ul');
+        reviewsContainer.innerHTML = '';
+        reviews.forEach(review => {
+            reviewsContainer.innerHTML += `<li><strong>Rating:</strong> ${review.rating} <br>
+            <strong>Review:</strong> ${review.review} <br>
+            <strong>Date Submitted:</strong> ${review.dateSubmitted} <br>
+            <strong>Date Modified:</strong> ${review.dateModified}</li>`;
+        });
+    }
+</script>
+</head>
+
+<body>
+    <button id="back-button">Back</button>
+<header>
+</header>
+<main>
+    <div class="recipe-details">
+        <h1></h1>
+        <div>
+            <span class="authorId"></span>
+        </div>
+        <div>
+            <span class="cookTime"></span>
+        </div>
+        <div>
+            <span class="instructions"></span>
+        </div>
+        <div>
+            <span class="prepTime"></span>
+        </div>
+        <div>
+            <span class="totalTime"></span>
+        </div>
+        <div>
+            <span class="datePublished"></span>
+        </div>
+        <div>
+            <span class="description"></span>
+        </div>
+        <div>
+            <span class="category"></span>
+        </div>
+        <div>
+            <span class="calories"></span>
+        </div>
+        <div>
+            <span class="servings"></span>
+        </div>
+        <div>
+            <span class="yieldQuantity"></span>
+        </div>
+        
+        <h2>Ingredients</h2>
+        <div class="ingredients-container">
+            <ul></ul>
+        </div>
+        
+        <h2>Reviews</h2>
+        <div class="reviews-container">
+            <ul></ul>
+        </div>
+    </div>
+</main>
+<script src="script.js"></script>
+</body>
+
+</html>
