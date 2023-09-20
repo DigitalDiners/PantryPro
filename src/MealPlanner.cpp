@@ -3,21 +3,64 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <filesystem>
 
 using json = nlohmann::json;
+std::string plannerJson;
 
 MealPlanner::MealPlanner()
 {
-    std::cout << "Constructing meal planner..." << std::endl;
+    // std::cout << "Constructing meal planner..." << std::endl;
 
-    std::ifstream jsonFile("../assets/data/planner.json");
-    std::ostringstream tmp;
-    tmp << jsonFile.rdbuf();
-    plannerJson = tmp.str();
+    // std::ifstream jsonFile("../assets/data/planner.json");
+    // std::ostringstream tmp;
+    // tmp << jsonFile.rdbuf();
+    // plannerJson = tmp.str();
 
+    // try{
     // std::ifstream planner_file("../assets/data/planner.json");
-    // json planner = json::parse(planner_file);
+    // json planner = json::parse(planner_file);}
+    // catch (error){
 
+    // }
+
+    if(std::__fs::filesystem::exists("../assets/data/planner.json"))
+    {
+        std::cout << "file is here"<<std::endl;
+    }else{
+        std::cout<<"file not here"<<std::endl;
+    }
+    try
+    {
+        std::ifstream file("../assets/data/planner.json");
+        json data;
+        file >> data;
+        // Do something with the data
+        std::cout << data << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try
+    {
+        std::ifstream jsonFile("../assets/data/planner.json");
+        nlohmann::json json;
+
+        // Parse the JSON file
+        jsonFile >> json;
+
+        // Convert the JSON to a string
+        std::string plannerJson = json.dump();
+
+        // Display the JSON string
+        std::cout << plannerJson << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error while parsing JSON: " << e.what() << std::endl;
+        return;
+    }
     Day theDays[] = {Day(0), Day(1), Day(2), Day(3), Day(4), Day(5), Day(6)};
 
     days = theDays;
@@ -61,7 +104,7 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         std::cout << "The block is not filled." << std::endl;
         // data["day"] = day;
         // data["meal"] = meal;
-    
+
         // Specify the file name to write to
         std::string filename = "../assets/data/planner.json";
 
@@ -71,7 +114,7 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         if (file.is_open())
         {
             // Write the JSON data to the file
-            //specify where in file to place data
+            // specify where in file to place data
             file << data.dump(4); // The argument specifies the indentation level
             file.close();
             std::cout << "JSON data written to " << filename << std::endl;
@@ -112,6 +155,7 @@ Day &MealPlanner::getDay(int dayNumber)
 
 std::string MealPlanner::getPlannerJson() const
 {
+    std::cout << "Get Planner json called" << std::endl;
     return plannerJson;
 }
 
