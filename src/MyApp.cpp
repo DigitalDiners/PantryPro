@@ -164,7 +164,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 
 JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
 {
-  std::cout << "SearchRecipes called" << std::endl;
+  //std::cout << "SearchRecipes called" << std::endl;
 
   std::vector<std::string> ingredients;
   if (args[0].IsArray())
@@ -181,14 +181,14 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   std::vector<Recipe> recipes = recipeDB.getRecipesBySearch(ingredients);
   std::string jsonRecipes = convertRecipesToJson(recipes);
 
-  std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
+  //std::cout << "jsonRecipes: " << jsonRecipes.c_str() << std::endl;
 
   return JSValue(jsonRecipes.c_str());
 }
 
 JSValue MyApp::GetRecipeByRecipeId(const JSObject& thisObject, const JSArgs& args) {
 
-  std::cout << "SearchRecipes called" << std::endl;
+  std::cout << "GetRecipeByRecipeId called" << std::endl;
 
   if (!args[0].IsNumber())
   {
@@ -208,6 +208,8 @@ JSValue MyApp::GetRecipeByRecipeId(const JSObject& thisObject, const JSArgs& arg
   recipes.push_back(recipe);
 
   std::string jsonRecipe = convertRecipesToJson(recipes);
+
+  std::cout << "jsonRecipe: " << jsonRecipe.c_str() << std::endl;
 
   return JSValue(jsonRecipe.c_str());
 }
@@ -237,7 +239,7 @@ JSValue MyApp::GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& 
 }
 
 JSValue MyApp::GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args) {
-    //std::cout << "GetReviewsByRecipe called" << std::endl;
+    std::cout << "GetReviewsByRecipe called" << std::endl;
 
     int recipeId = args[0].ToInteger();
 
@@ -260,7 +262,7 @@ JSValue MyApp::GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args
     if (jsonReviews.back() == ',') jsonReviews.pop_back();
     jsonReviews += "]";
 
-    //std::cout << "jsonReviews: " << jsonReviews.c_str() << std::endl;
+    std::cout << "jsonReviews: " << jsonReviews.c_str() << std::endl;
 
     return JSValue(jsonReviews.c_str());
 }
