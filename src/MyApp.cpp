@@ -320,8 +320,6 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
 
-    MealPlanner mealPlanner;
-
     std::string plannerJson = mealPlanner.getPlannerJson();
 
     std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
@@ -375,8 +373,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
 
   global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
-  
-  global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
+
   // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
