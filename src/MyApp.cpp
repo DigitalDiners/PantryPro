@@ -2,6 +2,7 @@
 #include "recipe.h"
 #include "recipeDatabase.h"
 #include "review.h"
+#include "mealPlanner.h"
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
 
@@ -9,6 +10,7 @@
 #define WINDOW_HEIGHT 800
 
 std::vector<int> savedRecipes;
+MealPlanner mealPlanner;
 
 MyApp::MyApp()
 {
@@ -314,15 +316,11 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 }
 
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetPlanner called" << std::endl;
-
-    MealPlanner mealPlanner;
-
-    std::string plannerJson = mealPlanner.getPlannerJson();
-
-    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
-
-    return JSValue(plannerJson.c_str());
+  
+  std::string plannerJson = mealPlanner.getPlannerJson();
+  
+  std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
+  return JSValue(plannerJson.c_str());
 }
 
 // //needs work
@@ -372,7 +370,6 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
   
-  global["GetPlanner"] = BindJSCallbackWithRetval(&MyApp::GetPlanner);
   // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
   global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);

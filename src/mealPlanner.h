@@ -4,7 +4,6 @@
 #include <vector>
 #include "day.h"
 
-
 class MealPlanner
 {
 private:

@@ -7,7 +7,6 @@
 #include <JavaScriptCore/JSValueRef.h>
 
 #include "recipeDatabase.h"
-#include "mealPlanner.h"
 
 using namespace ultralight;
 
@@ -48,7 +47,7 @@ public:
    * 
    * @param thisObject self.
    * @param args args to be passed, function uses none.
-   * @return JSValue the planner json as a stdstring.
+   * @return JSString the planner json as a stdstring.
    */
   JSValue GetPlanner(const JSObject& thisObject, const JSArgs& args);
 

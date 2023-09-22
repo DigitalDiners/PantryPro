@@ -2,10 +2,9 @@
 function getPlanner(){
     console.log("Creating planner...");
     try{
-        
-        // const jsonMealPlanner = GetPlanner();
-        // console.log(jsonMealPlanner);
-        const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
+        const jsonMealPlanner = GetPlanner();
+        //console.log(jsonMealPlanner);
+        //const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
         const days = JSON.parse(jsonMealPlanner);
         
         for(let day of days){            
@@ -20,7 +19,7 @@ function getPlanner(){
 
 function displayMealCards(day){
     console.log("Displaying meal container");
-    const plannerBox = document.getElementById('meal-planner-container');
+    const plannerBox = document.getElementById("meal-planner-container");
 
     const dayCard = document.createElement('div');
     dayCard.className = 'day-card';
@@ -29,6 +28,10 @@ function displayMealCards(day){
     name.className = 'day-name';
     name.textContent = day.name;
     dayCard.appendChild(name);
+
+    const horizontalRule = document.createElement('hr');
+    horizontalRule.className = 'day-card-rule';
+    dayCard.appendChild(horizontalRule);
 
     const breakfast = document.createElement('p');
     breakfast.className = 'meal';
@@ -152,4 +155,4 @@ function closePopup() {
     popup.style.display = 'none';
 }
 
-window.onload = createPlanner();
+window.onload = getPlanner;
