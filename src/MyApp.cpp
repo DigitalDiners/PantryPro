@@ -11,6 +11,7 @@
 
 std::vector<int> savedRecipes;
 MealPlanner mealPlanner;
+//have a thing to hold the last search which will be sent to the js on open
 
 MyApp::MyApp()
 {
