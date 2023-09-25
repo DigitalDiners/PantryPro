@@ -201,7 +201,7 @@ function displayCard(recipe, location) {
     buttonAddMeal.id = "add-meal";
     buttonAddMeal.textContent = "Add Meal";
     buttonAddMeal.onclick = function () {
-        (addToPlanner(recipe.recipeName));
+        (addToPlanner(recipe.recipeName, recipe.recipeId));
     };
     buttonAddMeal.addEventListener("click", function () {
       addToPlanner(recipe.recipeName); // You can replace this with your desired meal ID
