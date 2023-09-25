@@ -13,7 +13,8 @@ MealPlanner::MealPlanner()
     // std::cout << "Constructing meal planner..." << std::endl;
 
     try{
-        std::ifstream jsonFile("./assets/data/planner.json");
+        // std::ifstream jsonFile("./assets/data/planner.json");
+        std::ifstream jsonFile("../Resources/assets/data/planner.json");
         if (!jsonFile.is_open()) {
             std::cerr << "Error opening JSON file!" << std::endl;
             throw 404;
