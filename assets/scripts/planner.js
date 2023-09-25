@@ -1,3 +1,6 @@
+let currRecipeName;
+let currId;
+
 function getPlanner(){
     console.log("Creating planner...");
     try{
@@ -60,15 +63,17 @@ function displayMealCards(day){
  * opening a popup sets the currRecipeId to the clicked recipe. 
  * Need to add function to add the recipe, day, and meal to an array or script
  */
-function addToPlanner(recipeName) {
-    recipeName = currRecipeName;
+function addToPlanner(recipeName, recipeId) {
+    // recipeName = currRecipeName;
+    currRecipeName = recipeName;
+    currId = recipeId;
     const dayOptions = document.getElementById('day-options');
     const mealOptions = document.getElementById('meal-options');
     const selectedDay = dayOptions.value;
     const selectedMeal = mealOptions.value;
     let mealOption = [];
-    addToJSON(selectedDay, selectedMeal, recipeName);
-    mealOption.push(selectedDay, selectedMeal, recipeName);
+    addToJSON(selectedDay, selectedMeal, recipeName, recipeId);
+    mealOption.push(selectedDay, selectedMeal, recipeName, recipeId);
     mealPlanner.push(mealOption);
     closePopup();
 }
@@ -119,15 +124,15 @@ const weeklyMealPlan = {
     }
 };
 
-function addToJSON(day, meal, recipeName) {
+function addToJSON(day, meal, recipeName, recipeId) {
     //assets/css/data/planner.json
     if (weeklyMealPlan[day] && weeklyMealPlan[day][meal] !== undefined) {
         if (weeklyMealPlan[day][meal] == null) {
             weeklyMealPlan[day][meal] = recipeName;
             console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal + "!");
             // const jsonstring = JSON.stringify(weeklyMealPlan);
-            let plannerArr = [recipeName, recipeId, day, meal];
-            let done = AddToMealPlanner(plannerArr);
+            // let plannerArr = [recipeName, recipeId, day, meal];
+            let done = AddToMealPlanner(recipeName, recipeId, day, meal);
             if (done) {
                 console.log("success");
             } else {
@@ -135,6 +140,7 @@ function addToJSON(day, meal, recipeName) {
             }
         } else {
             console.log("This slot is already filled");
+            // filledPopup(); - this will create a popup for abt 2 seconds maybe?
         }
     } else {
         console.log("Invalid day or meal type");

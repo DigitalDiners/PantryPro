@@ -40,7 +40,8 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
     data["recipeName"] = recipeName;
     data["recipeId"] = recipeId;
 
-    std::ifstream ifs("../assets/data/planner.json");
+    // std::ifstream ifs("./assets/data/planner.json");
+    std::ifstream ifs("../Resources/assets/data/planner.json");
     json readIn;
     ifs >> readIn;
 
@@ -54,7 +55,8 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         // data["meal"] = meal;
 
         // Specify the file name to write to
-        std::string filename = "../assets/data/planner.json";
+        // std::string filename = "./assets/data/planner.json";
+        std::string filename = "../Resources/assets/data/planner.json";
 
         // Open a file stream for writing
         std::ofstream file(filename);
