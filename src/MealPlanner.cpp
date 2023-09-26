@@ -133,12 +133,15 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
     int dayNum;
     std::string mealName;
 
-    //windows
-    // std::ifstream ifs("./assets/data/planner.json");
-    //macOS
-    std::ifstream ifs("../Resources/assets/data/planner.json");
+
+        #if _WIN32
+            std::string filename = "./assets/data/planner.json";
+        #elif __APPLE__
+            std::string filename = "../Resources/assets/data/planner.json";
+        #endif
 
     json readIn;
+    std::ifstream ifs(filename);
     ifs >> readIn;
     std::cout << "ifstream" << std::endl;
     //switch case for monday through to sunday, 0 through to 6
@@ -179,10 +182,6 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         std::cout << "day and num set"<<dayNum<<"    "<<mealName << std::endl;
 
 
-        // Specify the file name to write to
-        // std::string filename = "./assets/data/planner.json";
-        std::string filename = "../Resources/assets/data/planner.json";
-
         // Open a file stream for writing
         std::ofstream file(filename);
 
@@ -191,17 +190,19 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
             json patch = R"(
                 [
                     { "op": "replace", 
-                    "path": "/dayNum/meal",
+                    "path": "/0/meal",
                     "value": "recipeName"},
                     { "op": "replace",
-                    "path": "/dayNum/mealID",
+                    "path": "/0/mealID",
                     "value": "recipeID"}
                 ]
             )"_json;
             // Write the JSON data to the file
             // specify where in file to place data
             // file << data.dump(4); // The argument specifies the indentation level
-            readIn.patch(patch);
+            readIn.patch_inplace(patch);
+
+            readIn.emplace();
             file<<readIn.dump();
             file.close();
             std::cout << "JSON data written to " << filename << std::endl;
