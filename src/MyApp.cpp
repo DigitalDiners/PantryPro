@@ -309,6 +309,7 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
+  std::cout << "made past the conversions"<<recipeName<<day<<meal<< std::endl;
   return mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
 
   
@@ -376,7 +377,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["SearchRecipes"] = BindJSCallbackWithRetval(&MyApp::SearchRecipes);
 
   // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
-  global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
+  global["AddToMealPlanner"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
   global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);

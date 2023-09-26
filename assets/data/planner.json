@@ -1,51 +1,51 @@
 [ 
     {
         "name":"Monday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name":"Tuesday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name":"Wednesday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name":"Thursday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name":"Friday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name": "Saturday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     },
     {
         "name": "Sunday",
-        "breakfast":"Food",
-        "lunch":"MoreFood",
-        "dinner":"LessFood",
+        "breakfast":"",
+        "lunch":"",
+        "dinner":"",
         "snack":""
     }
     

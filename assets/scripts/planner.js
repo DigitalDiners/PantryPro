@@ -6,7 +6,6 @@ function getPlanner(){
     try{
         const jsonMealPlanner = GetPlanner();
         console.log(jsonMealPlanner);
-        //const jsonMealPlanner = '[{"name":"Monday","breakfast":"Food", "lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Tuesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Wednesday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Thursday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name":"Friday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Saturday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"},{"name": "Sunday","breakfast":"Food","lunch":"MoreFood","dinner":"LessFood","snack":"None"}]';
         const days = JSON.parse(jsonMealPlanner);
         
         for(let day of days){            
@@ -56,108 +55,6 @@ function displayMealCards(day){
     dayCard.appendChild(snack);
 
     plannerBox.appendChild(dayCard);
-}
-
-/**
- * add to planner function
- * opening a popup sets the currRecipeId to the clicked recipe. 
- * Need to add function to add the recipe, day, and meal to an array or script
- */
-function addToPlanner(recipeName, recipeId) {
-    // recipeName = currRecipeName;
-    currRecipeName = recipeName;
-    currId = recipeId;
-    const dayOptions = document.getElementById('day-options');
-    const mealOptions = document.getElementById('meal-options');
-    const selectedDay = dayOptions.value;
-    const selectedMeal = mealOptions.value;
-    let mealOption = [];
-    addToJSON(selectedDay, selectedMeal, recipeName, recipeId);
-    mealOption.push(selectedDay, selectedMeal, recipeName, recipeId);
-    mealPlanner.push(mealOption);
-    closePopup();
-}
-
-// Your JSON structure
-const weeklyMealPlan = {
-    "Monday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Tuesday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Wednesday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Thursday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Friday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Saturday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    },
-    "Sunday": {
-        "Breakfast": null,
-        "Lunch": null,
-        "Dinner": null,
-        "Snack": null
-    }
-};
-
-function addToJSON(day, meal, recipeName, recipeId) {
-    //assets/css/data/planner.json
-    if (weeklyMealPlan[day] && weeklyMealPlan[day][meal] !== undefined) {
-        if (weeklyMealPlan[day][meal] == null) {
-            weeklyMealPlan[day][meal] = recipeName;
-            console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal + "!");
-            // const jsonstring = JSON.stringify(weeklyMealPlan);
-            // let plannerArr = [recipeName, recipeId, day, meal];
-            let done = AddToMealPlanner(recipeName, recipeId, day, meal);
-            if (done) {
-                console.log("success");
-            } else {
-                console.log("fail");
-            }
-        } else {
-            console.log("This slot is already filled");
-            // filledPopup(); - this will create a popup for abt 2 seconds maybe?
-        }
-    } else {
-        console.log("Invalid day or meal type");
-    }
-}
-
-// Function to open the popup
-function openPopup(recipeName) {
-    currRecipeName = recipeName;
-    const popup = document.getElementById("popup");
-    popup.style.display = 'block';
-}
-
-// Function to close the popup
-function closePopup() {
-    const popup = document.getElementById("popup");
-    popup.style.display = 'none';
 }
 
 window.onload = getPlanner;
