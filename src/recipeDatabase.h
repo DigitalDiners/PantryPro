@@ -73,6 +73,8 @@ public:
      */
     std::vector<Ingredient> getIngredientsByRecipe(int recipeId);
 
+    std::vector<RecipeImage> getAllRecipeImagesForRecipes(const std::vector<Recipe> &recipes);
+
 };
 
 #endif  // recipe_DATABASE_H
