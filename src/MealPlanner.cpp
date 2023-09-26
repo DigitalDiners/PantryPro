@@ -104,7 +104,11 @@ void MealPlanner::findPath(){
 void MealPlanner::reopenFile(){
     try{
         // std::ifstream jsonFile("./assets/data/planner.json");
-        std::ifstream jsonFile("../Resources/assets/data/planner.json");
+        #if _WIN32
+            std::ifstream jsonFile("./assets/data/planner.json");
+        #elif __APPLE__
+            std::ifstream jsonFile("../Resources/assets/data/planner.json");
+        #endif
         if (!jsonFile.is_open()) {
             std::cerr << "Error opening JSON file!" << std::endl;
             throw 404;
