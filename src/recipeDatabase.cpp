@@ -60,9 +60,6 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
 }
 
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
-    Timer timer;
-    
-    timer.start();
     
     std::vector<Recipe> result;
 
@@ -115,11 +112,6 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         std::cout << " (MySQL error code: " << e.getErrorCode();
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
-
-    timer.stop();
-
-    std::cout << "Elapsed time to query 50 recipes from database: " << timer.elapsedMilliseconds() << " ms" << std::endl;
-
     return result;
 }
 
