@@ -43,14 +43,19 @@ public:
 
     bool addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal);
 
+    void reopenFile();
+
+    void findPath();
 
 
-    /**
-     * @brief Get the Days vector
-     * 
-     * @return std::vector<Day> 
-     */
-    Day* getDays();
+
+
+    // /**
+    //  * @brief Get the Days vector
+    //  * 
+    //  * @return std::vector<Day> 
+    //  */
+    // Day* getDays();
 
     
 };

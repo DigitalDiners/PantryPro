@@ -11,7 +11,97 @@ std::string plannerJson;
 MealPlanner::MealPlanner()
 {
     // std::cout << "Constructing meal planner..." << std::endl;
+    reopenFile();
+    // findPath();
 
+}
+void MealPlanner::findPath(){
+    json source = R"(
+        [ 
+    {
+        "day":"Monday",
+        "breakfast":"",
+        "breakfastID": "",
+        "lunch":"",
+        "lunchID":"",
+        "dinner":"",
+        "dinnerID":"",
+        "snack":"",
+        "snackID":""
+    },
+    {
+        "day":"Tuesday",
+        "breakfast":"",
+        "breakfastID": "",
+        "lunch":"",
+        "lunchID":"",
+        "dinner":"",
+        "dinnerID":"",
+        "snack":"",
+        "snackID":""
+    },
+    {
+        "day":"Wednesday",
+        "breakfast":"",
+        "breakfastID": "",
+        "lunch":"",
+        "lunchID":"",
+        "dinner":"",
+        "dinnerID":"",
+        "snack":"",
+        "snackID":""
+    }
+    ]
+    )"_json;
+
+    json target = R"(
+        [ 
+    {
+        "day":"Monday",
+        "breakfast":"potato",
+        "breakfastID": "123",
+        "lunch":"ffff",
+        "lunchID":"543345",
+        "dinner":"",
+        "dinnerID":"",
+        "snack":"",
+        "snackID":""
+    },
+    {
+        "day":"Tuesday",
+        "breakfast":"",
+        "breakfastID": "",
+        "lunch":"",
+        "lunchID":"",
+        "dinner":"summer",
+        "dinnerID":"432",
+        "snack":"",
+        "snackID":""
+    },
+    {
+        "day":"Wednesday",
+        "breakfast":"cdcds",
+        "breakfastID": "3242",
+        "lunch":"",
+        "lunchID":"",
+        "dinner":"",
+        "dinnerID":"",
+        "snack":"",
+        "snackID":""
+    }
+    ]
+    )"_json;
+       // create the patch
+    json patch = json::diff(source, target);
+
+    // roundtrip
+    json patched_source = source.patch(patch);
+
+    // output patch and roundtrip result
+    std::cout << std::setw(4) << patch << "\n\n"
+              << std::setw(4) << patched_source << std::endl;
+}
+void MealPlanner::reopenFile(){
     try{
         // std::ifstream jsonFile("./assets/data/planner.json");
         std::ifstream jsonFile("../Resources/assets/data/planner.json");
@@ -29,20 +119,21 @@ MealPlanner::MealPlanner()
         // Handle the exception here
         std::cerr << "Exception caught: " << e.what() << std::endl;
     }
-
 }
 
 bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal)
 {
     json data;
     std::cout << "Add to Planner called" << std::endl;
-    // Populate the JSON object with data
-    data["recipeName"] = recipeName;
-    data["recipeId"] = recipeId;
+
     int dayNum;
-    std::string mealNum;
+    std::string mealName;
+
+    //windows
     // std::ifstream ifs("./assets/data/planner.json");
+    //macOS
     std::ifstream ifs("../Resources/assets/data/planner.json");
+
     json readIn;
     ifs >> readIn;
     std::cout << "ifstream" << std::endl;
@@ -62,25 +153,27 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
     }else if(day=="Sunday"){
         dayNum = 6;
     }
+    data["day"] = day;
+
     if(meal=="Breakfast"){
-        mealNum = "breakfast";
+        mealName = "breakfast";
+        data["breakfast"] = recipeName;
+        data["breakfastID"] = recipeId;
     }else if(meal=="Lunch"){
-        mealNum = "lunch";
+        mealName = "lunch";
+        data["lunch"] = recipeName;
+        data["lunchID"] = recipeId;
     }else if(meal=="Dinner"){
-        mealNum = "dinner";
+        mealName = "dinner";
+        data["dinner"] = recipeName;
+        data["dinnerID"] = recipeId;
     }else if(meal=="Snack"){
-        mealNum = "snack";
+        mealName = "snack";
+        data["snack"] = recipeName;
+        data["snackID"] = recipeId;
     }
-    // Check if the value is None.
-        std::cout << "day and num set"<<dayNum<<"    "<<mealNum << std::endl;
+        std::cout << "day and num set"<<dayNum<<"    "<<mealName << std::endl;
 
-    if (readIn[dayNum][mealNum].is_null())
-    {
-
-        // The block is not filled.
-        std::cout << "The block is not filled." << std::endl;
-        // data["day"] = day;
-        // data["meal"] = meal;
 
         // Specify the file name to write to
         // std::string filename = "./assets/data/planner.json";
@@ -91,9 +184,21 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
 
         if (file.is_open())
         {
+            json patch = R"(
+                [
+                    { "op": "replace", 
+                    "path": "/dayNum/meal",
+                    "value": "recipeName"},
+                    { "op": "replace",
+                    "path": "/dayNum/mealID",
+                    "value": "recipeID"}
+                ]
+            )"_json;
             // Write the JSON data to the file
             // specify where in file to place data
-            file << data.dump(4); // The argument specifies the indentation level
+            // file << data.dump(4); // The argument specifies the indentation level
+            readIn.patch(patch);
+            file<<readIn.dump();
             file.close();
             std::cout << "JSON data written to " << filename << std::endl;
             return true;
@@ -103,14 +208,6 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
             std::cerr << "Unable to open " << filename << " for writing." << std::endl;
             return false;
         }
-    }
-    else
-    {
-
-        // The block is already filled.
-        std::cout << "The block is already filled." << std::endl;
-        return false;
-    }
 }
 
 MealPlanner::~MealPlanner()
@@ -137,7 +234,7 @@ std::string MealPlanner::getPlannerJson() const
     return plannerJson;
 }
 
-Day *MealPlanner::getDays()
-{
-    return days;
-}
+// Day *MealPlanner::getDays()
+// {
+//     return days;
+// }

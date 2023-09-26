@@ -27,7 +27,7 @@ function displayMealCards(day){
     
     const name = document.createElement('h4');
     name.className = 'day-name';
-    name.textContent = day.name;
+    name.textContent = day.day;
     dayCard.appendChild(name);
 
     const horizontalRule = document.createElement('hr');

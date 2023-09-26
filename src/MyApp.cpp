@@ -322,6 +322,8 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
 
+    mealPlanner.reopenFile();
+
     std::string plannerJson = mealPlanner.getPlannerJson();
 
     std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
