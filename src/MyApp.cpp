@@ -5,6 +5,7 @@
 #include "mealPlanner.h"
 #include <AppCore/JSHelpers.h>
 #include <Ultralight/Ultralight.h>
+#include "timer.h"
 
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 800
@@ -120,49 +121,50 @@ std::string MyApp::removeQuotes(const std::string &input)
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 {
+
   std::cout << "convertRecipesToJson called" << std::endl;
-  std::string json = "[";
+
+  std::stringstream ss;
+
+  ss << "[";
 
   std::cout << "recipes.size(): " << recipes.size() << std::endl;
   RecipeDatabase recipeDB;
 
-  for (const Recipe &recipe : recipes)
-  {
+  Timer timer;
+  timer.start();
+
+  Timer imageTimer;
+  imageTimer.start();
+  std::vector<RecipeImage> imagesVector = recipeDB.getAllRecipeImagesForRecipes(recipes);
+  imageTimer.stop();
+  std::cout << "Elapsed time to get image: " << imageTimer.elapsedMilliseconds() << " ms" << std::endl;
+  
+  bool isFirst = true;
+  for (const Recipe &recipe : recipes) {
+    if (!isFirst) ss << ",";
+    isFirst = false;
     std::cout << "recipe: " << recipe.getName() << std::endl;
-    RecipeImage image = recipeDB.getRecipeImage(recipe.getId(), 1);
 
-    // Fetch the first review rating for this recipe, if available
-    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipe.getId());
-    std::string firstRating = "null";
-    if (!reviews.empty())
-    {
-      firstRating = std::to_string(reviews[0].getRating());
+    RecipeImage image(0, 0, "");
+    for (const RecipeImage& img : imagesVector) {
+        if (img.getRecipeId() == recipe.getId()) {
+            image = img;
+            break;
+        }
     }
-
-    json += "{ ";
-    json += "\"recipeId\": " + removeQuotes(std::to_string(recipe.getId())) + ",";
-    json += "\"recipeName\": \"" + removeQuotes(recipe.getName()) + "\",";
-    json += "\"recipeImageURL\": \"" + removeQuotes(image.getImageURL()) + "\",";
-    json += "\"authorId\": " + removeQuotes(std::to_string(recipe.getAuthorId())) + ",";
-    json += "\"cookTime\": " + removeQuotes(std::to_string(recipe.getCookTime())) + ",";
-    json += "\"prepTime\": " + removeQuotes(std::to_string(recipe.getPrepTime())) + ",";
-    json += "\"totalTime\": " + removeQuotes(std::to_string(recipe.getTotalTime())) + ",";
-    json += "\"datePublished\": \"" + removeQuotes(recipe.getDatePublished()) + "\",";
-    json += "\"category\": \"" + removeQuotes(recipe.getCategory()) + "\",";
-    json += "\"calories\": " + removeQuotes(std::to_string(recipe.getCalories())) + ",";
-    json += "\"servings\": " + removeQuotes(std::to_string(recipe.getServings())) + ",";
-    json += "\"yieldQuantity\": " + removeQuotes(std::to_string(recipe.getYieldQuantity())) + ",";
-    json += "\"firstRating\": " + firstRating + ",";
-
-    if (json.back() == ',')
-      json.pop_back();
-    json += " },";
+    ss << "{ ";
+    ss << "\"recipeId\": " << (std::to_string(recipe.getId())) << ",";
+    ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
+    ss << "\"recipeImageURL\": \"" << removeQuotes(image.getImageURL()) + "\"";
+    ss << " }";
   }
-  if (json.back() == ',')
-    json.pop_back();
-  json += "]";
+  ss << "]";
 
-  return json;
+  timer.stop();
+  std::cout << "Elapsed time to create json of 50 recipes: " << timer.elapsedMilliseconds() << " ms" << std::endl;
+
+  return ss.str();
 }
 
 JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
