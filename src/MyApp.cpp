@@ -122,6 +122,9 @@ std::string MyApp::removeQuotes(const std::string &input)
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 {
 
+
+
+
   std::cout << "convertRecipesToJson called" << std::endl;
 
   std::stringstream ss;
@@ -139,6 +142,12 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
   std::vector<RecipeImage> imagesVector = recipeDB.getAllRecipeImagesForRecipes(recipes);
   imageTimer.stop();
   std::cout << "Elapsed time to get image: " << imageTimer.elapsedMilliseconds() << " ms" << std::endl;
+
+  Timer reviewTimer;
+  reviewTimer.start();
+  std::vector<Review> reviewVector = recipeDB.getAllRecipeReviewsForRecipes(recipes);
+  reviewTimer.stop();
+  std::cout << "Elapsed time to get reviews: " << reviewTimer.elapsedMilliseconds() << " ms" << std::endl;
   
   bool isFirst = true;
   for (const Recipe &recipe : recipes) {
@@ -146,10 +155,25 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
     isFirst = false;
     std::cout << "recipe: " << recipe.getName() << std::endl;
 
+    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipe.getId());
+    std::string firstRating = "null";
+    if (!reviews.empty())
+    {
+      firstRating = std::to_string(reviews[0].getRating());
+    }
+
+
     RecipeImage image(0, 0, "");
     for (const RecipeImage& img : imagesVector) {
         if (img.getRecipeId() == recipe.getId()) {
             image = img;
+            break;
+        }
+    }
+    Review review(0, 0, 0, 0, "", "", "");
+    for (const Review& stars : reviewVector) {
+        if (stars.getRecipeId() == recipe.getId()) {
+            review = stars;
             break;
         }
     }
@@ -159,6 +183,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
     ss << "\"recipeId\": " << (std::to_string(recipe.getId())) << ",";
     ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
     ss << "\"recipeCalories\": \"" << (recipe.getCalories()) << "\",";
+    ss << "\"recipeReview\": \"" << (firstRating) << "\",";
     ss << "\"recipeImageURL\": \"" << removeQuotes(image.getImageURL()) + "\"";
     ss << " }";
   }
