@@ -145,7 +145,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 
   Timer reviewTimer;
   reviewTimer.start();
-  std::vector<Review> reviewVector = recipeDB.getAllRecipeReviewsForRecipes(recipes);
+  std::vector<Review> reviewVector = recipeDB.getAllReviewsForRecipes(recipes);
   reviewTimer.stop();
   std::cout << "Elapsed time to get reviews: " << reviewTimer.elapsedMilliseconds() << " ms" << std::endl;
   
@@ -155,12 +155,6 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
     isFirst = false;
     std::cout << "recipe: " << recipe.getName() << std::endl;
 
-    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipe.getId());
-    std::string firstRating = "null";
-    if (!reviews.empty())
-    {
-      firstRating = std::to_string(reviews[0].getRating());
-    }
 
 
     RecipeImage image(0, 0, "");
@@ -183,7 +177,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
     ss << "\"recipeId\": " << (std::to_string(recipe.getId())) << ",";
     ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
     ss << "\"recipeCalories\": \"" << (recipe.getCalories()) << "\",";
-    ss << "\"recipeReview\": \"" << (firstRating) << "\",";
+    ss << "\"firstRating\": \"" << (review.getRating()) << "\",";
     ss << "\"recipeImageURL\": \"" << removeQuotes(image.getImageURL()) + "\"";
     ss << " }";
   }

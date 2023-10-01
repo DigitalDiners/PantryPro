@@ -75,6 +75,8 @@ public:
 
     std::vector<RecipeImage> getAllRecipeImagesForRecipes(const std::vector<Recipe> &recipes);
 
+    std::vector<Review> getAllReviewsForRecipes(const std::vector<Recipe>& recipes);
+
 };
 
 #endif  // recipe_DATABASE_H

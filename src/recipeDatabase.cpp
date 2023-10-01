@@ -149,6 +149,56 @@ std::vector<Review> RecipeDatabase::getReviewsByRecipeId(int recipeId) {
     return reviews;
 }
 
+std::vector<Review> RecipeDatabase::getAllReviewsForRecipes(const std::vector<Recipe>& recipes) {
+
+    std::vector<Review> reviewVector;
+
+    if (recipes.empty())
+       { return reviewVector;}
+
+
+    std::stringstream query;
+    query << "SELECT * FROM reviews WHERE recipeId IN(";
+
+    bool isFirst = true;
+    for (const Recipe &recipe : recipes)
+    {
+        if (!isFirst) query << ",";
+        isFirst = false;
+        query << recipe.getId();
+    }
+    query << ") ;";
+
+    try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query.str()));
+
+        while (res->next()) 
+        {
+                Review review(
+                    res->getInt("reviewId"),
+                    res->getInt("recipeId"),
+                    res->getInt("authorId"),
+                    res->getInt("rating"),
+                    res->getString("review"),
+                    res->getString("dateSubmitted"),
+                    res->getString("dateModified")
+                );
+            reviewVector.push_back(review);
+        }
+    }catch (sql::SQLException &e)
+    {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+
+    return reviewVector;
+}
+
+
 std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
     std::vector<Ingredient> ingredients;
 
