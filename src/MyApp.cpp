@@ -153,9 +153,12 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
             break;
         }
     }
+    //add calories back here
+    //add reviews back
     ss << "{ ";
     ss << "\"recipeId\": " << (std::to_string(recipe.getId())) << ",";
     ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
+    ss << "\"recipeCalories\": \"" << (recipe.getCalories()) << "\",";
     ss << "\"recipeImageURL\": \"" << removeQuotes(image.getImageURL()) + "\"";
     ss << " }";
   }

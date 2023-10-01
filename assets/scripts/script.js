@@ -127,7 +127,7 @@ function displayCard(recipe, location) {
     // Add calories to the card
     const calories = document.createElement('div');
     calories.className = 'recipe-calories';
-    calories.textContent = recipe.calories + ' Calories';
+    calories.textContent = recipe.recipeCalories + ' Calories';
     recipeInfo.appendChild(calories);
 
     // Add rating to the card
