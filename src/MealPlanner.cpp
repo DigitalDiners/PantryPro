@@ -7,25 +7,41 @@
 
 using json = nlohmann::json;
 std::string plannerJson;
-std::vector<Day*> mealPlanner;
+std::vector<Day> plannerVector;
+RecipeObject hold = RecipeObject(0);
 
 MealPlanner::MealPlanner()
 {
     // std::cout << "Constructing meal planner..." << std::endl;
-    Day* monday = new Day(0);
-    Day* tuesday = new Day(1);
-    Day* wednesday = new Day(2);
-    Day* thursday = new Day(3);
-    Day* friday = new Day(4);
-    Day* saturday = new Day(5);
-    Day* sunday = new Day(6);
-    mealPlanner.push_back(monday);
-    mealPlanner.push_back(tuesday);
-    mealPlanner.push_back(wednesday);
-    mealPlanner.push_back(thursday);
-    mealPlanner.push_back(friday);
-    mealPlanner.push_back(saturday);
-    mealPlanner.push_back(sunday);
+    Day monday =  Day(0);
+    Day tuesday =  Day(1);
+    Day wednesday =  Day(2);
+    Day thursday =  Day(3);
+    Day friday =  Day(4);
+    Day saturday =  Day(5);
+    Day sunday =  Day(6);
+    initialiseDays(monday);
+    initialiseDays(tuesday);
+    initialiseDays(wednesday);
+    initialiseDays(thursday);
+    initialiseDays(friday);
+    initialiseDays(saturday);
+    initialiseDays(sunday);
+    plannerVector.push_back(monday);
+    plannerVector.push_back(tuesday);
+    plannerVector.push_back(wednesday);
+    plannerVector.push_back(thursday);
+    plannerVector.push_back(friday);
+    plannerVector.push_back(saturday);
+    plannerVector.push_back(sunday);
+    std::cout << plannerVector.size() << std::endl;
+    std::cout << plannerVector[0].getLunch() << std::endl;
+}
+
+void MealPlanner::initialiseDays(Day day){
+    day.setMeal(hold,0);
+    day.setMeal(hold,1);
+    day.setMeal(hold,2);
 }
 
 bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal)
@@ -38,6 +54,11 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
     std::string mealName;
     std::string recipeID = std::to_string(recipeId);
 
+    // RecipeDatabase recipeDB;
+    // Recipe addRecipe = recipeDB.getRecipeById(recipeId);
+    RecipeObject addRecipe = RecipeObject(recipeId);
+    dayNum = getDayNum(day);
+    std::cout << "recipeobject made" << std::endl;
     if (meal == "Breakfast")
     {
         mealNum=0;
@@ -62,7 +83,20 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
         mealName = "snack";
         mealID = "snackID";
     }
+
+    std::cout << plannerVector[0].getBreakfast() << std::endl;
+try {
+    plannerVector[dayNum].setMeal(addRecipe, mealNum);
+  // Code that you want to try to execute
+    std::cout << "plannervector found" << std::endl;
     std::cout << "day and num set " << dayNum << "    " << mealName << std::endl;
+} catch (std::exception) {
+    std::cout << "plannervector fail" << std::endl;
+  // Code that you want to execute if an exception occurs
+}
+    // Day newMeal =  *addMeal;
+    // newMeal.setMeal(*addRecipe, mealNum);
+    return true;
 
 }
 

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "day.h"
+#include "recipeDatabase.h"
 
 class MealPlanner
 {
@@ -32,6 +33,11 @@ public:
      * @return Reference to the day object at the specified index.
      */
     Day& getDay(int dayNumber);
+
+    void initialiseDays(Day day);
+
+
+    int getDayNum(std::string day);
 
 
     /**

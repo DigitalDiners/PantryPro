@@ -333,8 +333,9 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
-  std::cout << "made past the conversions"<<recipeName<<day<<meal<< std::endl;
-  return mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
+  bool yes = mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
+  std::cout << "made back to myapp"<< std::endl;
+  return yes;
 
   
   // // If success with this function
@@ -346,7 +347,6 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
 
-    mealPlanner.reopenFile();
 
     std::string plannerJson = mealPlanner.getPlannerJson();
 
