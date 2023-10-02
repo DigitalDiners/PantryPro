@@ -71,14 +71,14 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         "SELECT recipes.* "
         "FROM recipes "
         "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND "
-        "NOT EXISTS ("
+        "EXISTS ("
         "  SELECT 1 FROM recipe_ingredients "
-        "  JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "  JOIN ingredients OßN recipe_ingredients.ingredientId = ingredients.ingredientId "
         "  WHERE recipe_ingredients.recipeId = recipes.recipeId AND (";
 
     std::string notInClause = "";
     for (size_t i = 0; i < ingredients.size(); ++i) {
-        notInClause += "ingredients.name NOT LIKE '%" + ingredients[i] + "%'";
+        notInClause += "ingredients.name LIKE '%" + ingredients[i] + "%'";
         if (i < ingredients.size() - 1) {
             notInClause += " AND ";
         }
