@@ -70,20 +70,22 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
     std::string baseQuery = 
         "SELECT recipes.* "
         "FROM recipes "
-        "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND "
-        "EXISTS ("
-        "  SELECT 1 FROM recipe_ingredients "
-        "  JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
-        "  WHERE recipe_ingredients.recipeId = recipes.recipeId AND (";
+        "JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId "
+        "JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND (";
 
-    std::string notInClause = "";
+    std::string havingClause = ") GROUP BY recipes.recipeId HAVING ";
+
     for (size_t i = 0; i < ingredients.size(); ++i) {
-        notInClause += "ingredients.name LIKE '%" + ingredients[i] + "%'";
+        baseQuery += "ingredients.name LIKE '%" + ingredients[i] + "%' ";
+        havingClause += "SUM(ingredients.name LIKE '%" + ingredients[i] + "%') > 0 ";
         if (i < ingredients.size() - 1) {
-            notInClause += " AND ";
+            baseQuery += "OR ";
+            havingClause += "AND ";
         }
     }
-    baseQuery += notInClause + ")) ORDER BY recipes.datePublished DESC LIMIT 50;";
+    baseQuery += havingClause;
+    baseQuery += " ORDER BY recipes.datePublished DESC LIMIT 50;";
 
     
     try {
