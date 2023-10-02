@@ -10,6 +10,7 @@ class MealPlanner
 private:
     Day* days;
     std::string plannerJson;
+    std::vector<std::vector<int> > recipeVector;
 
 public:
     /**
@@ -49,10 +50,7 @@ public:
 
     bool addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal);
 
-    void reopenFile();
-
-    void findPath();
-
+    std::string name(int recipeId) const;
 
 
 
