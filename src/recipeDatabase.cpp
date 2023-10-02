@@ -73,7 +73,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND "
         "EXISTS ("
         "  SELECT 1 FROM recipe_ingredients "
-        "  JOIN ingredients OßN recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "  JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
         "  WHERE recipe_ingredients.recipeId = recipes.recipeId AND (";
 
     std::string notInClause = "";
