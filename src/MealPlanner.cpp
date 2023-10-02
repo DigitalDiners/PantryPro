@@ -7,82 +7,68 @@
 
 using json = nlohmann::json;
 std::string plannerJson;
+std::vector<Day*> mealPlanner;
 
 MealPlanner::MealPlanner()
 {
     // std::cout << "Constructing meal planner..." << std::endl;
-    reopenFile();
-    // findPath();
-}
-void MealPlanner::reopenFile()
-{
-    try
-    {
-// std::ifstream jsonFile("./assets/data/planner.json");
-#if _WIN32
-        std::ifstream jsonFile("./assets/data/planner.json");
-#elif __APPLE__
-        std::ifstream jsonFile("../Resources/assets/data/planner.json");
-#endif
-        if (!jsonFile.is_open())
-        {
-            std::cerr << "Error opening JSON file!" << std::endl;
-            throw 404;
-        }
-        std::ostringstream tmp;
-        tmp << jsonFile.rdbuf();
-        plannerJson = tmp.str();
-
-        // Close the file to release resources.
-        jsonFile.close();
-    }
-    catch (const std::exception &e)
-    {
-        // Handle the exception here
-        std::cerr << "Exception caught: " << e.what() << std::endl;
-    }
+    Day* monday = new Day(0);
+    Day* tuesday = new Day(1);
+    Day* wednesday = new Day(2);
+    Day* thursday = new Day(3);
+    Day* friday = new Day(4);
+    Day* saturday = new Day(5);
+    Day* sunday = new Day(6);
+    mealPlanner.push_back(monday);
+    mealPlanner.push_back(tuesday);
+    mealPlanner.push_back(wednesday);
+    mealPlanner.push_back(thursday);
+    mealPlanner.push_back(friday);
+    mealPlanner.push_back(saturday);
+    mealPlanner.push_back(sunday);
 }
 
 bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal)
 {
-    json data;
     std::cout << "Add to Planner called" << std::endl;
-    json readIn;
 
     int dayNum;
+    int mealNum;
     std::string mealID;
     std::string mealName;
     std::string recipeID = std::to_string(recipeId);
 
-#if _WIN32
-    std::string filename = "./assets/data/planner.json";
-#elif __APPLE__
-    std::string filename = "../Resources/assets/data/planner.json";
-#endif
-    try
+    if (meal == "Breakfast")
     {
-
-        std::cout << "readIn" << std::endl;
-        std::ifstream ifs(filename);
-        std::cout << "ifs opened" << std::endl;
-        if (!ifs.is_open())
-        {
-            std::cerr << "Error opening JSON file!" << std::endl;
-            throw 404;
-        }
-        ifs>>readIn;
-        std::cout << "ifstream into readin" << std::endl;
-
-        // Close the file to release resources.
-        ifs.close();
+        mealNum=0;
+        mealName = "breakfast";
+        mealID = "breakfastID";
     }
-    catch (const std::exception &e)
+    else if (meal == "Lunch")
     {
-        // Handle the exception here
-        std::cerr << "Exception caught: " << e.what() << std::endl;
+        mealNum=1;
+        mealName = "lunch";
+        mealID = "lunchID";
     }
+    else if (meal == "Dinner")
+    {
+        mealNum=2;
+        mealName = "dinner";
+        mealID = "dinnerID";
+    }
+    else if (meal == "Snack")
+    {
+        mealNum=3;
+        mealName = "snack";
+        mealID = "snackID";
+    }
+    std::cout << "day and num set " << dayNum << "    " << mealName << std::endl;
 
-    if (day == "Monday")
+}
+
+int MealPlanner::getDayNum(std::string day){
+    int dayNum;
+        if (day == "Monday")
     {
         dayNum = 0;
     }
@@ -110,60 +96,7 @@ bool MealPlanner::addToPlanner(std::string recipeName, int recipeId, std::string
     {
         dayNum = 6;
     }
-    data["day"] = day;
-
-    if (meal == "Breakfast")
-    {
-        mealName = "breakfast";
-        mealID = "breakfastID";
-    }
-    else if (meal == "Lunch")
-    {
-        mealName = "lunch";
-        mealID = "lunchID";
-    }
-    else if (meal == "Dinner")
-    {
-        mealName = "dinner";
-        mealID = "dinnerID";
-    }
-    else if (meal == "Snack")
-    {
-        mealName = "snack";
-        mealID = "snackID";
-    }
-    std::cout << "day and num set " << dayNum << "    " << mealName << std::endl;
-
-    // Open a file stream for writing
-    std::ofstream file(filename);
-    std::string daynumber = std::to_string(dayNum);
-
-    if (file.is_open())
-    {
-        std::string patch = "[{ 'op': 'replace', 'path': '/" + daynumber + "/" + meal + "', 'value': '" + recipeName + "'},{ 'op': 'replace','path': '/" + daynumber + "/" + mealID + "','value': '" + recipeID + "'}]";
-
-        
-        std::cout << patch << std::endl;
-
-        json patchThis = json::parse(patch);
-        std::cout << "parse the patch" << dayNum << "    " << mealName << std::endl;
-        // Write the JSON data to the file
-        // specify where in file to place data
-        // file << data.dump(4); // The argument specifies the indentation level
-        readIn.patch_inplace(patchThis);
-        std::cout << "patch into readin" << dayNum << "    " << mealName << std::endl;
-        readIn.emplace();
-        std::cout << "emplaced" << dayNum << "    " << mealName << std::endl;
-        file << readIn.dump();
-        file.close();
-        std::cout << "JSON data written to " << filename << std::endl;
-        return true;
-    }
-    else
-    {
-        std::cerr << "Unable to open " << filename << " for writing." << std::endl;
-        return false;
-    }
+    return dayNum;
 }
 
 MealPlanner::~MealPlanner()
