@@ -201,11 +201,8 @@ function displayCard(recipe, location) {
     buttonAddMeal.id = "add-meal";
     buttonAddMeal.textContent = "Add Meal";
     buttonAddMeal.onclick = function () {
-        (addToPlanner(recipe.recipeName));
+        (addToPlanner(recipe.recipeName, recipe.recipeId));
     };
-    buttonAddMeal.addEventListener("click", function () {
-      addToPlanner(recipe.recipeName, recipe.recipeId); // You can replace this with your desired meal ID
-    });
 
     // Append elements to create the desired structure
     popupDiv.appendChild(spanClosePopup);
@@ -282,15 +279,16 @@ function loadSavedPage() {
  */
 function addToPlanner(recipeName, recipeId) {
     // recipeName = currRecipeName;
-    currRecipeName = recipeName;
-    currId = recipeId;
+    // currRecipeName = recipeName;
+    // currId = recipeId;
     const dayOptions = document.getElementById('day-options');
     const mealOptions = document.getElementById('meal-options');
     const selectedDay = dayOptions.value;
     const selectedMeal = mealOptions.value;
     let mealOption = [];
     addToJSON(selectedDay, selectedMeal, recipeName, recipeId);
-    mealOption.push(selectedDay, selectedMeal, recipeName, recipeId);
+    // mealOption.push(recipeName, recipeId, selectedDay, selectedMeal );
+    mealOption.push(recipeName, recipeId, selectedDay, selectedMeal );
     mealPlanner.push(mealOption);
     closePopup();
 }

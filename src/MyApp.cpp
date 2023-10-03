@@ -333,8 +333,12 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
+  std::cout<<recipeName<<std::endl;
+  std::cout<<recipeId<<std::endl;
+  std::cout<<day<<std::endl;
+  std::cout<<meal<<std::endl;
   bool yes = mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
-  std::cout << "made back to myapp"<< std::endl;
+  // std::cout << "made back to myapp"<< std::endl;
   return yes;
 
   
