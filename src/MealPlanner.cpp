@@ -91,6 +91,7 @@ int MealPlanner::getDayNum(std::string day){
 MealPlanner::~MealPlanner()
 {
     delete[] days; // Clean up the dynamically allocated memory
+    
 }
 
 std::string MealPlanner::name(int recipeId) const{
@@ -109,18 +110,18 @@ std::string MealPlanner::getPlannerJson() const
     std::cout << "Get Planner json called" << std::endl;
     std::string plannerJson;
     std::cout << "planner string made" << std::endl;
-    plannerJson +="'[{'name':'Monday', 'breakfast':'"+name(recipeVector[0][0])+"', 'lunch': '"+name(recipeVector[0][1])+"', 'dinner': '"+name(recipeVector[0][2])+"'}";
-    plannerJson +=",{'name':'Tuesday', 'breakfast':'"+name(recipeVector[1][0])+"', 'lunch': '"+name(recipeVector[1][1])+"', 'dinner': '"+name(recipeVector[1][2])+"'}";
-    plannerJson +=",{'name':'Wednesday', 'breakfast':'"+name(recipeVector[2][0])+"', 'lunch': '"+name(recipeVector[2][1])+"', 'dinner': '"+name(recipeVector[2][2])+"'}";
-    plannerJson +=",{'name':'Thursday', 'breakfast':'"+name(recipeVector[3][0])+"', 'lunch': '"+name(recipeVector[3][1])+"', 'dinner': '"+name(recipeVector[3][2])+"}";
-    plannerJson +="',{'name':'Friday', 'breakfast':'"+name(recipeVector[4][0])+", 'lunch': "+name(recipeVector[4][1])+"', 'dinner': '"+name(recipeVector[4][2])+"'}";
-    plannerJson +=",{'name':'Saturday', 'breakfast':'"+name(recipeVector[5][0])+"', 'lunch': '"+name(recipeVector[5][1])+"', 'dinner': '"+name(recipeVector[5][2])+"'}";
-    plannerJson +=",{'name':'Sunday', 'breakfast':'"+name(recipeVector[6][0])+"', 'lunch': '"+name(recipeVector[6][1])+"', 'dinner': '"+name(recipeVector[6][2])+"'}";
+    plannerJson +="[{\"name\":\"Monday\", \"breakfast\":\""+name(recipeVector[0][0])+"\", \"lunch\": \""+name(recipeVector[0][1])+"\", \"dinner\": \""+name(recipeVector[0][2])+"\"}";
+    plannerJson +=",{\"name\":\"Tuesday\", \"breakfast\":\""+name(recipeVector[1][0])+"\", \"lunch\": \""+name(recipeVector[1][1])+"\", \"dinner\": \""+name(recipeVector[1][2])+"\"}";
+    plannerJson +=",{\"name\":\"Wednesday\", \"breakfast\":\""+name(recipeVector[2][0])+"\", \"lunch\": \""+name(recipeVector[2][1])+"\", \"dinner\": \""+name(recipeVector[2][2])+"\"}";
+    plannerJson +=",{\"name\":\"Thursday\", \"breakfast\":\""+name(recipeVector[3][0])+"\", \"lunch\": \""+name(recipeVector[3][1])+"\", \"dinner\": \""+name(recipeVector[3][2])+"\"}";
+    plannerJson +=",{\"name\":\"Friday\", \"breakfast\":\""+name(recipeVector[4][0])+"\", \"lunch\": \""+name(recipeVector[4][1])+"\", \"dinner\": \""+name(recipeVector[4][2])+"\"}";
+    plannerJson +=",{\"name\":\"Saturday\", \"breakfast\":\""+name(recipeVector[5][0])+"\", \"lunch\": \""+name(recipeVector[5][1])+"\", \"dinner\": \""+name(recipeVector[5][2])+"\"}";
+    plannerJson +=",{\"name\":\"Sunday\", \"breakfast\":\""+name(recipeVector[6][0])+"\", \"lunch\": \""+name(recipeVector[6][1])+"\", \"dinner\": \""+name(recipeVector[6][2])+"\"}";
     
     plannerJson += "]";
 
 
-    std::cout << "Get Planner json called" << std::endl;
+    std::cout << plannerJson << std::endl;
     return plannerJson;
 }
 
