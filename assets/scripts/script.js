@@ -1,5 +1,5 @@
 let ingredients = [];
-let currRecipeName;
+let currRecipeId;
 let savedRecipes = [];
 let mealPlanner = [];
 
@@ -152,7 +152,7 @@ function displayCard(recipe, location) {
     addSymbol.innerHTML = "Add to planner";
     addSymbol.setAttribute("aria-label", "Add to planner");
     addSymbol.onclick = function () {
-        openPopup(recipe.recipeName);
+        openPopup(recipe.recipeId);
     };
 
     const popupContainer = document.createElement("div");
@@ -278,17 +278,13 @@ function loadSavedPage() {
  * Need to add function to add the recipe, day, and meal to an array or script
  */
 function addToPlanner(recipeName, recipeId) {
-    // recipeName = currRecipeName;
-    // currRecipeName = recipeName;
-    // currId = recipeId;
     const dayOptions = document.getElementById('day-options');
     const mealOptions = document.getElementById('meal-options');
     const selectedDay = dayOptions.value;
     const selectedMeal = mealOptions.value;
     let mealOption = [];
-    addToJSON(selectedDay, selectedMeal, recipeName, recipeId);
-    // mealOption.push(recipeName, recipeId, selectedDay, selectedMeal );
-    mealOption.push(recipeName, recipeId, selectedDay, selectedMeal );
+    addToJSON(selectedDay, selectedMeal, recipeName, currRecipeId);
+    mealOption.push(recipeName, currRecipeId, selectedDay, selectedMeal );
     mealPlanner.push(mealOption);
     closePopup();
 }
@@ -340,14 +336,11 @@ const weeklyMealPlan = {
 };
 
 function addToJSON(day, meal, recipeName, recipeId) {
-    //assets/css/data/planner.json
     if (weeklyMealPlan[day] && weeklyMealPlan[day][meal] !== undefined) {
         if (weeklyMealPlan[day][meal] == null) {
             weeklyMealPlan[day][meal] = recipeName;
             console.log("Recipe: " + recipeName + " added to planner on " + day + " for " + meal + "!");
-            // const jsonstring = JSON.stringify(weeklyMealPlan);
-            // let plannerArr = [recipeName, recipeId, day, meal];
-            let done = AddToMealPlanner(recipeName, recipeId, day, meal);
+            let done = AddToMealPlanner(recipeName, currRecipeId, day, meal);
             if (done) {
                 console.log("success");
             } else {
@@ -363,8 +356,8 @@ function addToJSON(day, meal, recipeName, recipeId) {
 }
 
 // Function to open the popup
-function openPopup(recipeName) {
-    currRecipeName = recipeName;
+function openPopup(recipeId) {
+    currRecipeId = recipeId;
     const popup = document.getElementById("popup");
     popup.style.display = 'block';
 }
