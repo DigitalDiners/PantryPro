@@ -1,7 +1,6 @@
 #include "recipeDatabase.h"
 #include <iostream>
 #include <vector>
-#include "timer.h"
 
 Recipe RecipeDatabase::getRecipeById(int id) {
     std::string query = "SELECT * FROM recipes WHERE recipeId = " + std::to_string(id) + ";";
@@ -13,7 +12,7 @@ Recipe RecipeDatabase::getRecipeById(int id) {
 
         if (res->next()) {
             return Recipe(res->getInt("recipeId"), 
-                            res->getString("recipeName"),
+            res->getString("recipeName"),
                             res->getInt("authorId"),
                             res->getInt("cookTime"), 
                             res->getInt("prepTime"), 
@@ -45,9 +44,7 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         if (res->next()) {
-            return RecipeImage(res->getInt("recipeId"), 
-            res->getInt("imageNumber"), 
-            res->getString("imageURL"));
+            return RecipeImage(res->getInt("recipeId"), res->getInt("imageNumber"), res->getString("imageURL"));
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -60,9 +57,8 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
 }
 
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
-    
     std::vector<Recipe> result;
-
+    
     if (ingredients.empty()) {
         return result; 
     }
@@ -70,21 +66,22 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
     std::string baseQuery = 
         "SELECT recipes.* "
         "FROM recipes "
-        "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND "
-        "NOT EXISTS ("
-        "  SELECT 1 FROM recipe_ingredients "
-        "  JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
-        "  WHERE recipe_ingredients.recipeId = recipes.recipeId AND (";
+        "JOIN recipe_ingredients ON recipes.recipeId = recipe_ingredients.recipeId "
+        "JOIN ingredients ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND (";
 
-    std::string notInClause = "";
+    std::string havingClause = ") GROUP BY recipes.recipeId HAVING ";
+
     for (size_t i = 0; i < ingredients.size(); ++i) {
-        notInClause += "ingredients.name NOT LIKE '%" + ingredients[i] + "%'";
+        baseQuery += "ingredients.name LIKE '%" + ingredients[i] + "%' ";
+        havingClause += "SUM(ingredients.name LIKE '%" + ingredients[i] + "%') > 0 ";
         if (i < ingredients.size() - 1) {
-            notInClause += " AND ";
+            baseQuery += "OR ";
+            havingClause += "AND ";
         }
     }
-    baseQuery += notInClause + ")) ORDER BY recipes.datePublished DESC LIMIT 50;";
-
+    baseQuery += havingClause;
+    baseQuery += " ORDER BY recipes.datePublished DESC LIMIT 20;";
     
     try {
         auto con = dbConn.getConnection();
@@ -112,6 +109,7 @@ std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::st
         std::cout << " (MySQL error code: " << e.getErrorCode();
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
+
     return result;
 }
 
@@ -202,11 +200,7 @@ std::vector<Review> RecipeDatabase::getAllReviewsForRecipes(const std::vector<Re
 std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
     std::vector<Ingredient> ingredients;
 
-    std::string query = 
-        "SELECT ingredients.name, ingredients.ingredientId "
-        "FROM recipe_ingredients JOIN ingredients "
-        "ON recipe_ingredients.ingredientId = ingredients.ingredientId "
-        "WHERE recipeId = " + std::to_string(recipeId) + ";";
+    std::string query = "SELECT * FROM ingredients WHERE recipeId = " + std::to_string(recipeId) + ";";
 
     try {
         auto con = dbConn.getConnection();
