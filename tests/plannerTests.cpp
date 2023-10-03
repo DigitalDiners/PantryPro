@@ -1,5 +1,6 @@
 #include "catch_amalgamated.cpp"
 #include "../src/day.cpp"
+#include "../src/recipeObject.cpp"
 
 TEST_CASE("Day objects instantiate correctly for day name", "[classic]")
 {
