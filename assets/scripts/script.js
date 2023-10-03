@@ -2,6 +2,9 @@ let ingredients = [];
 let currRecipeName;
 let savedRecipes = [];
 let mealPlanner = [];
+let currSaved = [];
+let currSavedNames = [];
+
 
 
 function addIngredient() {
@@ -34,6 +37,11 @@ function searchRecipes() {
     for (let i = 0; i < ingredientList.children.length; i++) {
         ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
+
+    currSaved = GetSaved();
+    if (!currSaved.size() == 0) {
+        currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
+    } 
 
     // uncomment to view a json of reviews for a given recipe (also comment out try catch block below)
     // var reviews = GetReviewsByRecipe(524);
@@ -86,11 +94,12 @@ function createStars(rating) {
 function displayCard(recipe, location) {
     const searchResults = document.getElementById(location);
 
+
     let recipeName = recipe.recipeName;
-        if(recipeName.length>18){
-            recipeName = recipeName.substring(0, 17);
-            recipeName+= "...";
-        }
+    if (recipeName.length > 18) {
+        recipeName = recipeName.substring(0, 17);
+        recipeName += "...";
+    }
 
     // Create a div for the card
     const card = document.createElement('div');
@@ -138,13 +147,23 @@ function displayCard(recipe, location) {
     recipeInfo.appendChild(rating);
 
     // Add favorite button to the card
-    const favourite = document.createElement("button");
-    favourite.className = ("favourite-icon");
-    favourite.innerHTML = "&hearts;";  
-    favourite.setAttribute("aria-label", "Add to favourites");
-    favourite.onclick = function () {
-        addToSaved(recipe.recipeId);
-    };
+    if (!savedRecipesincludes(recipe.recipeId)) {
+        const favourite = document.createElement("button");
+        favourite.className = ("favourite-icon");
+        favourite.innerHTML = "&hearts;";
+        favourite.setAttribute("aria-label", "Add to favourites");
+        favourite.onclick = function () {
+            addToSaved(recipe.recipeId);
+        };
+    } else {
+        const favourite = document.createElement("button");
+        favourite.className = ("saved-icon");
+        favourite.innerHTML = "&hearts;";
+        favourite.setAttribute("aria-label", "Remove from Favourites");
+        favourite.onclick = function () {
+            unSave(recipe.recipeId);
+        };
+    }
 
     // // Add 'add to planner' button to the card
     const addSymbol = document.createElement("button");
@@ -204,7 +223,7 @@ function displayCard(recipe, location) {
         (addToPlanner(recipe.recipeName));
     };
     buttonAddMeal.addEventListener("click", function () {
-      addToPlanner(recipe.recipeName, recipe.recipeId); // You can replace this with your desired meal ID
+        addToPlanner(recipe.recipeName, recipe.recipeId); // You can replace this with your desired meal ID
     });
 
     // Append elements to create the desired structure
@@ -237,26 +256,33 @@ function addToSaved(recipeId) {
     let isSaved = false;
 
     for (let i = 0; i < savedRecipes.length; i++) {
-        if(savedRecipes[i] == recipeId){
-            isSaved=true;
+        if (savedRecipes[i] == recipeId) {
+            isSaved = true;
         }
     }
-    if(!isSaved){
+    if (!isSaved) {
         savedRecipes.push(recipeId);
         console.log("saved recipe(s):\n")
         SaveRecipe(recipeId);
-    }else{
+    } else {
         console.log("already saved\n")
     }
 }
 
+function unSave(recipeId) {
+    UnsaveRecipe(recipeId);
+}
+
 //function which retrieves saved recipes from c
-function getSaved(){
+function getSaved() {
     try {
         const jsonRecipes = GetSaved();
         const recipes = JSON.parse(jsonRecipes);
         console.log("Recipes:", recipes);
         document.getElementById('saved-recipe-container').innerHTML = "";
+
+        currSaved = GetSaved();
+        currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
 
         for (let recipe of recipes) {
             displayCard(recipe, 'saved-recipe-container');

@@ -12,7 +12,7 @@
 
 std::vector<int> savedRecipes;
 MealPlanner mealPlanner;
-//have a thing to hold the last search which will be sent to the js on open
+// have a thing to hold the last search which will be sent to the js on open
 
 MyApp::MyApp()
 {
@@ -122,9 +122,6 @@ std::string MyApp::removeQuotes(const std::string &input)
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 {
 
-
-
-
   std::cout << "convertRecipesToJson called" << std::endl;
 
   std::stringstream ss;
@@ -148,31 +145,35 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
   std::vector<Review> reviewVector = recipeDB.getAllReviewsForRecipes(recipes);
   reviewTimer.stop();
   std::cout << "Elapsed time to get reviews: " << reviewTimer.elapsedMilliseconds() << " ms" << std::endl;
-  
+
   bool isFirst = true;
-  for (const Recipe &recipe : recipes) {
-    if (!isFirst) ss << ",";
+  for (const Recipe &recipe : recipes)
+  {
+    if (!isFirst)
+      ss << ",";
     isFirst = false;
     std::cout << "recipe: " << recipe.getName() << std::endl;
 
-
-
     RecipeImage image(0, 0, "");
-    for (const RecipeImage& img : imagesVector) {
-        if (img.getRecipeId() == recipe.getId()) {
-            image = img;
-            break;
-        }
+    for (const RecipeImage &img : imagesVector)
+    {
+      if (img.getRecipeId() == recipe.getId())
+      {
+        image = img;
+        break;
+      }
     }
     Review review(0, 0, 0, 0, "", "", "");
-    for (const Review& stars : reviewVector) {
-        if (stars.getRecipeId() == recipe.getId()) {
-            review = stars;
-            break;
-        }
+    for (const Review &stars : reviewVector)
+    {
+      if (stars.getRecipeId() == recipe.getId())
+      {
+        review = stars;
+        break;
+      }
     }
-    //add calories back here
-    //add reviews back
+    // add calories back here
+    // add reviews back
     ss << "{ ";
     ss << "\"recipeId\": " << (std::to_string(recipe.getId())) << ",";
     ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
@@ -241,33 +242,36 @@ JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &
   return JSValue(jsonIngredients.c_str());
 }
 
-JSValue MyApp::GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args) {
-    //std::cout << "GetReviewsByRecipe called" << std::endl;
+JSValue MyApp::GetReviewsByRecipe(const JSObject &thisObject, const JSArgs &args)
+{
+  // std::cout << "GetReviewsByRecipe called" << std::endl;
 
-    int recipeId = args[0].ToInteger();
+  int recipeId = args[0].ToInteger();
 
-    RecipeDatabase recipeDB;
-    std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipeId);
+  RecipeDatabase recipeDB;
+  std::vector<Review> reviews = recipeDB.getReviewsByRecipeId(recipeId);
 
-    std::string jsonReviews = "[";
+  std::string jsonReviews = "[";
 
-    for (const Review& review : reviews) {
-        jsonReviews += "{ ";
-        jsonReviews += "\"reviewId\": " + removeQuotes(std::to_string(review.getReviewId())) + ",";
-        jsonReviews += "\"recipeId\": " + removeQuotes(std::to_string(review.getRecipeId())) + ",";
-        jsonReviews += "\"authorId\": " + removeQuotes(std::to_string(review.getAuthorId())) + ",";
-        jsonReviews += "\"rating\": " + removeQuotes(std::to_string(review.getRating())) + ",";
-        jsonReviews += "\"review\": \"" + removeQuotes(review.getReviewText()) + "\",";
-        jsonReviews += "\"dateSubmitted\": \"" + removeQuotes(review.getDateSubmitted()) + "\",";
-        jsonReviews += "\"dateModified\": \"" + removeQuotes(review.getDateModified()) + "\"";
-        jsonReviews += " },";
-    }
-    if (jsonReviews.back() == ',') jsonReviews.pop_back();
-    jsonReviews += "]";
+  for (const Review &review : reviews)
+  {
+    jsonReviews += "{ ";
+    jsonReviews += "\"reviewId\": " + removeQuotes(std::to_string(review.getReviewId())) + ",";
+    jsonReviews += "\"recipeId\": " + removeQuotes(std::to_string(review.getRecipeId())) + ",";
+    jsonReviews += "\"authorId\": " + removeQuotes(std::to_string(review.getAuthorId())) + ",";
+    jsonReviews += "\"rating\": " + removeQuotes(std::to_string(review.getRating())) + ",";
+    jsonReviews += "\"review\": \"" + removeQuotes(review.getReviewText()) + "\",";
+    jsonReviews += "\"dateSubmitted\": \"" + removeQuotes(review.getDateSubmitted()) + "\",";
+    jsonReviews += "\"dateModified\": \"" + removeQuotes(review.getDateModified()) + "\"";
+    jsonReviews += " },";
+  }
+  if (jsonReviews.back() == ',')
+    jsonReviews.pop_back();
+  jsonReviews += "]";
 
-    //std::cout << "jsonReviews: " << jsonReviews.c_str() << std::endl;
+  // std::cout << "jsonReviews: " << jsonReviews.c_str() << std::endl;
 
-    return JSValue(jsonReviews.c_str());
+  return JSValue(jsonReviews.c_str());
 }
 
 void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
@@ -302,6 +306,30 @@ void MyApp::SaveRecipe(const JSObject &thisObject, const JSArgs &args)
     std::cout << "saved" << std::endl;
   }
 }
+void MyApp::UnsaveRecipe(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "Unsave Recipe called" << std::endl;
+  bool unsaved = false;
+  int recipeId = args[0];
+  int savedIndex;
+  if (savedRecipes.size() != 0)
+  {
+    auto saved = find(savedRecipes.begin(), savedRecipes.end(), recipeId);
+    if (saved != savedRecipes.end())
+    {
+      savedRecipes.erase(saved);
+      std::cout << "unsaved " << std::endl;
+    }
+    else
+    {
+      std::cout << "not in list" << std::endl;
+    }
+  }
+  else
+  {
+    std::cout << "none to unsave" << std::endl;
+  }
+}
 
 JSValue MyApp::GetSaved(const JSObject &thisObject, const JSArgs &args)
 {
@@ -333,26 +361,26 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
-  std::cout << "made past the conversions"<<recipeName<<day<<meal<< std::endl;
+  std::cout << "made past the conversions" << recipeName << day << meal << std::endl;
   return mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
 
-  
   // // If success with this function
   // return true;
   // // else
   // return false;
 }
 
-JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
-    std::cout << "GetPlanner called" << std::endl;
+JSValue MyApp::GetPlanner(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "GetPlanner called" << std::endl;
 
-    mealPlanner.reopenFile();
+  mealPlanner.reopenFile();
 
-    std::string plannerJson = mealPlanner.getPlannerJson();
+  std::string plannerJson = mealPlanner.getPlannerJson();
 
-    std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
+  std::cout << "Planner Json: " << plannerJson.c_str() << std::endl;
 
-    return JSValue(plannerJson.c_str());
+  return JSValue(plannerJson.c_str());
 }
 
 // //needs work
@@ -405,6 +433,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   // global["RecipeIngredients"] = BindJSCallbackWithRetval(&MyApp::RecipeIngredients);
   global["AddToMealPlanner"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
+  global["UnsaveRecipe"] = BindJSCallback(&MyApp::UnsaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
   global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
   global["GetReviewsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetReviewsByRecipe);
