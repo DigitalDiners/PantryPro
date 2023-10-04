@@ -120,6 +120,24 @@ std::string MyApp::removeQuotes(const std::string &input)
   return result;
 }
 
+std::string escapeJsonString(const std::string& input) {
+    std::ostringstream ss;
+    for (auto c : input) {
+        switch (c) {
+            case '"': ss << "\\\""; break;
+            case '\\': ss << "\\\\"; break;
+            case '/': ss << "\\/"; break;
+            case '\b': ss << "\\b"; break;
+            case '\f': ss << "\\f"; break;
+            case '\n': ss << "\\n"; break;
+            case '\r': continue;  // Just skip the carriage return
+            case '\t': ss << "\\t"; break;
+            default: ss << c; break;
+        }
+    }
+    return ss.str();
+}
+
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 {
   std::cout << "convertRecipesToJson called" << std::endl;
@@ -175,6 +193,7 @@ std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
     ss << "\"recipeName\": \"" << (recipe.getName()) << "\",";
     ss << "\"recipeCalories\": \"" << (recipe.getCalories()) << "\",";
     ss << "\"firstRating\": \"" << (review.getRating()) << "\",";
+    ss << "\"instructions\": \"" << escapeJsonString(recipe.getInstructions()) << "\",";
     ss << "\"recipeImageURL\": \"" << removeQuotes(image.getImageURL()) + "\"";
     ss << " }";
   }
@@ -211,31 +230,38 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
 }
 
 JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &args)
-
 {
-  // std::cout << "GetIngredientsByRecipe called" << std::endl;
+    std::cout << "GetIngredientsByRecipe called" << std::endl;
 
-  int recipeId = args[0].ToInteger();
+    int recipeId = args[0].ToInteger();
+    RecipeDatabase recipeDB;
+    std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
 
-  RecipeDatabase recipeDB;
-  std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
+    std::ostringstream jsonIngredients;
+    
+    jsonIngredients << "[";
 
-  std::string jsonIngredients = "[";
+    for (const Ingredient &ingredient : ingredients)
+    {
+        jsonIngredients << "{";
+        jsonIngredients << "\"IngredientId\": " << ingredient.getIngredientId() << ", ";
+        jsonIngredients << "\"Name\": \"" << escapeJsonString(ingredient.getIngredientName()) << "\"";
+        jsonIngredients << "},";
+    }
 
-  for (const Ingredient &ingredient : ingredients)
-  {
-    jsonIngredients += "{ ";
-    jsonIngredients += "\"ingredientId\": " + removeQuotes(std::to_string(ingredient.getIngredientId())) + ",";
-    jsonIngredients += "\"ingredientName\": \"" + removeQuotes(ingredient.getIngredientName()) + "\"";
-    jsonIngredients += " },";
-  }
-  if (jsonIngredients.back() == ',')
-    jsonIngredients.pop_back();
-  jsonIngredients += "]";
+    if (!ingredients.empty()){
+        std::string temp = jsonIngredients.str();
+        temp.pop_back();
+        jsonIngredients.str("");
+        jsonIngredients.clear();
+        jsonIngredients << temp;
+    }
 
-  // std::cout << "jsonIngredients: " << jsonIngredients.c_str() << std::endl;
+    jsonIngredients << "]";
 
-  return JSValue(jsonIngredients.c_str());
+    //std::cout << "jsonIngredients: " << jsonIngredients.str() << std::endl;
+
+    return JSValue(jsonIngredients.str().c_str());
 }
 
 JSValue MyApp::GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args) {

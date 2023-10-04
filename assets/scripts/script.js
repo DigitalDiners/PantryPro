@@ -83,15 +83,21 @@ function createStars(rating) {
     return starsWrapper;
 }
 
+var msnry;
+// Wait for the content to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize masonry
+    var grid = document.querySelector('#search-results');
+    msnry = new Masonry( grid, {
+      // options
+      itemSelector: '.recipe-card',
+      columnWidth: '.recipe-card', 
+      percentPosition: true
+    });
+});
+
 function displayCard(recipe, location) {
     const searchResults = document.getElementById(location);
-
-    let recipeName = recipe.recipeName;
-        if(recipeName.length>18){
-            recipeName = recipeName.substring(0, 17);
-            recipeName+= "...";
-        }
-
     // Create a div for the card
     const card = document.createElement('div');
     card.className = 'recipe-card';
@@ -101,9 +107,9 @@ function displayCard(recipe, location) {
     recipeInfo.className = 'recipe-info';
 
     // Add name to the card
-    const name = document.createElement('div');
+    const name = document.createElement('h2');
     name.className = 'recipe-name';
-    name.textContent = recipeName;
+    name.textContent = recipe.recipeName;
     recipeInfo.appendChild(name);
 
     // Add image if it exists to the card
@@ -136,6 +142,40 @@ function displayCard(recipe, location) {
     const starsWrapper = createStars(recipe.firstRating);
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
+
+    // Add ingredients to the card
+    const ingredientsDiv = document.createElement('div');
+    ingredientsDiv.className = 'recipe-ingredients';
+    const ingredientsHeader = document.createElement('h3');
+    ingredientsHeader.textContent = 'Ingredients';
+    ingredientsDiv.appendChild(ingredientsHeader);
+    const ingredientsList = document.createElement('ul');
+    const ingredientsArray = JSON.parse(GetIngredientsByRecipe(recipe.recipeId));
+    for (const ingredient of ingredientsArray) {
+        const ingredientItem = document.createElement('li');
+        ingredientItem.textContent = ingredient.Name;
+        ingredientsList.appendChild(ingredientItem);
+    }
+    ingredientsDiv.appendChild(ingredientsList);
+    recipeInfo.appendChild(ingredientsDiv);
+
+    // Add instructions to the card
+    if (recipe.instructions && recipe.instructions.trim() !== '') {
+        const instructionsDiv = document.createElement('div');
+        instructionsDiv.className = 'recipe-instructions';
+        const instructionsHeader = document.createElement('h3');
+        instructionsHeader.textContent = 'Instructions';
+        instructionsDiv.appendChild(instructionsHeader);
+        const instructionList = document.createElement('ol');
+        const instructionArray = recipe.instructions.split('|');
+        for (const instruction of instructionArray) {
+            const instructionItem = document.createElement('li');
+            instructionItem.textContent = instruction.trim();
+            instructionList.appendChild(instructionItem);
+        }
+        instructionsDiv.appendChild(instructionList);
+        recipeInfo.appendChild(instructionsDiv);
+    }
 
     // Add favorite button to the card
     const favourite = document.createElement("button");
@@ -212,16 +252,18 @@ function displayCard(recipe, location) {
     popupDiv.appendChild(buttonAddMeal);
 
     popupContainer.appendChild(popupDiv);
-
+    
     recipeInfo.appendChild(favourite);
     recipeInfo.appendChild(addSymbol);
     recipeInfo.appendChild(popupContainer);
 
-
-
     card.appendChild(recipeInfo);
-
     searchResults.appendChild(card);
+
+    if (msnry) {
+        msnry.appended(card);
+        msnry.layout();
+    }
 }
 
 
@@ -383,3 +425,5 @@ function closePopup() {
     const popup = document.getElementById("popup");
     popup.style.display = 'none';
 }
+
+

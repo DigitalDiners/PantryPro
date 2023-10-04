@@ -224,11 +224,14 @@ std::vector<Review> RecipeDatabase::getAllReviewsForRecipes(const std::vector<Re
     return reviewVector;
 }
 
-
 std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
     std::vector<Ingredient> ingredients;
 
-    std::string query = "SELECT * FROM ingredients WHERE recipeId = " + std::to_string(recipeId) + ";";
+    std::string query = 
+        "SELECT ingredients.name, ingredients.ingredientId "
+        "FROM recipe_ingredients JOIN ingredients "
+        "ON recipe_ingredients.ingredientId = ingredients.ingredientId "
+        "WHERE recipeId = " + std::to_string(recipeId) + ";";
 
     try {
         auto con = dbConn.getConnection();
@@ -236,6 +239,7 @@ std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
         std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
 
         while (res->next()) {
+            //std::cout << "DB Ingredient ID: " << res->getInt("ingredientId") << " Name: " << res->getString("name") << std::endl;
             ingredients.push_back(
                 Ingredient(
                     res->getInt("ingredientId"),
