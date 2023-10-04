@@ -334,3 +334,11 @@ button:active,
     margin-top: 10px;
 }
 
+.show-recipes{
+    display: flex;
+    flex-direction: column;
+}
+#saved-recipe-container, #featured-recipe-container{
+    border: 1px ;
+    border-color: grey;
+}

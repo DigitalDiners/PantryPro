@@ -59,6 +59,31 @@ RecipeImage RecipeDatabase::getRecipeImage(int id, int imageNumber) {
     return RecipeImage(0, 0, "");
 }
 
+std::vector<int> RecipeDatabase::getFeaturedRecipes(){
+    std::vector<int> results;
+
+    std::cout<<"get featured form database called"<<std::endl;
+
+    std::string query =  "SELECT recipes.* FROM recipes, reviews WHERE recipes.`recipeId` = reviews.`recipeId` AND reviews.rating = 5 AND recipes.category NOT LIKE 'Beverages' ORDER BY `datePublished` DESC LIMIT 100;";
+
+    try {
+        auto con = dbConn.getConnection();
+        std::unique_ptr<sql::Statement> stmt(con->createStatement());
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+
+        while (res->next()) {
+            results.push_back(res->getInt("recipeId"));
+        }
+    } catch (sql::SQLException &e) {
+        std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
+        std::cout << "# ERR: " << e.what();
+        std::cout << " (MySQL error code: " << e.getErrorCode();
+        std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+    }
+    return results;
+
+}
+
 std::vector<Recipe> RecipeDatabase::getRecipesBySearch(const std::vector<std::string> &ingredients) {
     
     std::vector<Recipe> result;
