@@ -65,6 +65,8 @@ JSValue AddToMealPlanner(const JSObject& thisObject, const JSArgs& args);
 
 JSValue GetSaved(const JSObject& thisObject, const JSArgs& args);
 
+JSValue ShowFeatured(const JSObject& thisObject, const JSArgs& args);
+
 void SaveRecipe(const JSObject& thisObject, const JSArgs& args);
 
   std::string convertRecipesToJson(const std::vector<Recipe>& recipes);

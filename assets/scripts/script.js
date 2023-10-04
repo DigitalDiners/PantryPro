@@ -264,6 +264,22 @@ function getSaved(){
     }
 }
 
+function getFeatured(){
+    try {
+        const jsonRecipes = ShowFeatured();
+        const recipes = JSON.parse(jsonRecipes);
+        console.log("Recipes:", recipes);
+        document.getElementById('featured-recipe-container').innerHTML = "";
+
+        for (let recipe of recipes) {
+            displayCard(recipe, 'featured-recipe-container');
+        }
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+        alert("Failed to fetch recipes. Please try again later.");
+    }
+}
+
 function loadSavedPage() {
     document.getElementById('saved-recipe-container').innerHTML = "";
 
