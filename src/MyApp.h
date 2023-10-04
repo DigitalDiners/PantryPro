@@ -41,6 +41,7 @@ public:
 
   std::string removeQuotes(const std::string& input);
 
+
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
 
   /**
@@ -51,6 +52,8 @@ public:
    * @return JSString the planner json as a stdstring.
    */
   JSValue GetPlanner(const JSObject& thisObject, const JSArgs& args);
+
+  void SaveOnExit();
 
   JSValue GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args);
 
