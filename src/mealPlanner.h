@@ -3,12 +3,14 @@
 
 #include <vector>
 #include "day.h"
+#include "recipeDatabase.h"
 
 class MealPlanner
 {
 private:
     Day* days;
     std::string plannerJson;
+    std::vector<std::vector<int> > recipeVector;
 
 public:
     /**
@@ -33,6 +35,11 @@ public:
      */
     Day& getDay(int dayNumber);
 
+    void initialiseDays(Day day);
+
+
+    int getDayNum(std::string day);
+
 
     /**
      * @brief Get the Planner Json string object
@@ -43,10 +50,7 @@ public:
 
     bool addToPlanner(std::string recipeName, int recipeId, std::string day, std::string meal);
 
-    void reopenFile();
-
-    void findPath();
-
+    std::string name(int recipeId) const;
 
 
 

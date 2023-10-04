@@ -11,6 +11,7 @@
 #define WINDOW_HEIGHT 800
 
 std::vector<int> savedRecipes;
+std::vector<int> featuredRecipes;
 MealPlanner mealPlanner;
 //have a thing to hold the last search which will be sent to the js on open
 
@@ -121,10 +122,6 @@ std::string MyApp::removeQuotes(const std::string &input)
 
 std::string MyApp::convertRecipesToJson(const std::vector<Recipe> &recipes)
 {
-
-
-
-
   std::cout << "convertRecipesToJson called" << std::endl;
 
   std::stringstream ss;
@@ -312,12 +309,59 @@ JSValue MyApp::GetSaved(const JSObject &thisObject, const JSArgs &args)
   RecipeDatabase recipeDB;
   for (int recipe : savedRecipes)
   {
-    std::cout << recipe << std::endl;
+    // std::cout << recipe << std::endl;
     returnSaved.push_back(recipeDB.getRecipeById(recipe));
   }
   std::string jsonRecipes = convertRecipesToJson(returnSaved);
 
   return JSValue(jsonRecipes.c_str());
+}
+
+JSValue MyApp::ShowFeatured(const JSObject &thisObject, const JSArgs &args){
+  std::cout<<"show featured called"<< std::endl;
+
+  std::vector<Recipe> returnFeatured;
+  RecipeDatabase recipeDB;
+  std::vector<int> featuredRandom;
+
+  if(featuredRecipes.size()==0){
+  std::vector<int> featuredtemp;
+    //method to recipedb to populate the array
+    //filter so only one of each recipeId
+    featuredtemp=recipeDB.getFeaturedRecipes();
+    //sort and remove duplicates
+
+    std::sort(featuredRecipes.begin(), featuredRecipes.end());
+    featuredRecipes.erase(std::unique(featuredRecipes.begin(), featuredRecipes.end()), featuredRecipes.end());
+    for (auto it = featuredRecipes.cbegin(); it != featuredRecipes.cend(); ++it) {
+        std::cout << *it << ' ';
+    }
+    //push into global vector
+    for(int temp:featuredtemp){
+      featuredRecipes.push_back(temp);
+    }
+  }
+std::cout<<"back from db"<<std::endl;
+  //return random
+  //method to get 10 random from the featuredRecipes arr and return
+  for(int i=0;i<10;i++){
+    int randomIndex = rand() % featuredRecipes.size();
+    int tempRecipe = featuredRecipes[randomIndex];
+    featuredRandom.push_back(tempRecipe);
+  }
+  std::cout<<"random chosen"<<std::endl;
+
+  for(int recipe:featuredRandom){
+    returnFeatured.push_back(recipeDB.getRecipeById(recipe));
+  }
+  std::cout<<"random pushed"<<std::endl;
+
+  std::string jsonRecipes = convertRecipesToJson(returnFeatured);
+  return JSValue(jsonRecipes.c_str());
+
+
+  // SELECT recipes.* FROM recipes, reviews WHERE recipes.`recipeId` = reviews.`recipeId` AND reviews.rating = 5 AND recipes.category NOT LIKE 'Beverages' ORDER BY `datePublished` DESC LIMIT 100;
+
 }
 
 JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
@@ -333,8 +377,13 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
   std::string day = std::string(jsDay.utf8().data());
   ultralight::String jsMeal = (args[3].ToString());
   std::string meal = std::string(jsMeal.utf8().data());
-  std::cout << "made past the conversions"<<recipeName<<day<<meal<< std::endl;
-  return mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
+  std::cout<<recipeName<<std::endl;
+  std::cout<<recipeId<<std::endl;
+  std::cout<<day<<std::endl;
+  std::cout<<meal<<std::endl;
+  bool yes = mealPlanner.addToPlanner(recipeName, recipeId, day, meal);
+  // std::cout << "made back to myapp"<< std::endl;
+  return yes;
 
   
   // // If success with this function
@@ -346,7 +395,6 @@ JSValue MyApp::AddToMealPlanner(const JSObject &thisObject, const JSArgs &args)
 JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     std::cout << "GetPlanner called" << std::endl;
 
-    mealPlanner.reopenFile();
 
     std::string plannerJson = mealPlanner.getPlannerJson();
 
@@ -355,35 +403,6 @@ JSValue MyApp::GetPlanner(const JSObject& thisObject, const JSArgs& args) {
     return JSValue(plannerJson.c_str());
 }
 
-// //needs work
-// JSValue MyApp::RecipeIngredients(const JSObject& thisObject, const JSArgs& args){
-//   std::cout<<"Recipe ingredients called"<< std::endl;
-
-//   int recipeId = args[0];
-//   std::cout<<recipeId<<std::endl;
-//       std::vector<std::string> ingredients;
-//     if (args[1].IsArray()) {
-//         JSArray ingredientArray = args[0].ToArray();
-//         for (size_t i = 0; i < ingredientArray.length(); i++) {
-//             ultralight::String jsStr = ingredientArray[i].ToString();
-//             ingredients.push_back(std::string(jsStr.utf8().data()));
-//         }
-//     }
-
-//     RecipeDatabase recipeDB;
-//     std::vector<std::string> missingIngredients = recipeDB.getIngredients(recipeId,ingredients);
-
-//     std::string json = "[{";
-//     for(const std::string& ingredient: missingIngredients){
-//       json += ingredient;
-//       json += ",";
-//       std::cout<<ingredient<<std::endl;
-//     }
-//     json += "}]";
-//     // std::string jsonRecipes = convertRecipesToJson(recipes);
-//     return JSValue(json.c_str());
-
-// }
 
 void MyApp::OnDOMReady(ultralight::View *caller,
                        uint64_t frame_id,
@@ -406,6 +425,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["AddToMealPlanner"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
+  global["ShowFeatured"] = BindJSCallbackWithRetval(&MyApp::ShowFeatured);
   global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
   global["GetReviewsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetReviewsByRecipe);
 }

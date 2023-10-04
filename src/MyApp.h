@@ -8,6 +8,7 @@
 
 #include "recipeDatabase.h"
 
+
 using namespace ultralight;
 
 class MyApp : public AppListener,
@@ -60,6 +61,8 @@ public:
 JSValue AddToMealPlanner(const JSObject& thisObject, const JSArgs& args);
 
 JSValue GetSaved(const JSObject& thisObject, const JSArgs& args);
+
+JSValue ShowFeatured(const JSObject& thisObject, const JSArgs& args);
 
 void SaveRecipe(const JSObject& thisObject, const JSArgs& args);
 
