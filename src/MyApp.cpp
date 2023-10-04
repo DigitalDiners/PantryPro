@@ -321,6 +321,28 @@ JSValue MyApp::GetSaved(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
+JSValue MyApp::GetAndrews(const JSObject &thisObject, const JSArgs &args)
+{
+  std::cout << "Get saved called" << std::endl;
+  std::vector<int> andrewsList;
+  andrewsList.push_back(690);
+  andrewsList.push_back(854);
+  andrewsList.push_back(537034);
+  andrewsList.push_back(540717);
+  std::vector<Recipe> returnAndrews;
+  // std::sort (savedRecipes.begin(), savedRecipes.end());
+  // savedRecipes.erase(std::unique(savedRecipes.begin(), savedRecipes.end(), savedRecipes.end()));
+  RecipeDatabase recipeDB;
+  for (int recipe : andrewsList)
+  {
+    // std::cout << recipe << std::endl;
+    returnAndrews.push_back(recipeDB.getRecipeById(recipe));
+  }
+  std::string jsonRecipes = convertRecipesToJson(returnAndrews);
+
+  return JSValue(jsonRecipes.c_str());
+}
+
 JSValue MyApp::ShowFeatured(const JSObject &thisObject, const JSArgs &args){
   std::cout<<"show featured called"<< std::endl;
 
@@ -429,6 +451,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["AddToMealPlanner"] = BindJSCallbackWithRetval(&MyApp::AddToMealPlanner);
   global["SaveRecipe"] = BindJSCallback(&MyApp::SaveRecipe);
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
+  global["GetAndrews"] = BindJSCallbackWithRetval(&MyApp::GetAndrews);
   global["ShowFeatured"] = BindJSCallbackWithRetval(&MyApp::ShowFeatured);
   global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
   global["GetReviewsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetReviewsByRecipe);
