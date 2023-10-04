@@ -112,6 +112,10 @@ void MyApp::OnFinishLoading(ultralight::View *caller,
   ///
 }
 
+void MyApp::SaveOnExit(){
+  mealPlanner.Save();
+}
+
 std::string MyApp::removeQuotes(const std::string &input)
 {
   std::string result = input;
