@@ -64,7 +64,9 @@ std::vector<int> RecipeDatabase::getFeaturedRecipes(){
 
     std::cout<<"get featured form database called"<<std::endl;
 
-    std::string query =  "SELECT recipes.* FROM recipes, reviews WHERE recipes.`recipeId` = reviews.`recipeId` AND reviews.rating = 5 AND recipes.category NOT LIKE 'Beverages' ORDER BY `datePublished` DESC LIMIT 100;";
+    std::string query =  "SELECT recipes.* FROM recipes, reviews WHERE recipes.recipeId IN (SELECT DISTINCT recipeId FROM images) AND recipes.`recipeId` = reviews.`recipeId` AND reviews.rating = 5 AND recipes.category NOT LIKE 'Beverages' ORDER BY `datePublished` DESC LIMIT 100;";
+
+
 
     try {
         auto con = dbConn.getConnection();
