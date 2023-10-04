@@ -334,11 +334,12 @@ button:active,
     margin-top: 10px;
 }
 
-.show-recipes{
+.recipes{
     display: flex;
     flex-direction: column;
 }
-#saved-recipe-container, #featured-recipe-container{
-    border: 1px ;
+#saved-recipes, #featured-recipes{
+    margin: 3px ;
     border-color: grey;
+    border-radius: .25;
 }
