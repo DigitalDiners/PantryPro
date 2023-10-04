@@ -9,7 +9,7 @@ class MealPlanner
 {
 private:
     Day* days;
-    std::string plannerJson;
+    std::string plannerJsonString;
     std::vector<std::vector<int> > recipeVector;
 
 public:
@@ -40,7 +40,7 @@ public:
 
     int getDayNum(std::string day);
 
-
+    std::string getDayName(int dayNumber);
     /**
      * @brief Get the Planner Json string object
      * 
@@ -60,6 +60,8 @@ public:
     //  * @return std::vector<Day> 
     //  */
     // Day* getDays();
+
+    void Save();
 
     
 };
