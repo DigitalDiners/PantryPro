@@ -211,7 +211,7 @@ function displayCard(recipe, location, ingredientsArray) {
         };
         const unsave = document.createElement("button");
         unsave.className = ("unsave-icon");
-        unsave.innerHTML = "&#9747;";
+        unsave.innerHTML = "&times;";
         unsave.setAttribute("aria-label", "Remove from Favourites");
         unsave.onclick = function () {
             unSave(recipe.recipeId);
@@ -283,7 +283,7 @@ function displayCard(recipe, location, ingredientsArray) {
     popupDiv.appendChild(buttonAddMeal);
 
     popupContainer.appendChild(popupDiv);
-
+    
     recipeInfo.appendChild(favourite);
     recipeInfo.appendChild(unsave);
     recipeInfo.appendChild(addSymbol);
@@ -332,7 +332,16 @@ function addToSaved(recipeId) {
 }
 
 function unSave(recipeId) {
-    UnsaveRecipe(recipeId);
+    const index = savedRecipes.indexOf(recipeId);
+    
+    if (index > -1) {
+        savedRecipes.splice(index, 1);
+        UnsaveRecipe(recipeId); 
+        showToast('Recipe removed from favorites!'); 
+    } else {
+        console.log("Recipe not in saved list\n");
+        showToast('Recipe not in favorites!');
+    }
 }
 
 //function which retrieves saved recipes from c

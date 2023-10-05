@@ -165,14 +165,14 @@ button:active,
     align-items: center;
     border: 1px solid grey;
     border-radius: 15px 15px 15px 15px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 
 }
 
 .day-card:hover {
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
-  }
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+}
 
 .day-card-rule {
     width: 100px;
@@ -190,7 +190,7 @@ button:active,
     display: flex;
     flex-direction: row;
     width: 100%;
-}   
+}
 
 .day-card-recipe-container {
     display: flex;
@@ -221,11 +221,14 @@ button:active,
 }
 
 /* RECIPE CARD STYLING */
-#search-results, #saved-recipe-container, #andrews-recipe-container, #featured-recipe-container {
+#search-results,
+#saved-recipe-container,
+#andrews-recipe-container,
+#featured-recipe-container {
     /*width : 100%;*/
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-    grid-template-rows: masonry;   
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: masonry;
     gap: 10px;
     /*align-items: start;*/
 }
@@ -280,16 +283,16 @@ button:active,
 .star {
     font-size: 24px;
     color: grey;
-  }
-  
-  .star.checked {
-    color: gold;
-  }
+}
 
-  .favourite-icon {
+.star.checked {
+    color: gold;
+}
+
+.favourite-icon {
     background: none;
-    border: none;  
-    box-shadow: none;  
+    border: none;
+    box-shadow: none;
     cursor: pointer;
     font-size: 1.5em;
     outline: none;
@@ -297,11 +300,13 @@ button:active,
     padding: 0;
     margin: 0;
     color: grey;
+    margin-right: 10px;
 }
+
 .unsave-icon {
     background: none;
-    border: none;  
-    box-shadow: none;  
+    border: none;
+    box-shadow: none;
     cursor: pointer;
     font-size: 1.5em;
     outline: none;
@@ -309,29 +314,30 @@ button:active,
     padding: 0;
     margin: 0;
     color: grey;
+    margin-right: 10px;
 }
-  
+
 .unsave-icon:hover,
 .unsave-icon:focus {
     background-color: transparent;
-    border: none ; 
-    box-shadow: none ;
+    border: none;
+    box-shadow: none;
     color: #202020;
-    outline: none ; 
+    outline: none;
 }
 
 
 .favourite-icon:hover,
 .favourite-icon:focus {
     background-color: transparent;
-    border: none ; 
-    box-shadow: none ;
+    border: none;
+    box-shadow: none;
     color: #ff5454;
-    outline: none ; 
+    outline: none;
 }
 
 
-  .popup-container {
+.popup-container {
     display: none;
     position: fixed;
     top: 0;
@@ -365,12 +371,14 @@ button:active,
     margin-top: 10px;
 }
 
-.recipes{
+.recipes {
     display: flex;
     flex-direction: column;
 }
-#saved-recipes, #featured-recipes{
-    margin: 3px ;
+
+#saved-recipes,
+#featured-recipes {
+    margin: 3px;
     border-color: grey;
     border-radius: .25;
 }
@@ -392,12 +400,13 @@ button:active,
 
 .recipe-header {
     display: flex;
-    justify-content: center;  
-    align-items: center;      
-    gap: 15px;                
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
     width: 100%;
 }
 
 .recipe-header h2 {
-    margin-right: 15px;  /* Adjust the value as needed */
+    margin-right: 15px;
+    /* Adjust the value as needed */
 }
