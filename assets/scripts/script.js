@@ -2,6 +2,9 @@ let ingredients = [];
 let currRecipeId;
 let savedRecipes = [];
 let mealPlanner = [];
+let currSaved = [];
+let currSavedNames = [];
+
 
 
 function addIngredient() {
@@ -34,6 +37,11 @@ function searchRecipes() {
     for (let i = 0; i < ingredientList.children.length; i++) {
         ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
+
+    // currSaved = GetSaved();
+    // if (!currSaved.size() == 0) {
+    //     currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
+    // } 
 
     // uncomment to view a json of reviews for a given recipe (also comment out try catch block below)
     // var reviews = GetReviewsByRecipe(524);
@@ -107,6 +115,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function displayCard(recipe, location, ingredientsArray) {
     const searchResults = document.getElementById(location);
+
+
+    let recipeName = recipe.recipeName;
+    if (recipeName.length > 18) {
+        recipeName = recipeName.substring(0, 17);
+        recipeName += "...";
+    }
+
     // Create a div for the card
     const card = document.createElement('div');
     card.className = 'recipe-card';
@@ -186,13 +202,20 @@ function displayCard(recipe, location, ingredientsArray) {
     }
 
     // Add favorite button to the card
-    const favourite = document.createElement("button");
-    favourite.className = ("favourite-icon");
-    favourite.innerHTML = "&hearts;";
-    favourite.setAttribute("aria-label", "Add to favourites");
-    favourite.onclick = function () {
-        addToSaved(recipe.recipeId);
-    };
+        const favourite = document.createElement("button");
+        favourite.className = ("favourite-icon");
+        favourite.innerHTML = "&hearts;";
+        favourite.setAttribute("aria-label", "Add to favourites");
+        favourite.onclick = function () {
+            addToSaved(recipe.recipeId);
+        };
+        const unsave = document.createElement("button");
+        unsave.className = ("unsave-icon");
+        unsave.innerHTML = "&#9747;";
+        unsave.setAttribute("aria-label", "Remove from Favourites");
+        unsave.onclick = function () {
+            unSave(recipe.recipeId);
+        };
 
     // // Add 'add to planner' button to the card
     const addSymbol = document.createElement("button");
@@ -262,6 +285,7 @@ function displayCard(recipe, location, ingredientsArray) {
     popupContainer.appendChild(popupDiv);
 
     recipeInfo.appendChild(favourite);
+    recipeInfo.appendChild(unsave);
     recipeInfo.appendChild(addSymbol);
     recipeInfo.appendChild(popupContainer);
 
@@ -307,6 +331,10 @@ function addToSaved(recipeId) {
     }
 }
 
+function unSave(recipeId) {
+    UnsaveRecipe(recipeId);
+}
+
 //function which retrieves saved recipes from c
 function getSaved() {
     try {
@@ -320,6 +348,9 @@ function getSaved() {
 
         console.log("Recipes:", recipes);
         document.getElementById('saved-recipe-container').innerHTML = "";
+
+        // currSaved = GetSaved();
+        // currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
 
         for (let recipe of recipes) {
             const recipeIngredients = allIngredients[recipe.recipeId];
