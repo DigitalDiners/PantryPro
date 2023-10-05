@@ -325,8 +325,8 @@ JSValue MyApp::GetAndrews(const JSObject &thisObject, const JSArgs &args)
 {
   std::cout << "Get saved called" << std::endl;
   std::vector<int> andrewsList;
-  andrewsList.push_back(690);
-  andrewsList.push_back(854);
+  andrewsList.push_back(496252);
+  andrewsList.push_back(537453);
   andrewsList.push_back(537034);
   andrewsList.push_back(540717);
   std::vector<Recipe> returnAndrews;
