@@ -7,7 +7,7 @@
 #include <Ultralight/Ultralight.h>
 #include "timer.h"
 
-#define WINDOW_WIDTH 1000
+#define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 800
 
 std::vector<int> savedRecipes;
@@ -233,37 +233,44 @@ JSValue MyApp::SearchRecipes(const JSObject &thisObject, const JSArgs &args)
   return JSValue(jsonRecipes.c_str());
 }
 
-JSValue MyApp::GetIngredientsByRecipe(const JSObject &thisObject, const JSArgs &args)
-{
-    std::cout << "GetIngredientsByRecipe called" << std::endl;
+JSValue MyApp::GetIngredientsForRecipes(const JSObject &thisObject, const JSArgs &args) {
+    std::cout << "GetIngredientsForRecipes called" << std::endl;
 
-    int recipeId = args[0].ToInteger();
+    std::vector<int> recipeIds;
+    if (args[0].IsArray()) {
+        JSArray recipeIdArray = args[0].ToArray();
+        for (size_t i = 0; i < recipeIdArray.length(); i++) {
+            recipeIds.push_back(recipeIdArray[i].ToInteger());
+        }
+    }
+
     RecipeDatabase recipeDB;
-    std::vector<Ingredient> ingredients = recipeDB.getIngredientsByRecipe(recipeId);
+    std::map<int, std::vector<Ingredient>> ingredientsMap = recipeDB.getIngredientsForRecipes(recipeIds);
 
     std::ostringstream jsonIngredients;
-    
-    jsonIngredients << "[";
+    jsonIngredients << "{";
 
-    for (const Ingredient &ingredient : ingredients)
-    {
-        jsonIngredients << "{";
-        jsonIngredients << "\"IngredientId\": " << ingredient.getIngredientId() << ", ";
-        jsonIngredients << "\"Name\": \"" << escapeJsonString(ingredient.getIngredientName()) << "\"";
-        jsonIngredients << "},";
+    for (const auto& pair : ingredientsMap) {
+    int recipeId = pair.first;
+    const std::vector<Ingredient>& ingredients = pair.second;
+        jsonIngredients << "\"" << recipeId << "\": [";
+        for (const Ingredient &ingredient : ingredients) {
+            jsonIngredients << "{";
+            jsonIngredients << "\"IngredientId\": " << ingredient.getIngredientId() << ", ";
+            jsonIngredients << "\"Name\": \"" << escapeJsonString(ingredient.getIngredientName()) << "\"";
+            jsonIngredients << "},";
+        }
+        if (!ingredients.empty()) {
+            jsonIngredients.seekp(-1, jsonIngredients.cur); // Remove the trailing comma
+        }
+        jsonIngredients << "],";
     }
 
-    if (!ingredients.empty()){
-        std::string temp = jsonIngredients.str();
-        temp.pop_back();
-        jsonIngredients.str("");
-        jsonIngredients.clear();
-        jsonIngredients << temp;
+    if (!ingredientsMap.empty()) {
+        jsonIngredients.seekp(-1, jsonIngredients.cur); // Remove the trailing comma
     }
 
-    jsonIngredients << "]";
-
-    //std::cout << "jsonIngredients: " << jsonIngredients.str() << std::endl;
+    jsonIngredients << "}";
 
     return JSValue(jsonIngredients.str().c_str());
 }
@@ -479,7 +486,7 @@ void MyApp::OnDOMReady(ultralight::View *caller,
   global["GetSaved"] = BindJSCallbackWithRetval(&MyApp::GetSaved);
   global["GetAndrews"] = BindJSCallbackWithRetval(&MyApp::GetAndrews);
   global["ShowFeatured"] = BindJSCallbackWithRetval(&MyApp::ShowFeatured);
-  global["GetIngredientsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsByRecipe);
+  global["GetIngredientsForRecipes"] = BindJSCallbackWithRetval(&MyApp::GetIngredientsForRecipes);
   global["GetReviewsByRecipe"] = BindJSCallbackWithRetval(&MyApp::GetReviewsByRecipe);
 }
 

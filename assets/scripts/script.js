@@ -55,12 +55,19 @@ function searchRecipes() {
 
         const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('search-results').innerHTML = "";
 
         document.getElementById('search-results').innerHTML = "";
         for (let recipe of recipes) {
-            displayCard(recipe, "search-results");
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, "search-results", recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -83,20 +90,22 @@ function createStars(rating) {
     return starsWrapper;
 }
 
+/*
 var msnry;
 // Wait for the content to load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize masonry
     var grid = document.querySelector('#search-results');
-    msnry = new Masonry( grid, {
-      // options
-      itemSelector: '.recipe-card',
-      columnWidth: '.recipe-card', 
-      percentPosition: true
+    msnry = new Masonry(grid, {
+        // options
+        itemSelector: '.recipe-card',
+        columnWidth: '.recipe-card',
+        percentPosition: true
     });
 });
+*/
 
-function displayCard(recipe, location) {
+function displayCard(recipe, location, ingredientsArray) {
     const searchResults = document.getElementById(location);
     // Create a div for the card
     const card = document.createElement('div');
@@ -150,7 +159,6 @@ function displayCard(recipe, location) {
     ingredientsHeader.textContent = 'Ingredients';
     ingredientsDiv.appendChild(ingredientsHeader);
     const ingredientsList = document.createElement('ul');
-    const ingredientsArray = JSON.parse(GetIngredientsByRecipe(recipe.recipeId));
     for (const ingredient of ingredientsArray) {
         const ingredientItem = document.createElement('li');
         ingredientItem.textContent = ingredient.Name;
@@ -180,7 +188,7 @@ function displayCard(recipe, location) {
     // Add favorite button to the card
     const favourite = document.createElement("button");
     favourite.className = ("favourite-icon");
-    favourite.innerHTML = "&hearts;";  
+    favourite.innerHTML = "&hearts;";
     favourite.setAttribute("aria-label", "Add to favourites");
     favourite.onclick = function () {
         addToSaved(recipe.recipeId);
@@ -252,7 +260,7 @@ function displayCard(recipe, location) {
     popupDiv.appendChild(buttonAddMeal);
 
     popupContainer.appendChild(popupDiv);
-    
+
     recipeInfo.appendChild(favourite);
     recipeInfo.appendChild(addSymbol);
     recipeInfo.appendChild(popupContainer);
@@ -260,10 +268,11 @@ function displayCard(recipe, location) {
     card.appendChild(recipeInfo);
     searchResults.appendChild(card);
 
-    if (msnry) {
-        msnry.appended(card);
-        msnry.layout();
-    }
+    //if (msnry) {
+    //    msnry.appended(card);
+    //    msnry.layout();
+    //}
+    
 }
 
 
@@ -276,29 +285,36 @@ function addToSaved(recipeId) {
     let isSaved = false;
 
     for (let i = 0; i < savedRecipes.length; i++) {
-        if(savedRecipes[i] == recipeId){
-            isSaved=true;
+        if (savedRecipes[i] == recipeId) {
+            isSaved = true;
         }
     }
-    if(!isSaved){
+    if (!isSaved) {
         savedRecipes.push(recipeId);
         console.log("saved recipe(s):\n")
         SaveRecipe(recipeId);
-    }else{
+    } else {
         console.log("already saved\n")
     }
 }
 
 //function which retrieves saved recipes from c
-function getSaved(){
+function getSaved() {
     try {
         const jsonRecipes = GetSaved();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('saved-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'saved-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'saved-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -306,15 +322,22 @@ function getSaved(){
     }
 }
 
-function getAndrews(){
+function getAndrews() {
     try {
         const jsonRecipes = GetAndrews();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('andrews-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'andrews-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'andrews-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -323,15 +346,22 @@ function getAndrews(){
 }
 
 
-function getFeatured(){
+function getFeatured() {
     try {
         const jsonRecipes = ShowFeatured();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('featured-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'featured-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'featured-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -359,7 +389,7 @@ function addToPlanner(recipeName, recipeId) {
     const selectedMeal = mealOptions.value;
     let mealOption = [];
     addToJSON(selectedDay, selectedMeal, recipeName, currRecipeId);
-    mealOption.push(recipeName, currRecipeId, selectedDay, selectedMeal );
+    mealOption.push(recipeName, currRecipeId, selectedDay, selectedMeal);
     mealPlanner.push(mealOption);
     closePopup();
 }

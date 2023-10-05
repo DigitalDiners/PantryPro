@@ -224,28 +224,40 @@ std::vector<Review> RecipeDatabase::getAllReviewsForRecipes(const std::vector<Re
     return reviewVector;
 }
 
-std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
-    std::vector<Ingredient> ingredients;
+std::map<int, std::vector<Ingredient>> RecipeDatabase::getIngredientsForRecipes(const std::vector<int>& recipeIds) {
+    std::map<int, std::vector<Ingredient>> ingredientsMap;
 
-    std::string query = 
-        "SELECT ingredients.name, ingredients.ingredientId "
+    if (recipeIds.empty()) {
+        return ingredientsMap;
+    }
+
+    std::stringstream query;
+    query << 
+        "SELECT ingredients.name, ingredients.ingredientId, recipe_ingredients.recipeId "
         "FROM recipe_ingredients JOIN ingredients "
         "ON recipe_ingredients.ingredientId = ingredients.ingredientId "
-        "WHERE recipeId = " + std::to_string(recipeId) + ";";
+        "WHERE recipe_ingredients.recipeId IN (";
+
+    for (size_t i = 0; i < recipeIds.size(); ++i) {
+        query << recipeIds[i];
+        if (i < recipeIds.size() - 1) {
+            query << ",";
+        }
+    }
+    query << ");";
 
     try {
         auto con = dbConn.getConnection();
         std::unique_ptr<sql::Statement> stmt(con->createStatement());
-        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query));
+        std::unique_ptr<sql::ResultSet> res(stmt->executeQuery(query.str()));
 
         while (res->next()) {
-            //std::cout << "DB Ingredient ID: " << res->getInt("ingredientId") << " Name: " << res->getString("name") << std::endl;
-            ingredients.push_back(
-                Ingredient(
-                    res->getInt("ingredientId"),
-                    res->getString("name")
-                )
+            int recipeId = res->getInt("recipeId");
+            Ingredient ingredient(
+                res->getInt("ingredientId"),
+                res->getString("name")
             );
+            ingredientsMap[recipeId].push_back(ingredient);
         }
     } catch (sql::SQLException &e) {
         std::cout << "# ERR: SQLException in " << __FILE__ << " on line " << __LINE__ << std::endl;
@@ -254,7 +266,7 @@ std::vector<Ingredient> RecipeDatabase::getIngredientsByRecipe(int recipeId){
         std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    return ingredients;
+    return ingredientsMap;
 }
 
 std::vector<RecipeImage> RecipeDatabase::getAllRecipeImagesForRecipes(const std::vector<Recipe>& recipes)

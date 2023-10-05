@@ -55,7 +55,7 @@ public:
 
   void SaveOnExit();
 
-  JSValue GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args);
+JSValue GetIngredientsForRecipes(const JSObject &thisObject, const JSArgs &args);
 
   JSValue GetReviewsByRecipe(const JSObject& thisObject, const JSArgs& args);
 
