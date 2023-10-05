@@ -127,6 +127,7 @@ button:active,
     background-color: lightgray;
     border-radius: 10px;
     align-items: center;
+    margin-right: 15px;
 }
 
 #ingredient-list li button {
@@ -334,4 +335,31 @@ button:active,
     margin: 3px ;
     border-color: grey;
     border-radius: .25;
+}
+
+#toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 10px 20px;
+    color: white;
+    background-color: #ff5454;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.recipe-header {
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    gap: 15px;                
+    width: 100%;
+}
+
+.recipe-header h2 {
+    margin-right: 15px;  /* Adjust the value as needed */
 }

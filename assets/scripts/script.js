@@ -275,8 +275,14 @@ function displayCard(recipe, location, ingredientsArray) {
     
 }
 
-
-
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    setTimeout(function () {
+        toast.style.opacity = "0";
+    }, 3000);
+}
 
 //send to c the recipeId
 function addToSaved(recipeId) {
@@ -293,8 +299,11 @@ function addToSaved(recipeId) {
         savedRecipes.push(recipeId);
         console.log("saved recipe(s):\n")
         SaveRecipe(recipeId);
+        showToast('Recipe saved successfully!'); 
+
     } else {
         console.log("already saved\n")
+        showToast('Recipe already saved!');  
     }
 }
 
@@ -473,4 +482,37 @@ function closePopup() {
     popup.style.display = 'none';
 }
 
+function toggleRecipes(button, type) {
+    if (button.innerHTML === 'Show') {
+        button.innerHTML = 'Hide';
+        switch (type) {
+            case 'andrews':
+                getAndrews();
+                break;
+            case 'saved':
+                getSaved();
+                break;
+            case 'featured':
+                getFeatured();
+                break;
+        }
+    } else {
+        button.innerHTML = 'Show';
+        hideRecipes(type);
+    }
+}
+
+function hideRecipes(type) {
+    switch (type) {
+        case 'andrews':
+            document.getElementById('andrews-recipe-container').innerHTML = '';
+            break;
+        case 'saved':
+            document.getElementById('saved-recipe-container').innerHTML = '';
+            break;
+        case 'featured':
+            document.getElementById('featured-recipe-container').innerHTML = '';
+            break;
+    }
+}
 

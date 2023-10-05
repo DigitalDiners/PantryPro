@@ -9,29 +9,39 @@
 </head>
 
 <body>
-    <h1>Saved Recipes</h1>
+    <h1>Recipes</h1>
     <nav>
         <h2><a href="planner.html">Planner</a></h2>
         <h2><a href="app.html">Home</a></h2>
         <h2><a href="#!">Recipes</a></h2>
     </nav>
     <div class="andrews-recipes">
-        <button onclick="getAndrews()">Show Top picks for Andrew!</button>
+        <div class="recipe-header">
+            <h2>Top Picks for Andrew   </h2>
+            <button onclick="toggleRecipes(this, 'andrews')">Show</button>
+        </div>
         <div id="andrews-recipe-container">
         </div>
     </div>
     <div class="recipes">
         <div class="save-recipes">
-            <button onclick="getSaved()">Show saved Recipes</button>
+            <div class="recipe-header">
+                <h2>Saved Recipes   </h2>
+                <button onclick="toggleRecipes(this, 'saved')">Show</button>
+            </div>
             <div id="saved-recipe-container">
             </div>
         </div>
         <div class="feature-recipes">
-            <button onclick="getFeatured()">Show featured Recipes</button>
+            <div class="recipe-header">
+                <h2>Featured Recipes   </h2>
+                <button onclick="toggleRecipes(this, 'featured')">Show</button>
+            </div>
             <div id="featured-recipe-container">
             </div>
         </div>
     </div>
+    <div id="toast"></div>
 
 </body>
 <script src="scripts/script.js"></script>
