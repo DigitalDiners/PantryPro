@@ -67,6 +67,8 @@ JSValue GetSaved(const JSObject& thisObject, const JSArgs& args);
 
 void UnsaveRecipe(const JSObject& thisObject, const JSArgs& args);
 
+JSValue GetAndrews(const JSObject& thisObject, const JSArgs& args);
+
 JSValue ShowFeatured(const JSObject& thisObject, const JSArgs& args);
 
 void SaveRecipe(const JSObject& thisObject, const JSArgs& args);
