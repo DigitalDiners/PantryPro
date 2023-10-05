@@ -27,7 +27,7 @@ function displayMealCards(day){
     
     const name = document.createElement('h4');
     name.className = 'day-name';
-    name.textContent = day.day;
+    name.textContent = day.name;
     dayCard.appendChild(name);
 
     const horizontalRule = document.createElement('hr');
@@ -49,10 +49,10 @@ function displayMealCards(day){
     dinner.textContent = day.dinner;
     dayCard.appendChild(dinner);
 
-    const snack = document.createElement('p');
-    snack.className = 'meal';
-    snack.textContent = day.snack;
-    dayCard.appendChild(snack);
+    // const snack = document.createElement('p');
+    // snack.className = 'meal';
+    // snack.textContent = day.snack;
+    // dayCard.appendChild(snack);
 
     plannerBox.appendChild(dayCard);
 }

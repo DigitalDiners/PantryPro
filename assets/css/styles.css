@@ -322,3 +322,12 @@ button:active,
     margin-top: 10px;
 }
 
+.recipes{
+    display: flex;
+    flex-direction: column;
+}
+#saved-recipes, #featured-recipes{
+    margin: 3px ;
+    border-color: grey;
+    border-radius: .25;
+}

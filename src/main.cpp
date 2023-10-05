@@ -75,6 +75,6 @@ int main()
 
     MyApp app;
     app.Run();
-
+    app.SaveOnExit();
     return 0;
 }

@@ -77,6 +77,8 @@ public:
 
     std::vector<Review> getAllReviewsForRecipes(const std::vector<Recipe>& recipes);
 
+    std::vector<int> getFeaturedRecipes();
+
 };
 
 #endif  // recipe_DATABASE_H

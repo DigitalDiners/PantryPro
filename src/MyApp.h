@@ -8,6 +8,7 @@
 
 #include "recipeDatabase.h"
 
+
 using namespace ultralight;
 
 class MyApp : public AppListener,
@@ -40,6 +41,7 @@ public:
 
   std::string removeQuotes(const std::string& input);
 
+
   JSValue SearchRecipes(const JSObject& thisObject, const JSArgs& args);
 
   /**
@@ -50,6 +52,8 @@ public:
    * @return JSString the planner json as a stdstring.
    */
   JSValue GetPlanner(const JSObject& thisObject, const JSArgs& args);
+
+  void SaveOnExit();
 
   JSValue GetIngredientsByRecipe(const JSObject& thisObject, const JSArgs& args);
 
@@ -62,6 +66,8 @@ JSValue AddToMealPlanner(const JSObject& thisObject, const JSArgs& args);
 JSValue GetSaved(const JSObject& thisObject, const JSArgs& args);
 
 void UnsaveRecipe(const JSObject& thisObject, const JSArgs& args);
+
+JSValue ShowFeatured(const JSObject& thisObject, const JSArgs& args);
 
 void SaveRecipe(const JSObject& thisObject, const JSArgs& args);
 

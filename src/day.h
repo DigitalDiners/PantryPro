@@ -70,6 +70,8 @@ public:
      */
     int getDayNumber() const;
 
+    void clearMeal(int meal);
+
     /**
      * @brief Get the Day Name object
      * 
