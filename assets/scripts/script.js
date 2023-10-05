@@ -38,10 +38,10 @@ function searchRecipes() {
         ingredients.push(ingredientList.children[i].textContent.replace('Remove', '').trim());
     }
 
-    currSaved = GetSaved();
-    if (!currSaved.size() == 0) {
-        currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
-    } 
+    // currSaved = GetSaved();
+    // if (!currSaved.size() == 0) {
+    //     currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
+    // } 
 
     // uncomment to view a json of reviews for a given recipe (also comment out try catch block below)
     // var reviews = GetReviewsByRecipe(524);
@@ -147,7 +147,6 @@ function displayCard(recipe, location) {
     recipeInfo.appendChild(rating);
 
     // Add favorite button to the card
-    if (!savedRecipesincludes(recipe.recipeId)) {
         const favourite = document.createElement("button");
         favourite.className = ("favourite-icon");
         favourite.innerHTML = "&hearts;";
@@ -155,15 +154,13 @@ function displayCard(recipe, location) {
         favourite.onclick = function () {
             addToSaved(recipe.recipeId);
         };
-    } else {
-        const favourite = document.createElement("button");
-        favourite.className = ("saved-icon");
-        favourite.innerHTML = "&hearts;";
-        favourite.setAttribute("aria-label", "Remove from Favourites");
-        favourite.onclick = function () {
+        const unsave = document.createElement("button");
+        unsave.className = ("unsave-icon");
+        unsave.innerHTML = "&#9747;";
+        unsave.setAttribute("aria-label", "Remove from Favourites");
+        unsave.onclick = function () {
             unSave(recipe.recipeId);
         };
-    }
 
     // // Add 'add to planner' button to the card
     const addSymbol = document.createElement("button");
@@ -233,6 +230,7 @@ function displayCard(recipe, location) {
     popupContainer.appendChild(popupDiv);
 
     recipeInfo.appendChild(favourite);
+    recipeInfo.appendChild(unsave);
     recipeInfo.appendChild(addSymbol);
     recipeInfo.appendChild(popupContainer);
 
@@ -278,8 +276,8 @@ function getSaved() {
         console.log("Recipes:", recipes);
         document.getElementById('saved-recipe-container').innerHTML = "";
 
-        currSaved = GetSaved();
-        currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
+        // currSaved = GetSaved();
+        // currSaved.forEach((saved) => currSavedNames.push(saved.recipeId));
 
         for (let recipe of recipes) {
             displayCard(recipe, 'saved-recipe-container');
