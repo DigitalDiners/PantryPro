@@ -306,6 +306,23 @@ function getSaved(){
     }
 }
 
+function getAndrews(){
+    try {
+        const jsonRecipes = GetAndrews();
+        const recipes = JSON.parse(jsonRecipes);
+        console.log("Recipes:", recipes);
+        document.getElementById('andrews-recipe-container').innerHTML = "";
+
+        for (let recipe of recipes) {
+            displayCard(recipe, 'andrews-recipe-container');
+        }
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+        alert("Failed to fetch recipes. Please try again later.");
+    }
+}
+
+
 function getFeatured(){
     try {
         const jsonRecipes = ShowFeatured();
