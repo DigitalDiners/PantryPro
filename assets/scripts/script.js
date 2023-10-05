@@ -55,12 +55,19 @@ function searchRecipes() {
 
         const jsonRecipes = SearchRecipes(ingredients);
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('search-results').innerHTML = "";
 
         document.getElementById('search-results').innerHTML = "";
         for (let recipe of recipes) {
-            displayCard(recipe, "search-results");
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, "search-results", recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -83,15 +90,23 @@ function createStars(rating) {
     return starsWrapper;
 }
 
-function displayCard(recipe, location) {
+/*
+var msnry;
+// Wait for the content to load
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize masonry
+    var grid = document.querySelector('#search-results');
+    msnry = new Masonry(grid, {
+        // options
+        itemSelector: '.recipe-card',
+        columnWidth: '.recipe-card',
+        percentPosition: true
+    });
+});
+*/
+
+function displayCard(recipe, location, ingredientsArray) {
     const searchResults = document.getElementById(location);
-
-    let recipeName = recipe.recipeName;
-        if(recipeName.length>18){
-            recipeName = recipeName.substring(0, 17);
-            recipeName+= "...";
-        }
-
     // Create a div for the card
     const card = document.createElement('div');
     card.className = 'recipe-card';
@@ -101,9 +116,9 @@ function displayCard(recipe, location) {
     recipeInfo.className = 'recipe-info';
 
     // Add name to the card
-    const name = document.createElement('div');
+    const name = document.createElement('h2');
     name.className = 'recipe-name';
-    name.textContent = recipeName;
+    name.textContent = recipe.recipeName;
     recipeInfo.appendChild(name);
 
     // Add image if it exists to the card
@@ -137,10 +152,43 @@ function displayCard(recipe, location) {
     rating.appendChild(starsWrapper);
     recipeInfo.appendChild(rating);
 
+    // Add ingredients to the card
+    const ingredientsDiv = document.createElement('div');
+    ingredientsDiv.className = 'recipe-ingredients';
+    const ingredientsHeader = document.createElement('h3');
+    ingredientsHeader.textContent = 'Ingredients';
+    ingredientsDiv.appendChild(ingredientsHeader);
+    const ingredientsList = document.createElement('ul');
+    for (const ingredient of ingredientsArray) {
+        const ingredientItem = document.createElement('li');
+        ingredientItem.textContent = ingredient.Name;
+        ingredientsList.appendChild(ingredientItem);
+    }
+    ingredientsDiv.appendChild(ingredientsList);
+    recipeInfo.appendChild(ingredientsDiv);
+
+    // Add instructions to the card
+    if (recipe.instructions && recipe.instructions.trim() !== '') {
+        const instructionsDiv = document.createElement('div');
+        instructionsDiv.className = 'recipe-instructions';
+        const instructionsHeader = document.createElement('h3');
+        instructionsHeader.textContent = 'Instructions';
+        instructionsDiv.appendChild(instructionsHeader);
+        const instructionList = document.createElement('ol');
+        const instructionArray = recipe.instructions.split('|');
+        for (const instruction of instructionArray) {
+            const instructionItem = document.createElement('li');
+            instructionItem.textContent = instruction.trim();
+            instructionList.appendChild(instructionItem);
+        }
+        instructionsDiv.appendChild(instructionList);
+        recipeInfo.appendChild(instructionsDiv);
+    }
+
     // Add favorite button to the card
     const favourite = document.createElement("button");
     favourite.className = ("favourite-icon");
-    favourite.innerHTML = "&hearts;";  
+    favourite.innerHTML = "&hearts;";
     favourite.setAttribute("aria-label", "Add to favourites");
     favourite.onclick = function () {
         addToSaved(recipe.recipeId);
@@ -217,11 +265,14 @@ function displayCard(recipe, location) {
     recipeInfo.appendChild(addSymbol);
     recipeInfo.appendChild(popupContainer);
 
-
-
     card.appendChild(recipeInfo);
-
     searchResults.appendChild(card);
+
+    //if (msnry) {
+    //    msnry.appended(card);
+    //    msnry.layout();
+    //}
+    
 }
 
 
@@ -234,29 +285,36 @@ function addToSaved(recipeId) {
     let isSaved = false;
 
     for (let i = 0; i < savedRecipes.length; i++) {
-        if(savedRecipes[i] == recipeId){
-            isSaved=true;
+        if (savedRecipes[i] == recipeId) {
+            isSaved = true;
         }
     }
-    if(!isSaved){
+    if (!isSaved) {
         savedRecipes.push(recipeId);
         console.log("saved recipe(s):\n")
         SaveRecipe(recipeId);
-    }else{
+    } else {
         console.log("already saved\n")
     }
 }
 
 //function which retrieves saved recipes from c
-function getSaved(){
+function getSaved() {
     try {
         const jsonRecipes = GetSaved();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('saved-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'saved-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'saved-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -264,15 +322,22 @@ function getSaved(){
     }
 }
 
-function getAndrews(){
+function getAndrews() {
     try {
         const jsonRecipes = GetAndrews();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('andrews-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'andrews-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'andrews-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -281,15 +346,22 @@ function getAndrews(){
 }
 
 
-function getFeatured(){
+function getFeatured() {
     try {
         const jsonRecipes = ShowFeatured();
         const recipes = JSON.parse(jsonRecipes);
+
+        const recipeIds = recipes.map(r => r.recipeId);
+        // Fetch ingredients for all these recipes
+        const jsonIngredients = GetIngredientsForRecipes(recipeIds);
+        const allIngredients = JSON.parse(jsonIngredients);
+
         console.log("Recipes:", recipes);
         document.getElementById('featured-recipe-container').innerHTML = "";
 
         for (let recipe of recipes) {
-            displayCard(recipe, 'featured-recipe-container');
+            const recipeIngredients = allIngredients[recipe.recipeId];
+            displayCard(recipe, 'featured-recipe-container', recipeIngredients);
         }
     } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -317,7 +389,7 @@ function addToPlanner(recipeName, recipeId) {
     const selectedMeal = mealOptions.value;
     let mealOption = [];
     addToJSON(selectedDay, selectedMeal, recipeName, currRecipeId);
-    mealOption.push(recipeName, currRecipeId, selectedDay, selectedMeal );
+    mealOption.push(recipeName, currRecipeId, selectedDay, selectedMeal);
     mealPlanner.push(mealOption);
     closePopup();
 }
@@ -400,3 +472,5 @@ function closePopup() {
     const popup = document.getElementById("popup");
     popup.style.display = 'none';
 }
+
+
