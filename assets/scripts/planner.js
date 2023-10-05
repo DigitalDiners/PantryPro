@@ -26,34 +26,60 @@ function displayMealCards(day){
     dayCard.className = 'day-card';
     
     const name = document.createElement('h4');
-    name.className = 'day-name';
+    name.id = 'day-name';
     name.textContent = day.name;
     dayCard.appendChild(name);
 
-    const horizontalRule = document.createElement('hr');
-    horizontalRule.className = 'day-card-rule';
-    dayCard.appendChild(horizontalRule);
+    const recipesContainer = document.createElement('div');
+    recipesContainer.className = 'day-card-recipes';
+
+    const breakfastRecipeContainer = document.createElement('div');
+    breakfastRecipeContainer.className = 'day-card-recipe-container';
+    const breakfastName = document.createElement('p');
+    breakfastName.className = 'meal-name';
+    breakfastName.textContent = "Breakfast";
+    breakfastRecipeContainer.appendChild(breakfastName);
+
+    const lunchRecipeContainer = document.createElement('div');
+    lunchRecipeContainer.className = 'day-card-recipe-container';
+
+    const lunchName = document.createElement('p');
+    lunchName.className = 'meal-name';
+    lunchName.textContent = "Lunch";
+    lunchRecipeContainer.appendChild(lunchName);
+
+    const dinnerRecipeContainer = document.createElement('div');
+    dinnerRecipeContainer.className = 'day-card-recipe-container';
+
+    const dinnerName = document.createElement('p');
+    dinnerName.className = 'meal-name';
+    dinnerName.textContent = "Dinner";
+    dinnerRecipeContainer.appendChild(dinnerName);
 
     const breakfast = document.createElement('p');
     breakfast.className = 'meal';
     breakfast.textContent = day.breakfast;
-    dayCard.appendChild(breakfast);
+    breakfastRecipeContainer.appendChild(breakfast);
 
     const lunch = document.createElement('p');
     lunch.className = 'meal';
     lunch.textContent = day.lunch;
-    dayCard.appendChild(lunch);
+    lunchRecipeContainer.appendChild(lunch);
 
     const dinner = document.createElement('p');
     dinner.className = 'meal';
     dinner.textContent = day.dinner;
-    dayCard.appendChild(dinner);
+    dinnerRecipeContainer.appendChild(dinner);
 
     // const snack = document.createElement('p');
     // snack.className = 'meal';
     // snack.textContent = day.snack;
     // dayCard.appendChild(snack);
 
+    recipesContainer.appendChild(breakfastRecipeContainer);
+    recipesContainer.appendChild(lunchRecipeContainer);
+    recipesContainer.appendChild(dinnerRecipeContainer);
+    dayCard.appendChild(recipesContainer);
     plannerBox.appendChild(dayCard);
 }
 
